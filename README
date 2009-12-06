@@ -1,0 +1,56 @@
+
+
+* this can also be done outside firefox.
+  use a two frame page, layout just like google image, at the top frame, there
+  is url box and a next/prev button/link, which can be used to control page at
+  bottom frame.
+
+  only need to use js to extract info from bottom frame.
+
+* I need to know how to:
+  define a function that return a URL
+      access all <a> tag in current page
+  define a function to load a URL in current page
+  bind a hotkey to a function
+
+* general ff addon info
+https://developer.mozilla.org/en/Extensions
+https://developer.mozilla.org/en/Setting_up_extension_development_environment
+hello world:
+http://kb.mozillazine.org/Getting_started_with_extension_development
+XUL tutorial:
+https://developer.mozilla.org/en/XUL_Tutorial
+
+* add functions for viewing documents in firefox	:firefox:programming:
+  goal:
+  press SPC twice can go to next page, when we are at bottom.
+  press <right><left> can go to previous/next page
+
+  implementation:
+  parse links
+  the link text is usually > >> next "next page" 下一页 etc
+  usually the previous/next link looks like the current link.
+
+  this may require local js. some online book reading site, discuz BBS,
+  web ppt, google reader/gmail already use JS to parse keyboard command
+  extensively.
+
+  see what links look like for:
+  info generated docs
+  tex generated docs
+
+** testing page:
+   an online ebook:
+   http://www.tianyabook.com/wangluo2005/changanluan/004.htm
+   debian install manual:
+   http://www.debian.org/releases/stable/i386/
+   emacs manual:
+   http://www.gnu.org/software/emacs/manual/html_node/emacs/index.html
+   fedora doc:
+   http://docs.fedoraproject.org/install-guide/f12/en-US/html/
+   http://docs.fedoraproject.org/user-guide/f12/en-US/html/
+   boost library:
+   http://www.boost.org/doc/libs/1_41_0/doc/html/array.html
+   天涯.明月.刀
+   http://www.tianyabook.com/hyzpj/hyzpj/wx/gulong/tymyd/00.htm
+   

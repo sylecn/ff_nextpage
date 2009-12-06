@@ -1,0 +1,3 @@
+content     sample    chrome/content/
+overlay chrome://browser/content/browser.xul chrome://sample/content/sample.xul
+locale sample en-US chrome/locale/en-US/

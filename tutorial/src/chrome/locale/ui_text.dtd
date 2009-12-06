@@ -1,0 +1,3 @@
+<!ENTITY  button.label     "Click Me!">
+<!ENTITY  button.accesskey "C">
+<!ENTITY  statusbarpanel.label  "Hello World in your lang!">

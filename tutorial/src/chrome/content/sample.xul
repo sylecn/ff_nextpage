@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://sample/locale/ui_text.dtd">
+<overlay id="sample" 
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ <statusbar id="status-bar">
+  <statusbarpanel id="my-panel" label="&statusbarpanel.label;"  />
+ </statusbar>
+</overlay>
