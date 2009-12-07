@@ -1,0 +1,4 @@
+<!ENTITY nextpage.label "下一页">
+<!-- accesskey must be a letter from label -->
+<!ENTITY nextpage.accesskey "N">
+<!ENTITY nextpage.description "（尝试）进入下一页">

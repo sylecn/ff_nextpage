@@ -1,3 +1,4 @@
 content	nextpage jar:chrome/nextpage.jar!/content/
 locale	nextpage en-US jar:chrome/nextpage.jar!/locale/en-US/
+locale	nextpage zh-CN jar:chrome/nextpage.jar!/locale/zh-CN/
 overlay	chrome://browser/content/browser.xul chrome://nextpage/content/overlay.xul
