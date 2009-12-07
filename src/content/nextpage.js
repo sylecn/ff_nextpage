@@ -21,6 +21,11 @@
 var nextpage = {}
 
 /**
+ * l10n strings defined in locale/en-US/nextpage.properties
+ */
+nextpage.strings = document.getElementById("nextpage-strings");
+
+/**
  * @return true if we are at bottom of a page.
  * @return false otherwise.
  */
@@ -38,7 +43,6 @@ nextpage.is_at_bottom = function () {
  */
 nextpage.goto_next_page = function () {
     var next_page_url = nextpage.get_next_page_link();
-    var no_link_found_msg = "sorry, I couldn't find link to next page.";
     
     if (next_page_url) {
 	content.location = next_page_url;
@@ -46,6 +50,7 @@ nextpage.goto_next_page = function () {
     // else {
     // 	//TODO show a nice auto timeout message at the bottom of the
     // 	//     content window.  using html and css.
+    //  use msg in nextpage.strings.getString("msg_no_link_found")
     // }
     return this;
 }
@@ -121,7 +126,6 @@ nextpage.is_next_page_link = function (l) {
     
     // check domain
     if (! nextpage.domain_check(l.href)) {
-	// TODO debug only
 	return false;
     }
 
