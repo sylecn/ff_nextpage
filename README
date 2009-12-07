@@ -17,6 +17,8 @@
 ** the key element must be placed inside a keyset element.
 
 * js tips
+** window.back() can go back in history.
+   content.back() go back for current page.
 ** load a new page in current window
    content.location = url;
 *** same as above, but replace current page, no history.
