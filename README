@@ -36,6 +36,8 @@
 ** the key element must be placed inside a keyset element.
 
 * js tips
+** js regexp tester
+   http://www.regular-expressions.info/javascriptexample.html
 ** window.back() can go back in history.
    content.back() go back for current page.
 ** load a new page in current window

@@ -88,8 +88,9 @@ nextpage.domain_check = function (url) {
  * @return false otherwise.
  */
 nextpage.matches_next = function (str) {
-    var parse_next = /(?:next|>|>>|下一页)/i;
-    return parse_next.test(str);
+    var parse_next = /(?:next|>>|下一页|^>$)/i;
+    var re = parse_next.test(str);
+    return re;
 }
 
 /**
