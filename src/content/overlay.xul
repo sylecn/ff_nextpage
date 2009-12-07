@@ -13,4 +13,10 @@
 	      description="&nextpage.description;"
               oncommand="nextpage.goto_next_page();"/>
   </menupopup>
+  <key id="key-space"
+       keycode="VK_SPACE"
+       oncommand="nextpage.goto_next_page_maybe();" />
+  <key id="key-2"
+       keycode="VK_2"
+       oncommand="nextpage.goto_next_page();" />
 </overlay>
