@@ -11,7 +11,6 @@
 	      label="&nextpage.label;"
 	      accesskey="&nextpage.accesskey;"
 	      description="&nextpage.description;"
-	      oncommand="nextpage.temp();"/>
-              <!-- oncommand="nextpage.goto_next_page();"/> -->
+              oncommand="nextpage.goto_next_page();"/>
   </menupopup>
 </overlay>

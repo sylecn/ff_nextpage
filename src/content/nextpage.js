@@ -34,9 +34,15 @@ nextpage.is_at_bottom = function () {
 // this function will be bind to 2 key by default
 nextpage.goto_next_page = function () {
     var next_page_url = nextpage.get_next_page_link();
+    
+    // // TODO debug only
+    // alert(next_page_url);
+    
     if (next_page_url) {
 	window.location.replace(next_page_url);
     } else {
+	// FIXME how to write msg to statusbar without changing default config
+	// this is not working.
 	window.status = "sorry, I couldn't find link to next page.";
     }
     return this;
@@ -82,35 +88,47 @@ nextpage.matches_next = function (str) {
 // @return true if this anchor is link to next page
 // @return false otherwise
 nextpage.is_next_page_link = function (l) {
+    // TODO debug only
+    var trace = '';
+    
     // check rel
     if (l.rel) {
 	if (nextpage.matches_next(l.rel)) {
 	    // if rel is used, it's usually the right link. GNU info
 	    // html doc is using rel to represent the relation of the
 	    // nodes.
+	    trace += "rel prop matches next\n"; alert(trace);
 	    return true;
 	}
     }
+    trace += "rel prop doesn't match next\n";
 
     // check accesskey
     if (l.accesskey === 'n') {
 	// some well written html already use accesskey n to go to
 	// next page, in firefox you could just use Alt-Shift-n.
+	trace += "accesskey prop matches n\n"; alert(trace);
 	return true;
     }
+    trace += "accesskey prop doesn't match n\n";
 
     // if we come here, it's not that clear we get a next page link, so more
     // restrict rules apply.
     
     // check domain
     if (! nextpage.domain_check(l.href)) {
+	// TODO debug only
+	trace += "domain check failed.\n"; alert(trace);
 	return false;
     }
+    trace += "domain check passed.\n"; 
 
     // check innerHTML
     if (nextpage.matches_next(l.innerHTML)) {
+	trace += "innerHTML matches next.\n"; alert(trace);
 	return true;
     } else {
+	trace += "innerHTML doesn't match next.\n"; alert(trace);
 	return false;
     }
 }
@@ -171,8 +189,3 @@ nextpage.get_next_page_link = function () {
 // document.writeln(nextpage.get_next_page_link());
 
 // nextpage.get_next_page_link()
-
-nextpage.temp = function () {
-    dump("temp() called\n");
-    return this;
-}
