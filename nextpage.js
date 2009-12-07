@@ -31,11 +31,15 @@ nextpage.is_at_bottom = function () {
 };
 
 // goto next page if a next page link was found. otherwise do nothing.
+// this function will be bind to 2 key by default
 nextpage.goto_next_page = function () {
     var next_page_url = nextpage.get_next_page_link();
     if (next_page_url) {
 	window.location.replace(next_page_url);
     }
+    // TODO else show a message in status bar.
+    // for example:
+    // nextpage couldn't find link to next page. you may <report> this.
     return this;
 };
 
@@ -142,7 +146,7 @@ nextpage.get_next_page_link = function () {
 // ----------------------------------------------------------------------
 // debug section below
 // ----------------------------------------------------------------------
-document.writeln("debug info");
+// document.writeln("debug info");
 
 // if (document.domain) {
 //     document.writeln("domain is ", document.domain);
@@ -167,3 +171,4 @@ document.writeln("debug info");
 
 // document.writeln(nextpage.get_next_page_link());
 
+// nextpage.get_next_page_link()

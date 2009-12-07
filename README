@@ -3,7 +3,6 @@
 * implementation
 ** recognize these links
    > >> next(Next) "next page" 下一页
-   and their previous pairs.
 ** decide whether we are at bottom of a page
    when document.height = window.pageYOffset + window.innerHeight, we are at
    bottom of the page.
