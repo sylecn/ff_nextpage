@@ -59,7 +59,7 @@ nextpage.goto_next_page_maybe = function () {
 	nextpage.goto_next_page();
     } else {
 	// scroll down a page
-	window.scrollByPages(1);
+	content.scrollByPages(1);
     }
     return this;
 }
