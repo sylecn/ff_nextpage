@@ -1,5 +1,9 @@
 
 
+* changelog
+** release branch
+   removed unimplemented prefwindow.
+
 * implementation
 ** UI design
 *** preferences window
