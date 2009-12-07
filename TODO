@@ -1,4 +1,5 @@
 * 
+* remove all dump() calls in js file
 * add SPC keybinding in overlay.xul
 * how to use the options defined in prefwindow.xul?
 ** DONE how to fetch that value in nextpage.js?

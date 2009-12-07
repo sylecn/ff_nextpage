@@ -33,10 +33,11 @@ nextpage.is_at_bottom = function () {
 // goto next page if a next page link was found. otherwise do nothing.
 // this function will be bind to 2 key by default
 nextpage.goto_next_page = function () {
+    dump("in goto_next_page();\n");
     var next_page_url = nextpage.get_next_page_link();
     
-    // // TODO debug only
-    // alert(next_page_url);
+    // TODO debug only
+    dump(next_page_url);
     
     if (next_page_url) {
 	window.location.replace(next_page_url);
@@ -97,7 +98,7 @@ nextpage.is_next_page_link = function (l) {
 	    // if rel is used, it's usually the right link. GNU info
 	    // html doc is using rel to represent the relation of the
 	    // nodes.
-	    trace += "rel prop matches next\n"; alert(trace);
+	    trace += "rel prop matches next\n"; dump(trace);
 	    return true;
 	}
     }
@@ -107,7 +108,7 @@ nextpage.is_next_page_link = function (l) {
     if (l.accesskey === 'n') {
 	// some well written html already use accesskey n to go to
 	// next page, in firefox you could just use Alt-Shift-n.
-	trace += "accesskey prop matches n\n"; alert(trace);
+	trace += "accesskey prop matches n\n"; dump(trace);
 	return true;
     }
     trace += "accesskey prop doesn't match n\n";
@@ -118,17 +119,17 @@ nextpage.is_next_page_link = function (l) {
     // check domain
     if (! nextpage.domain_check(l.href)) {
 	// TODO debug only
-	trace += "domain check failed.\n"; alert(trace);
+	trace += "domain check failed.\n"; dump(trace);
 	return false;
     }
     trace += "domain check passed.\n"; 
 
     // check innerHTML
     if (nextpage.matches_next(l.innerHTML)) {
-	trace += "innerHTML matches next.\n"; alert(trace);
+	trace += "innerHTML matches next.\n"; dump(trace);
 	return true;
     } else {
-	trace += "innerHTML doesn't match next.\n"; alert(trace);
+	trace += "innerHTML doesn't match next.\n"; dump(trace);
 	return false;
     }
 }
@@ -151,7 +152,9 @@ nextpage.link_to_string = function (l) {
 // @return false if next page link not found.
 nextpage.get_next_page_link = function () {
     var links = document.getElementsByTagName("A");
+    dump("links.length=" + links.length + "\n");
     for (var i = 0; i < links.length; i++) {
+	dump('checking links[' + i + ']\n');
 	if (nextpage.is_next_page_link(links[i])) {
 	    return links[i];
 	}
