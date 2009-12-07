@@ -1,4 +1,9 @@
 * 
+* use translatable strings in .js file
+* change version number to 1.0 after test on my default profile
+* check and report bug							:low:
+  why keycode doesn't work in key tag.
+  see overlay.xul for more info.
 * make bindings configurable, also for firemacs.
 * DONE remove all dump() calls in js file
 * DONE add SPC keybinding in overlay.xul
