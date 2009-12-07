@@ -1,0 +1,4 @@
+<!ENTITY nextpage.label "Next Page">
+<!-- accesskey must be a letter from label -->
+<!ENTITY nextpage.accesskey "N">
+<!ENTITY nextpage.description "try to go to next page">

@@ -1,8 +1,8 @@
 * 
-* add menu item under View menu
+* add SPC keybinding in overlay.xul
+* how to use the options defined in prefwindow.xul?
+  how to fetch that value in nextpage.js?
+* DONE add menu item under View menu
   next page
-  previous page
-* add menu item under Tools menu
-  nextpage preferences
 * find/design an icon
   can be an open book with a 'n' on it

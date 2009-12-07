@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://nextpage/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://nextpage/locale/overlay.dtd">
+<overlay id="nextpage-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="nextpage.js"/>
+  <menupopup id="menu_ViewPopup">
+    <menuitem id="nextpage-nextpage"
+	      label="&nextpage.label;"
+	      accesskey="&nextpage.accesskey;"
+	      description="&nextpage.description;"
+              oncommand="nextpage.goto_next_page();"/>
+  </menupopup>
+</overlay>

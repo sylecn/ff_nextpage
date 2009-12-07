@@ -1,6 +1,12 @@
 
 
 * implementation
+** UI design
+*** preferences window
+    option: rebind SPC (on)
+    usage tab: describe what's added to firefox and how to use nextpage.
+*** add to View Menu
+    menuitem: next page
 ** recognize these links
    > >> next(Next) "next page" 下一页
 ** decide whether we are at bottom of a page
@@ -11,6 +17,7 @@
 ** DOM reference
    https://developer.mozilla.org/en/DOM
    http://www.w3schools.com/jsref/ w3schools is evil.
+   https://developer.mozilla.org/en/XUL_Tutorial/Document_Object_Model
 ** get scroll pos
    window.pageYOffset
    document.body.scrollTop
