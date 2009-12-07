@@ -151,8 +151,17 @@ nextpage.link_to_string = function (l) {
 // @return an anchor object containing the next page link if one is found.
 // @return false if next page link not found.
 nextpage.get_next_page_link = function () {
+    // FIXME how to get the document that is currently displayed
+    // maybe I need an event object to get the right 'document' object?
     var links = document.getElementsByTagName("A");
     dump("links.length=" + links.length + "\n");
+    if (document.getElementById("next")) {
+	dump("got the right document.\n");
+	dump(document.getElementById("next").href + "\n");
+    } else {
+	dump("wrong document.\n");
+    }
+    
     for (var i = 0; i < links.length; i++) {
 	dump('checking links[' + i + ']\n');
 	if (nextpage.is_next_page_link(links[i])) {
