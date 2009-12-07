@@ -25,7 +25,7 @@ var nextpage = {}
  * @return false otherwise.
  */
 nextpage.is_at_bottom = function () {
-    if (content.document.height === window.pageYOffset + window.innerHeight) {
+    if (content.document.height <= content.pageYOffset + content.innerHeight) {
 	return true;
     } else {
 	return false;
