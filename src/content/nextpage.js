@@ -20,8 +20,10 @@
 // all our functions and vars will be inside this object.
 var nextpage = {}
 
-// @return true if we are at bottom of a page.
-// @return false otherwise.
+/**
+ * @return true if we are at bottom of a page.
+ * @return false otherwise.
+ */
 nextpage.is_at_bottom = function () {
     if (content.document.height === window.pageYOffset + window.innerHeight) {
 	return true;
@@ -30,23 +32,27 @@ nextpage.is_at_bottom = function () {
     }
 }
 
-// goto next page if a next page link was found. otherwise do nothing.
-// this function will be bind to 2 key by default
+/**
+ * goto next page if a next page link was found. otherwise do nothing.
+ * this function will be bind to 2 key by default
+ */
 nextpage.goto_next_page = function () {
     var next_page_url = nextpage.get_next_page_link();
     var no_link_found_msg = "sorry, I couldn't find link to next page.";
     
     if (next_page_url) {
 	content.location = next_page_url;
-    } else {
-	//TODO show a nice auto timeout message at the bottom of the window.
-	//     using html and css.
-	// content.document
     }
+    // else {
+    // 	//TODO show a nice auto timeout message at the bottom of the
+    // 	//     content window.  using html and css.
+    // }
     return this;
 }
 
-// this function will be bind to SPC key by default
+/**
+ * this function will be bind to SPC key by default
+ */
 nextpage.goto_next_page_maybe = function () {
     if (is_at_bottom()) {
 	// go to next page
@@ -58,10 +64,12 @@ nextpage.goto_next_page_maybe = function () {
     return this;
 }
 
-// @param url a url string
-// @return true if the url is a file:// url or if the url matches the
-// document domain. thus the url passed the domain_check.
-// @return false otherwise. thus the url failed the domain_check.
+/**
+ * @param url a url string
+ * @return true if the url is a file:// url or if the url matches the
+ * document domain. thus the url passed the domain_check.
+ * @return false otherwise. thus the url failed the domain_check.
+ */
 nextpage.domain_check = function (url) {
     var parse_domain = /^([^:]+):\/\/\/?([^:\/]+)/;
     var match_result = parse_domain.exec(url);
@@ -74,17 +82,21 @@ nextpage.domain_check = function (url) {
     return false;
 }
 
-// @return true if given string matches one of the words that's
-// equivalent to 'next'.
-// @return false otherwise.
+/**
+ * @return true if given string matches one of the words that's
+ * equivalent to 'next'.
+ * @return false otherwise.
+ */
 nextpage.matches_next = function (str) {
     var parse_next = /(?:next|>|>>|下一页)/i;
     return parse_next.test(str);
 }
 
-// @param l an anchor object
-// @return true if this anchor is link to next page
-// @return false otherwise
+/**
+ * @param l an anchor object
+ * @return true if this anchor is link to next page
+ * @return false otherwise
+ */
 nextpage.is_next_page_link = function (l) {
     // check rel
     if (l.rel) {
@@ -120,29 +132,15 @@ nextpage.is_next_page_link = function (l) {
     }
 }
 
-// convert anchor object to string
-nextpage.link_to_string = function (l) {
-    var re, prop;
-    re = "link ";
-    prop = ["href", "id", "name", "innerHTML", "accessKey", "rel"];
-    for (var i = 0; i < prop.length; i++) {
-	if (l[prop[i]]) {
-	    re += prop[i] + "=" + l[prop[i]] + " ";
-	}
-    }
-    return re;
-}
 
-// parse next page links in current document
-// @return an anchor object containing the next page link if one is found.
-// @return false if next page link not found.
+/**
+ * parse next page links in current document
+ * @return an anchor object containing the next page link if one is found.
+ * @return false if next page link not found.
+ */
 nextpage.get_next_page_link = function () {
-    // how to get the document that is currently displayed.
-    // content is a Window object for the primary content window.
-    // thus content.document is the currently displayed document.
     var links = content.document.getElementsByTagName("A");
-    dump(links.length + " links on this page.\n");
-    
+
     for (var i = 0; i < links.length; i++) {
 	if (nextpage.is_next_page_link(links[i])) {
 	    return links[i];
@@ -150,3 +148,20 @@ nextpage.get_next_page_link = function () {
     }
     return false;
 }
+
+/**
+ * debug only functions
+ */
+
+// // convert anchor object to string
+// nextpage.link_to_string = function (l) {
+//     var re, prop;
+//     re = "link ";
+//     prop = ["href", "id", "name", "innerHTML", "accessKey", "rel"];
+//     for (var i = 0; i < prop.length; i++) {
+// 	if (l[prop[i]]) {
+// 	    re += prop[i] + "=" + l[prop[i]] + " ";
+// 	}
+//     }
+//     return re;
+// }
