@@ -17,6 +17,21 @@
    when document.height = window.pageYOffset + window.innerHeight, we are at
    bottom of the page.
 
+* xpi pack
+** change chrome.manifest to use jar
+   content nextpage content/
+   becomes:
+   content nextpage jar:chrome/nextpage.jar!/content/
+   notice the !/ is a bit like absolute path. don't use !content/.
+** structure
+   chrome/nextpage.jar
+   chrome.manifest
+   install.rdf
+*** nextpage.jar
+    content/
+    locale/
+    skin/
+
 * XUL tips
 ** the key element must be placed inside a keyset element.
 
