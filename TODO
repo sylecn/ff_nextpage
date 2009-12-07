@@ -1,6 +1,7 @@
 * 
+* make bindings configurable, also for firemacs.
 * DONE remove all dump() calls in js file
-* add SPC keybinding in overlay.xul
+* DONE add SPC keybinding in overlay.xul
 * how to use the options defined in prefwindow.xul?
 ** DONE how to fetch that value in nextpage.js?
    ref: https://developer.mozilla.org/En/Firefox_addons_developer_guide/Using_XPCOM%e2%80%94Implementing_advanced_processes
@@ -11,3 +12,5 @@
   next page
 * find/design an icon							:low:
   can be an open book with a 'n' on it
+  the icon will be shown at addon menu. also on addon website.
+  
