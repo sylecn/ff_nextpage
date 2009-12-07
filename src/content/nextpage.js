@@ -54,7 +54,7 @@ nextpage.goto_next_page = function () {
  * this function will be bind to SPC key by default
  */
 nextpage.goto_next_page_maybe = function () {
-    if (is_at_bottom()) {
+    if (nextpage.is_at_bottom()) {
 	// go to next page
 	nextpage.goto_next_page();
     } else {
