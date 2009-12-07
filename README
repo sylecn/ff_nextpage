@@ -13,6 +13,9 @@
    when document.height = window.pageYOffset + window.innerHeight, we are at
    bottom of the page.
 
+* XUL tips
+** the key element must be placed inside a keyset element.
+
 * js tips
 ** load a new page in current window
    content.location = url;
