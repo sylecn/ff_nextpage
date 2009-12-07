@@ -14,6 +14,15 @@
    bottom of the page.
 
 * js tips
+** load a new page in current window
+   content.location = url;
+*** same as above, but replace current page, no history.
+    content.location.replace(url);
+** open a new window
+   window.open(url);
+** content is a Window object for the primary content window.
+   use content and content.document to do anything you want to the document
+   being displayed in firefox.
 ** dump()
    ref: https://developer.mozilla.org/en/Debugging_JavaScript
    Allows you to print text on the native console. 

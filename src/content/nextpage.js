@@ -23,7 +23,7 @@ var nextpage = {}
 // @return true if we are at bottom of a page.
 // @return false otherwise.
 nextpage.is_at_bottom = function () {
-    if (document.height === window.pageYOffset + window.innerHeight) {
+    if (content.document.height === window.pageYOffset + window.innerHeight) {
 	return true;
     } else {
 	return false;
@@ -33,18 +33,15 @@ nextpage.is_at_bottom = function () {
 // goto next page if a next page link was found. otherwise do nothing.
 // this function will be bind to 2 key by default
 nextpage.goto_next_page = function () {
-    dump("in goto_next_page();\n");
     var next_page_url = nextpage.get_next_page_link();
-    
-    // TODO debug only
-    dump(next_page_url);
+    var no_link_found_msg = "sorry, I couldn't find link to next page.";
     
     if (next_page_url) {
-	window.location.replace(next_page_url);
+	content.location = next_page_url;
     } else {
-	// FIXME how to write msg to statusbar without changing default config
-	// this is not working.
-	window.status = "sorry, I couldn't find link to next page.";
+	//TODO show a nice auto timeout message at the bottom of the window.
+	//     using html and css.
+	// content.document
     }
     return this;
 }
@@ -71,7 +68,7 @@ nextpage.domain_check = function (url) {
     if (match_result[1] === "file") {
 	return true;
     }
-    if (match_result[2] === document.domain) {
+    if (match_result[2] === content.document.domain) {
 	return true;
     }
     return false;
@@ -89,29 +86,22 @@ nextpage.matches_next = function (str) {
 // @return true if this anchor is link to next page
 // @return false otherwise
 nextpage.is_next_page_link = function (l) {
-    // TODO debug only
-    var trace = '';
-    
     // check rel
     if (l.rel) {
 	if (nextpage.matches_next(l.rel)) {
 	    // if rel is used, it's usually the right link. GNU info
 	    // html doc is using rel to represent the relation of the
 	    // nodes.
-	    trace += "rel prop matches next\n"; dump(trace);
 	    return true;
 	}
     }
-    trace += "rel prop doesn't match next\n";
 
     // check accesskey
     if (l.accesskey === 'n') {
 	// some well written html already use accesskey n to go to
 	// next page, in firefox you could just use Alt-Shift-n.
-	trace += "accesskey prop matches n\n"; dump(trace);
 	return true;
     }
-    trace += "accesskey prop doesn't match n\n";
 
     // if we come here, it's not that clear we get a next page link, so more
     // restrict rules apply.
@@ -119,17 +109,13 @@ nextpage.is_next_page_link = function (l) {
     // check domain
     if (! nextpage.domain_check(l.href)) {
 	// TODO debug only
-	trace += "domain check failed.\n"; dump(trace);
 	return false;
     }
-    trace += "domain check passed.\n"; 
 
     // check innerHTML
     if (nextpage.matches_next(l.innerHTML)) {
-	trace += "innerHTML matches next.\n"; dump(trace);
 	return true;
     } else {
-	trace += "innerHTML doesn't match next.\n"; dump(trace);
 	return false;
     }
 }
@@ -151,53 +137,16 @@ nextpage.link_to_string = function (l) {
 // @return an anchor object containing the next page link if one is found.
 // @return false if next page link not found.
 nextpage.get_next_page_link = function () {
-    // FIXME how to get the document that is currently displayed
-    // maybe I need an event object to get the right 'document' object?
-    var links = document.getElementsByTagName("A");
-    dump("links.length=" + links.length + "\n");
-    if (document.getElementById("next")) {
-	dump("got the right document.\n");
-	dump(document.getElementById("next").href + "\n");
-    } else {
-	dump("wrong document.\n");
-    }
+    // how to get the document that is currently displayed.
+    // content is a Window object for the primary content window.
+    // thus content.document is the currently displayed document.
+    var links = content.document.getElementsByTagName("A");
+    dump(links.length + " links on this page.\n");
     
     for (var i = 0; i < links.length; i++) {
-	dump('checking links[' + i + ']\n');
 	if (nextpage.is_next_page_link(links[i])) {
 	    return links[i];
 	}
     }
     return false;
 }
-
-
-// ----------------------------------------------------------------------
-// debug section below
-// ----------------------------------------------------------------------
-// document.writeln("debug info");
-
-// if (document.domain) {
-//     document.writeln("domain is ", document.domain);
-// } else {
-//     document.writeln("no domain.");
-// }
-
-// nextpage.print_all_links = function () {
-//     var links = document.getElementsByTagName("A");
-//     for (var i = 0; i < links.length; i++) {
-// 	document.writeln(nextpage.link_to_string(links[i]));
-//     }
-//     return this;
-// }
-
-// nextpage.print_all_links();
-
-// document.writeln(nextpage.matches_next(" Next "));
-// document.writeln(nextpage.matches_next("下一页"));
-// document.writeln(nextpage.matches_next(">"));
-// document.writeln(nextpage.matches_next("Prev"));  // doesn't match.
-
-// document.writeln(nextpage.get_next_page_link());
-
-// nextpage.get_next_page_link()
