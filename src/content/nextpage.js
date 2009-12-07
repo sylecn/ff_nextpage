@@ -18,7 +18,7 @@
 // through which recipients can access the Corresponding Source.
 
 // all our functions and vars will be inside this object.
-var nextpage = {};
+var nextpage = {}
 
 // @return true if we are at bottom of a page.
 // @return false otherwise.
@@ -28,7 +28,7 @@ nextpage.is_at_bottom = function () {
     } else {
 	return false;
     }
-};
+}
 
 // goto next page if a next page link was found. otherwise do nothing.
 // this function will be bind to 2 key by default
@@ -41,7 +41,7 @@ nextpage.goto_next_page = function () {
     // for example:
     // nextpage couldn't find link to next page. you may <report> this.
     return this;
-};
+}
 
 // this function will be bind to SPC key by default
 nextpage.goto_next_page_maybe = function () {
@@ -52,7 +52,7 @@ nextpage.goto_next_page_maybe = function () {
 	// scroll down a page
 	window.scrollByPages(1);
     }
-};
+}
 
 // @param url a url string
 // @return true if the url is a file:// url or if the url matches the
@@ -68,15 +68,14 @@ nextpage.domain_check = function (url) {
 	return true;
     }
     return false;
-};
+}
 
 // @return true if given string matches one of the words that's
 // equivalent to 'next'.
 // @return false otherwise.
 nextpage.matches_next = function (str) {
     var parse_next = /(?:next|>|>>|下一页)/i;
-    var match_result = parse_next.exec(str);
-    return match_result;
+    return parse_next.test(str);
 }
 
 // @param l an anchor object
@@ -114,7 +113,7 @@ nextpage.is_next_page_link = function (l) {
     } else {
 	return false;
     }
-};
+}
 
 // convert anchor object to string
 nextpage.link_to_string = function (l) {
@@ -127,7 +126,7 @@ nextpage.link_to_string = function (l) {
 	}
     }
     return re;
-};
+}
 
 // parse next page links in current document
 // @return an anchor object containing the next page link if one is found.
@@ -140,7 +139,7 @@ nextpage.get_next_page_link = function () {
 	}
     }
     return false;
-};
+}
 
 
 // ----------------------------------------------------------------------
@@ -152,7 +151,7 @@ nextpage.get_next_page_link = function () {
 //     document.writeln("domain is ", document.domain);
 // } else {
 //     document.writeln("no domain.");
-// };
+// }
 
 // nextpage.print_all_links = function () {
 //     var links = document.getElementsByTagName("A");
@@ -160,7 +159,7 @@ nextpage.get_next_page_link = function () {
 // 	document.writeln(nextpage.link_to_string(links[i]));
 //     }
 //     return this;
-// };
+// }
 
 // nextpage.print_all_links();
 

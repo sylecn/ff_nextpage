@@ -1,8 +1,12 @@
 * 
 * add SPC keybinding in overlay.xul
 * how to use the options defined in prefwindow.xul?
-  how to fetch that value in nextpage.js?
+** DONE how to fetch that value in nextpage.js?
+   ref: https://developer.mozilla.org/En/Firefox_addons_developer_guide/Using_XPCOM%e2%80%94Implementing_advanced_processes
+   actually there is no need to fetch the property. see the entry below.
+** check/uncheck the option should trigger a function call to add
+   binding/remove binding.
 * DONE add menu item under View menu
   next page
-* find/design an icon
+* find/design an icon							:low:
   can be an open book with a 'n' on it

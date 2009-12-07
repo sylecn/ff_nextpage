@@ -3,15 +3,17 @@
  xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
     <em:id>nextpage@yuanle.song</em:id>
+    <!-- Indicates that this add-on is an extension -->
+    <em:type>2</em:type>
     <em:name>nextpage</em:name>
-    <em:version>1.0</em:version>
-    <em:creator>Yuanle Song</em:creator>
+    <em:version>1.0pre</em:version>
     <em:description>use SPC key to goto next page when at the bottom of a page</em:description>
+    <em:creator>Yuanle Song</em:creator>
     <em:optionsURL>chrome://nextpage/content/prefwindow.xul</em:optionsURL>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- firefox -->
-        <em:minVersion>1.5</em:minVersion>
+        <em:minVersion>3.0</em:minVersion>
         <em:maxVersion>3.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>

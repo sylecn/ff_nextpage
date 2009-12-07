@@ -4,7 +4,7 @@
 <overlay id="nextpage-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="nextpage.js"/>
-  <menupopup id="menu_ViewPopup">
+  <menupopup id="menu_viewPopup">
     <menuitem id="nextpage-nextpage"
 	      label="&nextpage.label;"
 	      accesskey="&nextpage.accesskey;"
