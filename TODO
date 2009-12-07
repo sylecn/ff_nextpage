@@ -1,5 +1,11 @@
 * 
+* release to mozilla when all pages below are working.			:low:
 * pages not working:
+  boost and fedoraproject all goto homepage.
+  http://www.boost.org/doc/libs/1_41_0/doc/html/array.html
+  http://docs.fedoraproject.org/install-guide/f12/en-US/html/Installation-Guide-Preface.html
+
+  info. some pages work some doesn't.
   http://www.gnu.org/software/emacs/manual/html_node/emacs/Advanced-C_002dx-v-v.html#Advanced-C_002dx-v-v
 * use translatable strings in .js file
 * DONE change version number to 1.0 after test on my default profile
