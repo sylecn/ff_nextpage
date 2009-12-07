@@ -4,11 +4,14 @@
 <overlay id="nextpage-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="nextpage.js"/>
+  <!-- <script type="application/javascript"   -->
+  <!-- 	  src="chrome://nextpage/content/nextpage.js" /> -->
   <menupopup id="menu_viewPopup">
     <menuitem id="nextpage-nextpage"
 	      label="&nextpage.label;"
 	      accesskey="&nextpage.accesskey;"
 	      description="&nextpage.description;"
-              oncommand="nextpage.goto_next_page();"/>
+	      oncommand="nextpage.temp();"/>
+              <!-- oncommand="nextpage.goto_next_page();"/> -->
   </menupopup>
 </overlay>

@@ -14,6 +14,9 @@
    bottom of the page.
 
 * js tips
+** dump()
+   ref: https://developer.mozilla.org/en/Debugging_JavaScript
+   Allows you to print text on the native console. 
 ** DOM reference
    https://developer.mozilla.org/en/DOM
    http://www.w3schools.com/jsref/ w3schools is evil.

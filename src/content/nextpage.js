@@ -36,10 +36,9 @@ nextpage.goto_next_page = function () {
     var next_page_url = nextpage.get_next_page_link();
     if (next_page_url) {
 	window.location.replace(next_page_url);
+    } else {
+	window.status = "sorry, I couldn't find link to next page.";
     }
-    // TODO else show a message in status bar.
-    // for example:
-    // nextpage couldn't find link to next page. you may <report> this.
     return this;
 }
 
@@ -52,6 +51,7 @@ nextpage.goto_next_page_maybe = function () {
 	// scroll down a page
 	window.scrollByPages(1);
     }
+    return this;
 }
 
 // @param url a url string
@@ -171,3 +171,8 @@ nextpage.get_next_page_link = function () {
 // document.writeln(nextpage.get_next_page_link());
 
 // nextpage.get_next_page_link()
+
+nextpage.temp = function () {
+    dump("temp() called\n");
+    return this;
+}
