@@ -1,5 +1,37 @@
 
 
+* implementation
+** recognize these links
+   > >> next(Next) "next page" 下一页
+   and their previous pairs.
+** decide whether we are at bottom of a page
+   when document.height = window.pageYOffset + window.innerHeight, we are at
+   bottom of the page.
+
+* js tips
+** DOM reference
+   https://developer.mozilla.org/en/DOM
+   http://www.w3schools.com/jsref/ w3schools is evil.
+** get scroll pos
+   window.pageYOffset
+   document.body.scrollTop
+** get document height/width
+   document.height
+** disable space pagedown in firefox
+   ref: http://www.webmasterworld.com/javascript/3224261.htm
+   window.addEventListener('keydown',
+			   function(e) {
+			       if (e.keyCode == 32) {
+   				   e.preventDefault();
+			       }
+			   }, true);
+** disable space pagedown in firefox. no 2
+   window.onkeydown = function(e) {
+       if(e.keyCode==32){
+           return false;
+       }
+   };
+
 * this can also be done outside firefox.
   use a two frame page, layout just like google image, at the top frame, there
   is url box and a next/prev button/link, which can be used to control page at
@@ -53,4 +85,4 @@ https://developer.mozilla.org/en/XUL_Tutorial
    http://www.boost.org/doc/libs/1_41_0/doc/html/array.html
    天涯.明月.刀
    http://www.tianyabook.com/hyzpj/hyzpj/wx/gulong/tymyd/00.htm
-   
+
