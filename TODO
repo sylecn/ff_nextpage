@@ -14,6 +14,7 @@
 * pages not working:
   info. some pages work some doesn't.
   http://www.gnu.org/software/emacs/manual/html_node/emacs/Advanced-C_002dx-v-v.html#Advanced-C_002dx-v-v
+  http://www.google.com
 * use translatable strings in .js file
 ** then submit addon to http://www.babelzilla.org/
 * DONE change version number to 1.0 after test on my default profile
