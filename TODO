@@ -1,4 +1,8 @@
 * 
+* use more strict next matching rule
+  https://github.com/
+  have a link like sylecn/ff_nextpage
+  should not match it.
 * release to mozilla when all pages below are working.			:low:
 * pages not working:
   info. some pages work some doesn't.
