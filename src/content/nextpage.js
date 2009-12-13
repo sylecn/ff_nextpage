@@ -78,11 +78,32 @@ nextpage.goto_next_page_maybe = function () {
 nextpage.domain_check = function (url) {
     var parse_domain = /^([^:]+):\/\/\/?([^:\/]+)/;
     var match_result = parse_domain.exec(url);
+    if (! match_result) {
+	return false
+    }
     if (match_result[1] === "file") {
 	return true;
     }
     if (match_result[2] === content.document.domain) {
 	return true;
+    }
+    
+    /**
+     * some document have a different domain than that in the url,
+     * here is a white list for those urls.
+     *
+     *     tieba.baidu.com
+     *     zhidao.baidu.com
+     *
+     * content.document.domain for them is baidu.com. so it will fail
+     * the domain test if not in the white list.
+     */
+    // TODO make this list customizable
+    var domain_white_list = [ "tieba.baidu.com", "zhidao.baidu.com" ];
+    for (var i = 0; i < domain_white_list.length; i++) {
+	if (match_result[2] === domain_white_list[i]) {
+	    return true;
+	}
     }
     return false;
 }
@@ -93,9 +114,9 @@ nextpage.domain_check = function (url) {
  * @return false otherwise.
  */
 nextpage.matches_next = function (str) {
-    var parse_next = /(?:^ *next|next\.gif|next\.jpg|下一页|^(?:>>|>)$)/i;
-    var re = parse_next.test(str);
-    return re;
+    // ignore case.
+    var parse_next = /(?:^\s*next(?: page)?\s*$|>\s*next\W|next\.(?:gif|jpg|png)|下一页|^(?:>>|>)$)/i;
+    return parse_next.test(str);
 }
 
 /**
@@ -126,7 +147,7 @@ nextpage.is_next_page_link = function (l) {
     
     // check domain
     if (! nextpage.domain_check(l.href)) {
-	return false;
+    	return false;
     }
 
     // check innerHTML
@@ -145,7 +166,6 @@ nextpage.is_next_page_link = function (l) {
  */
 nextpage.get_next_page_link = function () {
     var links = content.document.getElementsByTagName("A");
-
     for (var i = 0; i < links.length; i++) {
 	if (nextpage.is_next_page_link(links[i])) {
 	    return links[i];

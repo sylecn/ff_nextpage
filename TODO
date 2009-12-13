@@ -35,12 +35,7 @@
 * find/design an icon							:low:
   can be an open book with a 'n' on it
   the icon will be shown at addon menu. also on addon website.
-* pages not working:
-  info. some pages work some doesn't.
-  http://www.gnu.org/software/emacs/manual/html_node/emacs/Advanced-C_002dx-v-v.html#Advanced-C_002dx-v-v
-  http://www.google.com
-  http://lw.3edu.net/zgwx/lw_99242_2.html
-  http://bbs.linyichen.com/thread-73919-2-1.html
+* special pages
   http://www.qiushibaike.com/groups/2/hottest/day/page/2 SPC doesn't scroll down
-  http://www.verycd.com/sto/movie/~cn/ <a href="/sto/movie/%7Ecn/page2" class="next">下一页 »</a>
-  
+* pages not working:
+  none
