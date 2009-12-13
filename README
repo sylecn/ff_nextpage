@@ -90,10 +90,10 @@
   bind a hotkey to a function
 
 * general ff addon info
-https://developer.mozilla.org/en/Extensions
-https://developer.mozilla.org/en/Setting_up_extension_development_environment
-hello world:
-http://kb.mozillazine.org/Getting_started_with_extension_development
+all in one ref center:
+https://addons.mozilla.org/en-US/developers/docs/reference
+firefox extension tutorial:
+https://developer.mozilla.org/en/Extensions/Firefox
 XUL tutorial:
 https://developer.mozilla.org/en/XUL_Tutorial
 
