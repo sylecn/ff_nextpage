@@ -30,6 +30,15 @@ nextpage.strings = document.getElementById("nextpage-strings");
  * @return false otherwise.
  */
 nextpage.is_at_bottom = function () {
+    // this bad site doesn't have a correct html markup, firefox can't
+    // return the right document height, so I want SPC to just scroll
+    // up.
+    var has_bad_markup_domain_list = [ "www.qiushibaike.com",
+				       "www.youtube.com" ];
+    if (nextpage.in_array(content.document.domain, has_bad_markup_domain_list)) {
+	return false;
+    }
+    
     if (content.document.height <= content.pageYOffset + content.innerHeight) {
 	return true;
     } else {
@@ -63,10 +72,24 @@ nextpage.goto_next_page_maybe = function () {
 	// go to next page
 	nextpage.goto_next_page();
     } else {
-	// scroll down a page
+	// scroll up a page
 	content.scrollByPages(1);
     }
     return this;
+}
+
+/**
+ * test whether an element is in an array
+ * @return true if it is.
+ * @return false otherwise.
+ */
+nextpage.in_array = function (element, array) {
+    for (var i = 0; i < array.length; i++) {
+    	if (element === array[i]) {
+    	    return true;
+    	}
+    }
+    return false;
 }
 
 /**
@@ -100,11 +123,7 @@ nextpage.domain_check = function (url) {
      */
     // TODO make this list customizable
     var domain_white_list = [ "tieba.baidu.com", "zhidao.baidu.com" ];
-    for (var i = 0; i < domain_white_list.length; i++) {
-	if (match_result[2] === domain_white_list[i]) {
-	    return true;
-	}
-    }
+    nextpage.in_array(match_result[2], domain_white_list);
     return false;
 }
 
