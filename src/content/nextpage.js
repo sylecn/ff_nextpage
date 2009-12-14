@@ -123,7 +123,9 @@ nextpage.domain_check = function (url) {
      */
     // TODO make this list customizable
     var domain_white_list = [ "tieba.baidu.com", "zhidao.baidu.com" ];
-    nextpage.in_array(match_result[2], domain_white_list);
+    if (nextpage.in_array(match_result[2], domain_white_list)) {
+	return true;
+    }
     return false;
 }
 
@@ -163,7 +165,7 @@ nextpage.is_next_page_link = function (l) {
 
     // if we come here, it's not that clear we get a next page link, so more
     // restrict rules apply.
-    
+
     // check domain
     if (! nextpage.domain_check(l.href)) {
     	return false;
