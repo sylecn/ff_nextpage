@@ -46,6 +46,7 @@
    is wrong on these pages.
    http://www.qiushibaike.com/groups/2/hottest/day/page/1
    http://www.youtube.com/results?search_query=emacs&search_type=&aq=f
+   http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx ??
 
    this web page has serious markup error. when those are fixed,
    content.document.height will have the correct value.
