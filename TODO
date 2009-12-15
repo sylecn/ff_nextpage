@@ -52,4 +52,7 @@
    content.document.height will have the correct value.
    I can't help them on that, so this is not a bug of nextpage.
 ** can't go to next page
+** go to the wrong page
+   http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
+   one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at center, end of article)
 
