@@ -136,7 +136,7 @@ nextpage.domain_check = function (url) {
  */
 nextpage.matches_next = function (str) {
     // ignore case.
-    var parse_next = /(?:^\s*next(?: page)?\s*$|>\s*next\W|next\.(?:gif|jpg|png)|下一页|^(?:>>|>)$)/i;
+    var parse_next = /(?:^\s*next page|^\s*next\s*$|>\s*next\W|next\.(?:gif|jpg|png)|下一页|^(?:>>|>)$)/i;
     return parse_next.test(str);
 }
 
