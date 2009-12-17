@@ -39,7 +39,7 @@
   can be an open book with a 'n' on it
   the icon will be shown at addon menu. also on addon website.
 * pages not working
-** DONE SPC doesn't scroll up, directly turn to next page.
+** SPC doesn't scroll up, directly turn to next page.
    (content.document.height <= content.pageYOffset + content.innerHeight)
    always true.
    content.document.height
@@ -47,10 +47,10 @@
    http://www.qiushibaike.com/groups/2/hottest/day/page/1
    http://www.youtube.com/results?search_query=emacs&search_type=&aq=f
    http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx ??
-
-   this web page has serious markup error. when those are fixed,
-   content.document.height will have the correct value.
-   I can't help them on that, so this is not a bug of nextpage.
+   http://userscripts.org/about/installing this page is simpler. doesn't have
+   so many markup errors. see ~/d/installing
+   try to find out the reason.
+   
 ** can't go to next page
 ** go to the wrong page
    http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
