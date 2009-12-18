@@ -33,19 +33,21 @@
 ** SPC doesn't scroll up, directly turn to next page.
    (content.document.height <= content.pageYOffset + content.innerHeight)
    always true.
-   content.document.height
-   is wrong on these pages.
-   http://www.qiushibaike.com/groups/2/hottest/day/page/1
-   http://www.youtube.com/results?search_query=emacs&search_type=&aq=f
-   http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx ??
-   http://userscripts.org/about/installing this page is simpler. doesn't have
-   so many markup errors. see ~/d/installing
-   try to find out the reason.
-   http://bbs.sgamer.com/html/Post_328269.html
-   https://addons.mozilla.org/en-US/firefox/files/browse/66631
+   content.document.height is wrong on these pages.
+
    seems pagedown always work. does pagedown and SPC use different firefox
    function to scroll. if so let my new function use the function that
    pagedown uses.
+   
+   http://www.qiushibaike.com/groups/2/hottest/day/page/1
+   http://www.youtube.com/results?search_query=emacs&search_type=&aq=f
+   http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx ??
+   http://userscripts.org/
+   http://userscripts.org/about/installing
+       this page is very simple and it doesn't have many markup errors.
+       try to find out the reason.
+   http://bbs.sgamer.com/html/Post_328269.html
+   https://addons.mozilla.org/en-US/firefox/files/browse/66631
    
 ** can't go to next page
 ** go to the wrong page
