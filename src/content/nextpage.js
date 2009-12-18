@@ -1,4 +1,4 @@
-// Copyright (C) Yuanle Song <sylecn@gmail.com>
+// Copyright (C) 2009  Yuanle Song <sylecn@gmail.com>
 // 
 // The JavaScript code in this page is free software: you can
 // redistribute it and/or modify it under the terms of the GNU
