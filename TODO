@@ -43,3 +43,24 @@
    http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
    one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at center, end of article)
 
+* DONE folded done items
+  :PROPERTIES:
+  :visibility: folded
+  :END:
+** DONE check how nextpage works on google reader
+   there is never end of page on google reader. so it doesn't matter.
+   SPC works as it should.
+** DONE about l10n warning
+   it's a bug of the checker. bad warning msg.
+   https://forums.addons.mozilla.org/viewtopic.php?f=24&t=77
+   https://bugzilla.mozilla.org/show_bug.cgi?id=523912
+** DONE use more strict next matching rule
+   https://github.com/
+   have a link like sylecn/ff_nextpage
+   should not match it.
+** DONE release to mozilla when all pages below are working.
+** DONE change version number to 1.0 after test on my default profile
+** DONE use translatable strings in .js file
+** DONE add SPC keybinding in overlay.xul
+** DONE add menu item under View menu
+   next page
