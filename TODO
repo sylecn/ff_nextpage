@@ -1,4 +1,9 @@
 * 
+* make it work for mailing list
+  http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
+  <li>Next message: <a href="051888.html">[MPlayer-users] scale and FATAL: Cannot initialize video driver.
+</a>
+** report a bug(with patch) to mailman, add rel="prev" "next" and access key
 * test what happens if the user has 'Find As You Type' on
 ** How to activate 'Find As You Type' in Firefox
    Tools - Options - Advanced - General
@@ -35,19 +40,16 @@
    always true.
    content.document.height is wrong on these pages.
 
-   seems pagedown always work. does pagedown and SPC use different firefox
-   function to scroll. if so let my new function use the function that
-   pagedown uses.
-   
    http://www.qiushibaike.com/groups/2/hottest/day/page/1
    http://www.youtube.com/results?search_query=emacs&search_type=&aq=f
    http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx ??
    http://userscripts.org/
    http://userscripts.org/about/installing
        this page is very simple and it doesn't have many markup errors.
-       try to find out the reason.
+       try to find out why content.document.height is wrong on this pages.
    http://bbs.sgamer.com/html/Post_328269.html
    https://addons.mozilla.org/en-US/firefox/files/browse/66631
+   http://www.makeuseof.com/tag/5-great-alternative-linux-music-players/
    
 ** can't go to next page
 ** go to the wrong page
