@@ -1,4 +1,8 @@
 * 
+* test what happens if the user has 'Find As You Type' on
+** How to activate 'Find As You Type' in Firefox
+   Tools - Options - Advanced - General
+   Select 'Search for text when I start typing'
 * keep addon page up-to-date
   https://addons.mozilla.org/en-US/firefox/addon/53484
 * check mozilla addon page
@@ -37,6 +41,7 @@
    http://userscripts.org/about/installing this page is simpler. doesn't have
    so many markup errors. see ~/d/installing
    try to find out the reason.
+   http://bbs.sgamer.com/html/Post_328269.html
    
 ** can't go to next page
 ** go to the wrong page
