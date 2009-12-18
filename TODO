@@ -1,4 +1,5 @@
 * 
+* check how nextpage works on google reader
 * keep addon page up-to-date
   https://addons.mozilla.org/en-US/firefox/addon/53484
 * check mozilla addon page
@@ -6,35 +7,22 @@
   then people can search and download your addon.
   after you have enough users, you can apply for a review, then make your
   addon public.
-* DONE about l10n warning
-  it's a bug of the checker. bad warning msg.
-  https://forums.addons.mozilla.org/viewtopic.php?f=24&t=77
-  https://bugzilla.mozilla.org/show_bug.cgi?id=523912
 * integrate nextpage to firemacs, and keep the two versions going.
   both the independent and the one inside firemacs.
   of course I need to rewrite firemacs, esp the UI, before that.
-* DONE use more strict next matching rule
-  https://github.com/
-  have a link like sylecn/ff_nextpage
-  should not match it.
-* DONE release to mozilla when all pages below are working.
-* DONE use translatable strings in .js file
-** TODO then submit addon to http://www.babelzilla.org/
-* DONE change version number to 1.0 after test on my default profile
+* TODO then submit addon to http://www.babelzilla.org/
+   after I add preference/options window.
 * check and report bug							:low:
   why keycode doesn't work in key tag.
   see overlay.xul for more info.
 * make bindings configurable, also for firemacs.
 * DONE remove all dump() calls in js file
-* DONE add SPC keybinding in overlay.xul
 * how to use the options defined in prefwindow.xul?
 ** DONE how to fetch that value in nextpage.js?
    ref: https://developer.mozilla.org/En/Firefox_addons_developer_guide/Using_XPCOM%e2%80%94Implementing_advanced_processes
    actually there is no need to fetch the property. see the entry below.
 ** check/uncheck the option should trigger a function call to add
    binding/remove binding.
-* DONE add menu item under View menu
-  next page
 * find/design an icon							:low:
   can be an open book with a 'n' on it
   the icon will be shown at addon menu. also on addon website.
