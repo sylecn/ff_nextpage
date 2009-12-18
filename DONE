@@ -1,3 +1,6 @@
+* DONE check how nextpage works on google reader
+  there is never end of page on google reader. so it doesn't matter.
+  SPC works as it should.
 * DONE about l10n warning
   it's a bug of the checker. bad warning msg.
   https://forums.addons.mozilla.org/viewtopic.php?f=24&t=77
