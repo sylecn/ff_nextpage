@@ -42,6 +42,10 @@
    so many markup errors. see ~/d/installing
    try to find out the reason.
    http://bbs.sgamer.com/html/Post_328269.html
+   https://addons.mozilla.org/en-US/firefox/files/browse/66631
+   seems pagedown always work. does pagedown and SPC use different firefox
+   function to scroll. if so let my new function use the function that
+   pagedown uses.
    
 ** can't go to next page
 ** go to the wrong page
