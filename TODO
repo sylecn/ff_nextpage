@@ -39,28 +39,30 @@
 * find/design an icon							:low:
   can be an open book with a 'n' on it
   the icon will be shown at addon menu. also on addon website.
+* DONE fix pages that has css for handset (screen css)
+  this pages does't have right value for content.document.height property, but
+  has the right value for content.scrollMaxY.
+  
+  use (content.scrollMaxY <= content.scrollY)
+  content.scrollMaxY
+  content.scrollY
 * pages not working
-** SPC doesn't scroll up, directly turn to next page.
-   (content.document.height <= content.pageYOffset + content.innerHeight)
-   always true.
-   content.document.height is wrong on these pages.
-
-   http://www.qiushibaike.com/groups/2/hottest/day/page/1
-   http://www.youtube.com/results?search_query=emacs&search_type=&aq=f
-   http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx ??
-   http://userscripts.org/
-   http://userscripts.org/about/installing
-       this page is very simple and it doesn't have many markup errors.
-       try to find out why content.document.height is wrong on this pages.
-   http://bbs.sgamer.com/html/Post_328269.html
-   https://addons.mozilla.org/en-US/firefox/files/browse/66631
-   http://www.makeuseof.com/tag/5-great-alternative-linux-music-players/
-   
+** TODO https://addons.mozilla.org/en-US/firefox/files/browse/66631
+   when there is no scrollbar and no nextpage link.
+   nextpage will 'eat' the SPC key. and do scroll page.
+   while it should send SPC key event to element at mouse point?
+** sites doesn't have right value for content.scrollY or content.scrollMaxY
+*** both are 0
+    http://bbs.sgamer.com/html/Post_328269.html
+*** content.scrollY is always 0
+    http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx
+    
 ** can't go to next page
    
 ** go to the wrong page
-   http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
-   one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at center, end of article)
+*** ambiguity
+    http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
+    one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at center, end of article)
 
 * DONE folded done items
   :PROPERTIES:

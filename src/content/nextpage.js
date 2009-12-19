@@ -33,15 +33,13 @@ nextpage.is_at_bottom = function () {
     // this bad site doesn't have a correct html markup, firefox can't
     // return the right document height, so I want SPC to just scroll
     // up.
-    var has_bad_markup_domain_list = [ "www.qiushibaike.com",
-				       "www.youtube.com",
-				       "msdn.microsoft.com",
-				       "userscripts.org" ];
+    var has_bad_markup_domain_list = [ "msdn.microsoft.com",
+				       "bbs.sgamer.com" ];
     if (nextpage.in_array(content.document.domain, has_bad_markup_domain_list)) {
 	return false;
     }
     
-    if (content.document.height <= content.pageYOffset + content.innerHeight) {
+    if (content.scrollMaxY <= content.scrollY) {
 	return true;
     } else {
 	return false;
