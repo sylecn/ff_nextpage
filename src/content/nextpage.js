@@ -34,7 +34,9 @@ nextpage.is_at_bottom = function () {
     // return the right document height, so I want SPC to just scroll
     // up.
     var has_bad_markup_domain_list = [ "www.qiushibaike.com",
-				       "www.youtube.com" ];
+				       "www.youtube.com",
+				       "msdn.microsoft.com",
+				       "userscripts.org" ];
     if (nextpage.in_array(content.document.domain, has_bad_markup_domain_list)) {
 	return false;
     }
