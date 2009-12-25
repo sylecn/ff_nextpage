@@ -4,6 +4,9 @@
 * addon statistics is here
   https://addons.mozilla.org/en-US/statistics/addon/53484
 
+* found a script that did the same thing
+  http://board.mozest.com/thread-23048-1-1
+
 * changelog
 ** release branch
    removed unimplemented prefwindow.
