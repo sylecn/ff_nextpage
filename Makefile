@@ -1,7 +1,6 @@
 default:
 	@echo "make nothing."
 ls:
-	@echo "${PWD}/nextpage.xpi"
 	@echo "${PWD}/nextpage.xpi" | xsel -b
 v:
 	@echo -n "version: "
@@ -11,3 +10,4 @@ xpi:
 	mv src/nextpage.jar xpi-pack/chrome/
 	cd xpi-pack && zip -r nextpage.xpi *
 	mv xpi-pack/nextpage.xpi ./
+	@echo "${PWD}/nextpage.xpi" | xsel -b
