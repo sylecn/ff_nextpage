@@ -11,3 +11,4 @@ xpi:
 	cd xpi-pack && zip -r nextpage.xpi *
 	mv xpi-pack/nextpage.xpi ./
 	@echo "${PWD}/nextpage.xpi" | xsel -b
+	@echo "xpi file path copied to clipboard."
