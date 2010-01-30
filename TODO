@@ -51,6 +51,9 @@
    when there is no scrollbar and no nextpage link.
    nextpage will 'eat' the SPC key. and do scroll page.
    while it should send SPC key event to element at mouse point?
+** TODO http://ant.apache.org/manual/index.html
+   frames, same problem as last item.
+   the SPC should be passed to the element at point if failed to scroll?
 ** sites doesn't have right value for content.scrollY or content.scrollMaxY
 *** both are 0
     http://bbs.sgamer.com/html/Post_328269.html
