@@ -1,1 +1,1 @@
-../nextpage.js
+../src/content/nextpage.js
