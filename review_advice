@@ -1,0 +1,33 @@
+Your nominated add-on, nextpage, has been reviewed by a Mozilla Add-ons editor who decided to retain your add-on in the sandbox.
+
+Review Information:
+Reviewer: Yair Halevi
+Comments: The reasons I'm retaining this in the sandbox:
+
+* The following errors were found in the Error Console while testing your add-on:
+
+Error: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIDOMWindowInternal.back]
+Source file: chrome://browser/content/browser.xul
+Line: 1
+
+While this error doesn't seem to come from your code, it is a result of the addon being installed. I believe this happens when you click p or 1 and there is no history. 
+
+* The text "try to go to the next page" that appears next to the menu option (in the View menu) is located at a position where the firefox UI standard dictates the shortcut key should be specified (see the other menu options). You shouldn't use that space for anything other than specifying the shortcut key (especially since it isn't the purpose of your addon to modify the standard look and feel of firefox).
+
+Some additional comments, that won't prevent me from approving the add-on, but I think you should consider:
+* The add-on worked for me on google search results and bing search results, but I also tried it in yahoo (didn't work) and in amazon search results, in which case it just kept bringing me back to the top of the the same page. 
+* Since you are overriding quite a number of keys that many web pages may use for other purposes, it would be very useful to allow the user to change the keys used via a preferences dialog.
+* The files you uploaded for linux and windows are identical - please change the submission so that a single file is uploaded for both operating systems (so the editor knows there is no need to review both). 
+* I suggest you specify a bit more clearly that the extension works in pages in English only (or the languages that are supported).
+
+
+If you have questions about this review, please reply to this email or join #addons on irc.mozilla.org.
+
+Mozilla Add-ons
+http://addons.mozilla.org
+
+Local Variables:
+mode: org 
+mode: visual-line
+End:
+
