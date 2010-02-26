@@ -4,14 +4,18 @@ Review Information:
 Reviewer: Yair Halevi
 Comments: The reasons I'm retaining this in the sandbox:
 
-* The following errors were found in the Error Console while testing your add-on:
+* DONE The following errors were found in the Error Console while testing your add-on:
 
 Error: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIDOMWindowInternal.back]
 Source file: chrome://browser/content/browser.xul
 Line: 1
 
-While this error doesn't seem to come from your code, it is a result of the addon being installed. I believe this happens when you click p or 1 and there is no history. 
+While this error doesn't seem to come from your code, it is a result of the
+addon being installed. I believe this happens when you click p or 1 and there
+is no history. 
 
+** FIXED [review 1] error message when click p or 1 and there is no history
+   
 * The text "try to go to the next page" that appears next to the menu option (in the View menu) is located at a position where the firefox UI standard dictates the shortcut key should be specified (see the other menu options). You shouldn't use that space for anything other than specifying the shortcut key (especially since it isn't the purpose of your addon to modify the standard look and feel of firefox).
 
 Some additional comments, that won't prevent me from approving the add-on, but I think you should consider:

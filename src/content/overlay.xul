@@ -28,14 +28,15 @@
     
     <key id="key-history-go-back-p"
 	 key="p"
-	 oncommand="content.back()" />
+	 oncommand="nextpage.history_back()" />
+
     <key id="key-next-page-n"
 	 key="n"
 	 oncommand="nextpage.goto_next_page();"/>
     
     <key id="key-history-go-back-1"
     	 key="1"
-    	 oncommand="content.back()" />
+	 oncommand="nextpage.history_back()" />
     <key id="key-next-page-2"
     	 key="2"
     	 oncommand="nextpage.goto_next_page();" />

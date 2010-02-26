@@ -46,6 +46,11 @@ nextpage.is_at_bottom = function () {
     }
 }
 
+nextpage.history_back = function () {
+    var historyObj = content.history;
+    historyObj.back();
+}
+
 /**
  * goto next page if a next page link was found. otherwise do nothing.
  * this function will be bind to 2 key by default
