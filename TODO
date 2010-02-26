@@ -58,6 +58,7 @@
    the SPC should be passed to the element at point if failed to scroll?
 ** TODO http://tieba.baidu.com/f?kz=706343798
    SPC jump to one spot, not scrolling
+** TODO yahoo search
 ** sites doesn't have right value for content.scrollY or content.scrollMaxY
 *** both are 0
     http://bbs.sgamer.com/html/Post_328269.html

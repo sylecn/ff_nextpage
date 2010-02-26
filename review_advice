@@ -15,20 +15,49 @@ addon being installed. I believe this happens when you click p or 1 and there
 is no history. 
 
 ** FIXED [review 1] error message when click p or 1 and there is no history
+   see commit 88d94c2
    
-* The text "try to go to the next page" that appears next to the menu option (in the View menu) is located at a position where the firefox UI standard dictates the shortcut key should be specified (see the other menu options). You shouldn't use that space for anything other than specifying the shortcut key (especially since it isn't the purpose of your addon to modify the standard look and feel of firefox).
+* TODO The text "try to go to the next page" that appears next to the menu option (in the View menu) is located at a position where the firefox UI standard dictates the shortcut key should be specified (see the other menu options). You shouldn't use that space for anything other than specifying the shortcut key (especially since it isn't the purpose of your addon to modify the standard look and feel of firefox).
+
+** I can't see this problem on my firefox
+According to https://developer.mozilla.org/en/XUL/menuitem, the acceltext
+attribute is used to show shortcut key, I'm using the description attribute
+for "try to go to the next page".
+
+Related source code:
+
+       <menuitem id="nextpage-nextpage"
+	      label="&nextpage.label;"
+	      accesskey="&nextpage.accesskey;"
+	      description="&nextpage.description;"
+              oncommand="nextpage.goto_next_page();"/>
+
 
 Some additional comments, that won't prevent me from approving the add-on, but I think you should consider:
 * The add-on worked for me on google search results and bing search results, but I also tried it in yahoo (didn't work) and in amazon search results, in which case it just kept bringing me back to the top of the the same page. 
+
+Yahoo search doesn't work, it jumps to top of page. Added to TODO file, I'll
+fix it later. 
+
+amazon.com search works for me.
+
 * Since you are overriding quite a number of keys that many web pages may use for other purposes, it would be very useful to allow the user to change the keys used via a preferences dialog.
-* The files you uploaded for linux and windows are identical - please change the submission so that a single file is uploaded for both operating systems (so the editor knows there is no need to review both). 
+year, I know. That's on my TODO list, but with a low priority.
+
+* TODO The files you uploaded for linux and windows are identical - please change the submission so that a single file is uploaded for both operating systems (so the editor knows there is no need to review both). 
+
+Could you tell me how to do that? When I upload a new version, and check
+support linux and windows checkbox, two files are generated automatically for me.
+
 * I suggest you specify a bit more clearly that the extension works in pages in English only (or the languages that are supported).
 
+It works for pages in English and Chinese. Addon description updated.
 
-If you have questions about this review, please reply to this email or join #addons on irc.mozilla.org.
+A way to add language support without modifying the source code is on my TODO
+list, with low priority.
 
-Mozilla Add-ons
-http://addons.mozilla.org
+Thanks for your review.
+Rainy
 
 Local Variables:
 mode: org 
