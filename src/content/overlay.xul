@@ -13,8 +13,11 @@
     <menuitem id="nextpage-nextpage"
 	      label="&nextpage.label;"
 	      accesskey="&nextpage.accesskey;"
-	      description="&nextpage.description;"
+	      acceltext="n"
               oncommand="nextpage.goto_next_page();"/>
+    <!-- description is shown in the menuitem for windows version, I don't
+         like it. -->
+    <!-- description="&nextpage.description;" -->
   </menupopup>
   
   <keyset>
