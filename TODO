@@ -1,11 +1,4 @@
 * 
-* fix problems found in addon review
-  see review_advice
-* firefox china
-  http://addons.sociz.com/firefox/
-  my addon is not shown on this "official" website.
-** will 火狐中国版 search only addon's on this website? not the global site?
-   if so, I can only say god bless China.
 * make it work for mailing list
   http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
   <li>Next message: <a href="051888.html">[MPlayer-users] scale and FATAL: Cannot initialize video driver.
@@ -17,54 +10,39 @@
    Select 'Search for text when I start typing'
 * keep addon page up-to-date
   https://addons.mozilla.org/en-US/firefox/addon/53484
-* check mozilla addon page
-  uploaded on 2009-12-07, after upload you can put it in sandbox,
-  then people can search and download your addon.
-  after you have enough users, you can apply for a review, then make your
-  addon public.
 * integrate nextpage to firemacs, and keep the two versions going.
   both the independent and the one inside firemacs.
   of course I need to rewrite firemacs, esp the UI, before that.
 * TODO then submit addon to http://www.babelzilla.org/
    after I add preference/options window.
-* check and report bug							:low:
-  why keycode doesn't work in key tag.
-  see overlay.xul for more info.
 * make bindings configurable, also for firemacs.
-* DONE remove all dump() calls in js file
 * how to use the options defined in prefwindow.xul?
 ** DONE how to fetch that value in nextpage.js?
    ref: https://developer.mozilla.org/En/Firefox_addons_developer_guide/Using_XPCOM%e2%80%94Implementing_advanced_processes
    actually there is no need to fetch the property. see the entry below.
 ** check/uncheck the option should trigger a function call to add
    binding/remove binding.
-* find/design an icon							:low:
-  can be an open book with a 'n' on it
-  the icon will be shown at addon menu. also on addon website.
-* DONE fix pages that has css for handset (screen css)
-  this pages does't have right value for content.document.height property, but
-  has the right value for content.scrollMaxY.
-  
-  use (content.scrollMaxY <= content.scrollY)
-  content.scrollMaxY
-  content.scrollY
 * pages not working
-** TODO https://addons.mozilla.org/en-US/firefox/files/browse/66631
+** pages with frames
+   https://addons.mozilla.org/en-US/firefox/files/browse/66631
    when there is no scrollbar and no nextpage link.
    nextpage will 'eat' the SPC key. and do scroll page.
    while it should send SPC key event to element at mouse point?
-** TODO http://ant.apache.org/manual/index.html
+
+   http://ant.apache.org/manual/index.html
    frames, same problem as last item.
    the SPC should be passed to the element at point if failed to scroll?
-** TODO http://tieba.baidu.com/f?kz=706343798
-   SPC jump to one spot, not scrolling
-** TODO yahoo search
+
+** SPC jump to one spot, not scrolling
+   http://tieba.baidu.com/f?kz=706343798
+   yahoo search
+
 ** sites doesn't have right value for content.scrollY or content.scrollMaxY
 *** both are 0
     http://bbs.sgamer.com/html/Post_328269.html
 *** content.scrollY is always 0
     http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx
-    
+
 ** can't go to next page
    http://cantorion.org/recordings/?form_main__action=&sort=favourites-desc&type=audio&page=2
    
@@ -73,25 +51,14 @@
     http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
     one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at
     center, end of article)
-
-* DONE folded done items
-  :PROPERTIES:
-  :visibility: folded
-  :END:
-** DONE check how nextpage works on google reader
-   there is never end of page on google reader. so it doesn't matter.
-   SPC works as it should.
-** DONE about l10n warning
-   it's a bug of the checker. bad warning msg.
-   https://forums.addons.mozilla.org/viewtopic.php?f=24&t=77
-   https://bugzilla.mozilla.org/show_bug.cgi?id=523912
-** DONE use more strict next matching rule
-   https://github.com/
-   have a link like sylecn/ff_nextpage
-   should not match it.
-** DONE release to mozilla when all pages below are working.
-** DONE change version number to 1.0 after test on my default profile
-** DONE use translatable strings in .js file
-** DONE add SPC keybinding in overlay.xul
-** DONE add menu item under View menu
-   next page
+* firefox china								:low:
+  http://addons.sociz.com/firefox/
+  my addon is not shown on this "official" website.
+** will 火狐中国版 search only addon's on this website? not the global site?
+   if so, I can only say god bless China.
+* check and report bug							:low:
+  why keycode doesn't work in key tag.
+  see overlay.xul for more info.
+* find/design an icon							:low:
+  can be an open book with a 'n' on it
+  the icon will be shown at addon menu. also on addon website.

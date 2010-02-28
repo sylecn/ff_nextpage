@@ -1,0 +1,27 @@
+* DONE fix problems found in addon review
+  see review_advice
+* DONE fix pages that has css for handset (screen css)
+  this pages does't have right value for content.document.height property, but
+  has the right value for content.scrollMaxY.
+  
+  use (content.scrollMaxY <= content.scrollY)
+  content.scrollMaxY
+  content.scrollY
+* DONE remove all dump() calls in js file
+* DONE add menu item under View menu
+  next page
+* DONE add SPC keybinding in overlay.xul
+* DONE use translatable strings in .js file
+* DONE change version number to 1.0 after test on my default profile
+* DONE release to mozilla when all pages below are working.
+* DONE use more strict next matching rule
+  https://github.com/
+  have a link like sylecn/ff_nextpage
+  should not match it.
+* DONE about l10n warning
+  it's a bug of the checker. bad warning msg.
+  https://forums.addons.mozilla.org/viewtopic.php?f=24&t=77
+  https://bugzilla.mozilla.org/show_bug.cgi?id=523912
+* DONE check how nextpage works on google reader
+  there is never end of page on google reader. so it doesn't matter.
+  SPC works as it should.
