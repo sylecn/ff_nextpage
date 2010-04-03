@@ -26,6 +26,8 @@
 ** check/uncheck the option should trigger a function call to add
    binding/remove binding.
 * pages not working
+** can't scroll on
+   http://tieba.baidu.com/f?z=12607727&ct=335544320&lm=0&sc=0&rn=50&tn=baiduPostBrowser&word=%CC%EC%D6%AE%BA%DB&pn=0
 ** pages with frames
    https://addons.mozilla.org/en-US/firefox/files/browse/66631
    when there is no scrollbar and no nextpage link.
@@ -48,6 +50,7 @@
 
 ** can't go to next page
    http://cantorion.org/recordings/?form_main__action=&sort=favourites-desc&type=audio&page=2
+   http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
    
 ** go to the wrong page
 *** ambiguity
