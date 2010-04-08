@@ -10,5 +10,5 @@ xpi:
 	mv src/nextpage.jar xpi-pack/chrome/
 	cd xpi-pack && zip -r nextpage.xpi *
 	mv xpi-pack/nextpage.xpi ./
-	@echo "${PWD}/nextpage.xpi" | xsel -b
+	@echo "${PWD}/nextpage.xpi" | xsel -c -s CLIPBOARD
 	@echo "xpi file path copied to clipboard."
