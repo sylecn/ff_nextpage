@@ -1,5 +1,5 @@
-// Copyright (C) 2009  Yuanle Song <sylecn@gmail.com>
-// 
+// Copyright (C) 2009, 2010  Yuanle Song <sylecn@gmail.com>
+//
 // The JavaScript code in this page is free software: you can
 // redistribute it and/or modify it under the terms of the GNU
 // General Public License (GNU GPL) as published by the Free Software
@@ -7,10 +7,10 @@
 // any later version.  The code is distributed WITHOUT ANY WARRANTY;
 // without even the implied warranty of MERCHANTABILITY or FITNESS
 // FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// 
+//
 // As additional permission under GNU GPL version 3 section 7, you
 // may distribute non-source (e.g., minimized or compacted) forms of
 // that code without the copy of the GNU GPL normally required by
@@ -38,7 +38,7 @@ nextpage.is_at_bottom = function () {
     if (nextpage.in_array(content.document.domain, has_bad_markup_domain_list)) {
 	return false;
     }
-    
+
     if (content.scrollMaxY <= content.scrollY) {
 	return true;
     } else {
@@ -57,7 +57,7 @@ nextpage.history_back = function () {
  */
 nextpage.goto_next_page = function () {
     var next_page_url = nextpage.get_next_page_link();
-    
+
     if (next_page_url) {
 	content.location = next_page_url;
     }
@@ -115,7 +115,7 @@ nextpage.domain_check = function (url) {
     if (match_result[2] === content.document.domain) {
 	return true;
     }
-    
+
     /**
      * some document have a different domain than that in the url,
      * here is a white list for those urls.
