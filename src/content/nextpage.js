@@ -142,7 +142,7 @@ nextpage.domain_check = function (url) {
 nextpage.matches_next = function (str) {
     // ignore case.
     // TODO make this regexp configurable
-    var parse_next = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章)|下页|^››$|^(?:&gt;)+$|Next (Chapter )?»| &gt;&gt; )/i;
+    var parse_next = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?»| &gt;&gt; )/i;
     return parse_next.test(str);
 };
 

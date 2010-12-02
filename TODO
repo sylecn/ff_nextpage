@@ -1,5 +1,17 @@
-* 
-* 
+*
+* nextpage: detect google instant search.
+  if instant search is on, press 'n' will input an 'n' in search box.
+* nextpage: add special case for the Arreat Summit			 :np:
+  <a href="act1-corruptrogue.shtml"
+     onmouseout="offImg('next')"
+     onmouseover="ovrImg('next')">
+     <img
+     src="file:///C:/My%20Web%20Sites/D2%20The%20Arreat%20Summit/classic.battle.net/diablo2exp/images/battle/diablo2exp/images/botmenu-next-off.gif"
+     name="next" alt="Next" border="0" height="43" width="45">
+  </a>
+
+  if a <a> has an <img> tag with alt or name lower case equals to "next"
+  then it's a next page link.
 * TODO nextpage doesn't work well when the focus is on a checkbox	:bug:
   the default behavior should be check/uncheck the checkbox, but nextpage
   scroll the page down.
@@ -58,7 +70,7 @@
    http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
    gougou this is a big one:
    http://content.gougou.com/content?cid=64912733AE5D3D9307BC7C8DF6017F266004EB2D&t=4&fmt=flv&usrinput=%D4%BD%B9%E2%B1%A6%BA%D0&dt=96000100&ps=640_360&rt=592kbs&plt=5160&spd=3&movieq=2&bp=1#com_anchor
-   
+
 ** go to the wrong page
 *** ambiguity
     http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
