@@ -56,10 +56,9 @@ nextpage.history_back = function () {
  * this function will be bind to 2 key by default
  */
 nextpage.goto_next_page = function () {
-    var next_page_url = nextpage.get_next_page_link();
-
-    if (next_page_url) {
-	content.location = next_page_url;
+    var next_page_link = nextpage.get_next_page_link();
+    if (next_page_link) {
+	content.location = next_page_link.href;
     }
     // else {
     // 	//TODO show a nice auto timeout message at the bottom of the
@@ -192,10 +191,14 @@ nextpage.is_next_page_link = function (l) {
  * @return false if next page link not found.
  */
 nextpage.get_next_page_link = function () {
-    var links = content.document.getElementsByTagName("A");
-    for (var i = 0; i < links.length; i++) {
-	if (nextpage.is_next_page_link(links[i])) {
-	    return links[i];
+    var links;
+    var tag_name_to_check = ["LINK", "A"];
+    for (var i = 0; i < tag_name_to_check.length; i++) {
+	links = content.document.getElementsByTagName(tag_name_to_check[i]);
+	for (var j = 0; j < links.length; j++) {
+	    if (nextpage.is_next_page_link(links[j])) {
+		return links[j];
+	    }
 	}
     }
     return false;

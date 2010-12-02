@@ -1,4 +1,4 @@
-*
+* 
 * nextpage: detect google instant search.
   if instant search is on, press 'n' will input an 'n' in search box.
 * nextpage: add special case for the Arreat Summit			 :np:
