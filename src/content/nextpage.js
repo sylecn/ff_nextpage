@@ -18,7 +18,7 @@
 // through which recipients can access the Corresponding Source.
 
 // all our functions and vars will be inside this object.
-var nextpage = {}
+var nextpage = {};
 
 /**
  * l10n strings defined in locale/en-US/nextpage.properties
@@ -44,12 +44,12 @@ nextpage.is_at_bottom = function () {
     } else {
 	return false;
     }
-}
+};
 
 nextpage.history_back = function () {
     var historyObj = content.history;
     historyObj.back();
-}
+};
 
 /**
  * goto next page if a next page link was found. otherwise do nothing.
@@ -67,7 +67,7 @@ nextpage.goto_next_page = function () {
     //  use msg in nextpage.strings.getString("msg_no_link_found")
     // }
     return this;
-}
+};
 
 /**
  * this function will be bind to SPC key by default
@@ -81,7 +81,7 @@ nextpage.goto_next_page_maybe = function () {
 	content.scrollByPages(1);
     }
     return this;
-}
+};
 
 /**
  * test whether an element is in an array
@@ -95,7 +95,7 @@ nextpage.in_array = function (element, array) {
     	}
     }
     return false;
-}
+};
 
 /**
  * @param url a url string
@@ -107,7 +107,7 @@ nextpage.domain_check = function (url) {
     var parse_domain = /^([^:]+):\/\/\/?([^:\/]+)/;
     var match_result = parse_domain.exec(url);
     if (! match_result) {
-	return false
+	return false;
     }
     if (match_result[1] === "file") {
 	return true;
@@ -132,7 +132,7 @@ nextpage.domain_check = function (url) {
 	return true;
     }
     return false;
-}
+};
 
 /**
  * @return true if given string matches one of the words that's
@@ -144,7 +144,7 @@ nextpage.matches_next = function (str) {
     // TODO make this regexp configurable
     var parse_next = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章)|下页|^››$|^(?:&gt;)+$|Next (Chapter )?»| &gt;&gt; )/i;
     return parse_next.test(str);
-}
+};
 
 /**
  * @param l an anchor object
@@ -183,7 +183,7 @@ nextpage.is_next_page_link = function (l) {
     } else {
 	return false;
     }
-}
+};
 
 
 /**
@@ -199,7 +199,7 @@ nextpage.get_next_page_link = function () {
 	}
     }
     return false;
-}
+};
 
 /**
  * debug only functions
