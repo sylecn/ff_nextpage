@@ -203,7 +203,14 @@ nextpage.is_next_page_link = function (l) {
  */
 nextpage.get_next_page_link = function () {
     var links;
-    var tag_name_to_check = ["LINK", "A"];
+    /*
+     note: on some generated document (such as this one:
+     http://www.netlib.org/lapack/lug/node5.html), there are two LINK tag with
+     rel "next". I don't know what that means. it's probably a broken page.
+     As a result, LINK tag support is removed for now.
+     */
+    // var tag_name_to_check = ["LINK", "A"];
+    var tag_name_to_check = ["A"];
     for (var i = 0; i < tag_name_to_check.length; i++) {
 	links = content.document.getElementsByTagName(tag_name_to_check[i]);
 	for (var j = 0; j < links.length; j++) {
