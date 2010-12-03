@@ -1,7 +1,7 @@
 * 
 * nextpage: detect google instant search.
   if instant search is on, press 'n' will input an 'n' in search box.
-* nextpage: add special case for the Arreat Summit			 :np:
+* DONE nextpage: add special case for the Arreat Summit			 :np:
   <a href="act1-corruptrogue.shtml"
      onmouseout="offImg('next')"
      onmouseover="ovrImg('next')">

@@ -151,6 +151,8 @@ nextpage.matches_next = function (str) {
  * @return false otherwise
  */
 nextpage.is_next_page_link = function (l) {
+    var img_maybe;
+
     // check rel
     if (l.rel) {
 	if (nextpage.matches_next(l.rel)) {
@@ -179,9 +181,18 @@ nextpage.is_next_page_link = function (l) {
     // check innerHTML
     if (nextpage.matches_next(l.innerHTML)) {
 	return true;
-    } else {
-	return false;
     }
+
+    // check inner <img> tag
+    img_maybe = l.getElementsByTagName("IMG");
+    if (img_maybe.length !== 0) {
+	if (nextpage.matches_next(img_maybe[0].alt) ||
+	    nextpage.matches_next(img_maybe[0].name)) {
+	    return true;
+	}
+    }
+
+    return false;
 };
 
 
