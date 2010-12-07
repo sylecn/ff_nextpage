@@ -1,6 +1,6 @@
 -*- mode: org -*-
 * 
-* v1.1.8
+* v1.2.0
 feature:
   support firefox 4
   support viewing next message on mailman mailing list archive
