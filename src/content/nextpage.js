@@ -72,6 +72,13 @@ nextpage.goto_next_page = function () {
  * this function will be bind to SPC key by default
  */
 nextpage.goto_next_page_maybe = function () {
+    // return if event fired on a checkbox.
+    // space on checkbox should do check/uncheck only.
+    var focusElement = content.document.activeElement;
+    if (focusElement.tagName.toLowerCase() === "input") {
+	return;
+    }
+
     if (nextpage.is_at_bottom()) {
 	// go to next page
 	nextpage.goto_next_page();

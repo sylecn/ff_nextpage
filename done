@@ -1,3 +1,16 @@
+* DONE nextpage doesn't work well when the focus is on a checkbox :bug:fixed:
+  the default behavior should be check/uncheck the checkbox, but nextpage
+  scroll the page down.
+  fix: check whether a checkbox is focused. if it is, ignore SPC, do nothing.
+
+  edit: now when document.activeElement is a <input> node, just return.
+* DONE nextpage: detect google instant search.			    :wontfix:
+  if instant search is on, press 'n' will input an 'n' in search box.
+
+  I can't do anything with this. if the user decide to use google instant
+  search, I should not take back 'n'.
+* DONE get ready for firefox 4
+  http://blog.mozilla.com/addons/2010/11/11/making-add-on-compatible-firefox-4/
 * DONE nextpage: add special case for the Arreat Summit			 :np:
   <a href="act1-corruptrogue.shtml"
      onmouseout="offImg('next')"

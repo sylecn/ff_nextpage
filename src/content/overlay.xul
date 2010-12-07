@@ -8,7 +8,7 @@
   </stringbundleset>
 
   <script src="nextpage.js"/>
-  
+
   <menupopup id="menu_viewPopup">
     <menuitem id="nextpage-nextpage"
 	      label="&nextpage.label;"
@@ -19,7 +19,7 @@
          like it. -->
     <!-- description="&nextpage.description;" -->
   </menupopup>
-  
+
   <keyset>
     <!-- don't use keycode, it simply doesn't work. -->
     <!-- <key id="key-next-page-maybe-spc-keycode" -->
@@ -28,7 +28,7 @@
     <key id="key-next-page-maybe-spc"
     	 key=" "
     	 oncommand="nextpage.goto_next_page_maybe();" />
-    
+
     <key id="key-history-go-back-p"
 	 key="p"
 	 oncommand="nextpage.history_back()" />
@@ -36,7 +36,7 @@
     <key id="key-next-page-n"
 	 key="n"
 	 oncommand="nextpage.goto_next_page();"/>
-    
+
     <key id="key-history-go-back-1"
     	 key="1"
 	 oncommand="nextpage.history_back()" />

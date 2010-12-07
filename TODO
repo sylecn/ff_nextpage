@@ -1,12 +1,4 @@
 * 
-* get ready for firefox 4
-  http://blog.mozilla.com/addons/2010/11/11/making-add-on-compatible-firefox-4/
-* nextpage: detect google instant search.
-  if instant search is on, press 'n' will input an 'n' in search box.
-* TODO nextpage doesn't work well when the focus is on a checkbox	:bug:
-  the default behavior should be check/uncheck the checkbox, but nextpage
-  scroll the page down.
-  fix: check whether a checkbox is focused. if it is, ignore SPC, do nothing.
 * TODO make it work for online mailman mailing list archive
   http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
   <li>Next message: <a href="051888.html">[MPlayer-users] scale and FATAL: Cannot initialize video driver.

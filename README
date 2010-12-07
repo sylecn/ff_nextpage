@@ -154,6 +154,7 @@ https://developer.mozilla.org/en/XUL_Tutorial
    http://bbs.linyichen.com/thread-73919-2-1.html
    http://onlamp.com/pub/a/onlamp/2006/04/06/boostregex.html?page=1
    http://images.google.com/images?hl=en&um=1&q=dub&sa=N&start=40&ndsp=20
+   http://userscripts.org/scripts
 ** sites doesn't have right value for content.document.height
    (content.document.height <= content.pageYOffset + content.innerHeight)
    is always true.
