@@ -1,3 +1,14 @@
+* DONE nextpage: add special case for the Arreat Summit			 :np:
+  <a href="act1-corruptrogue.shtml"
+     onmouseout="offImg('next')"
+     onmouseover="ovrImg('next')">
+     <img
+     src="file:///C:/My%20Web%20Sites/D2%20The%20Arreat%20Summit/classic.battle.net/diablo2exp/images/battle/diablo2exp/images/botmenu-next-off.gif"
+     name="next" alt="Next" border="0" height="43" width="45">
+  </a>
+
+  if a <a> has an <img> tag with alt or name lower case equals to "next"
+  then it's a next page link.
 * DONE fix problems found in addon review
   see review_advice
 * DONE fix pages that has css for handset (screen css)

@@ -1,17 +1,8 @@
 * 
+* get ready for firefox 4
+  http://blog.mozilla.com/addons/2010/11/11/making-add-on-compatible-firefox-4/
 * nextpage: detect google instant search.
   if instant search is on, press 'n' will input an 'n' in search box.
-* DONE nextpage: add special case for the Arreat Summit			 :np:
-  <a href="act1-corruptrogue.shtml"
-     onmouseout="offImg('next')"
-     onmouseover="ovrImg('next')">
-     <img
-     src="file:///C:/My%20Web%20Sites/D2%20The%20Arreat%20Summit/classic.battle.net/diablo2exp/images/battle/diablo2exp/images/botmenu-next-off.gif"
-     name="next" alt="Next" border="0" height="43" width="45">
-  </a>
-
-  if a <a> has an <img> tag with alt or name lower case equals to "next"
-  then it's a next page link.
 * TODO nextpage doesn't work well when the focus is on a checkbox	:bug:
   the default behavior should be check/uncheck the checkbox, but nextpage
   scroll the page down.
