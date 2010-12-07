@@ -111,6 +111,8 @@ firefox extension tutorial:
 https://developer.mozilla.org/en/Extensions/Firefox
 XUL tutorial:
 https://developer.mozilla.org/en/XUL_Tutorial
+Gecko & firefox version compare
+https://developer.mozilla.org/en/Gecko
 
 * add functions for viewing documents in firefox	:firefox:programming:
   goal:
@@ -155,6 +157,8 @@ https://developer.mozilla.org/en/XUL_Tutorial
    http://onlamp.com/pub/a/onlamp/2006/04/06/boostregex.html?page=1
    http://images.google.com/images?hl=en&um=1&q=dub&sa=N&start=40&ndsp=20
    http://userscripts.org/scripts
+   http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
+   http://mail.python.org/pipermail/python-3000/2008-September/014713.html
 ** sites doesn't have right value for content.document.height
    (content.document.height <= content.pageYOffset + content.innerHeight)
    is always true.

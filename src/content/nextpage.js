@@ -217,6 +217,19 @@ nextpage.get_next_page_link = function () {
      As a result, LINK tag support is removed for now.
      */
     // var tag_name_to_check = ["LINK", "A"];
+
+    // check last none-text node in <head>
+    var head = content.document.getElementsByTagName('head');
+    if (head) {
+	var lastElement = head[0].lastElementChild;
+	if ((lastElement.tagName.toLowerCase() === "link") &&
+	    lastElement.hasAttribute('rel') &&
+	    (lastElement.getAttribute('rel').toLowerCase() === "next")) {
+	    // find a next page link
+	    return lastElement;
+	}
+    }
+
     var tag_name_to_check = ["A"];
     for (var i = 0; i < tag_name_to_check.length; i++) {
 	links = content.document.getElementsByTagName(tag_name_to_check[i]);

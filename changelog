@@ -1,0 +1,8 @@
+-*- mode: org -*-
+* 
+* v1.1.8
+feature:
+  support firefox 4
+  support viewing next message on mailman mailing list archive
+bugfix:
+  press SPACE on checkbox (or other input controls) will not scroll page now.

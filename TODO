@@ -1,12 +1,4 @@
 * 
-* TODO make it work for online mailman mailing list archive
-  http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
-  <li>Next message: <a href="051888.html">[MPlayer-users] scale and FATAL: Cannot initialize video driver.
-</a></li>
-  http://mail.python.org/pipermail/python-3000/2008-September/014713.html
-  <li>Next message: <a href="014714.html">[Python-3000] bsddb finished for 2.6/3.0 (and	"&lt;class	'BytesWarning'&gt;: str() on a bytes instance")
-</a></li>
-** report a bug(with patch) to mailman, add rel="prev" "next" and access key
 * test what happens if the user has 'Find As You Type' on
 ** How to activate 'Find As You Type' in Firefox
    Tools - Options - Advanced - General
