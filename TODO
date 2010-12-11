@@ -1,4 +1,8 @@
 * 
+* add support for reading drupal document (better support for rel link)
+* page not working:
+  http://itmanagement.earthweb.com/osrc/article.php/3890111/Debian-vs-Ubuntu-Contrasting-Philosophies.htm#
+  http://www.mail-archive.com/debian-user@lists.debian.org/msg535462.html
 * test what happens if the user has 'Find As You Type' on
 ** How to activate 'Find As You Type' in Firefox
    Tools - Options - Advanced - General

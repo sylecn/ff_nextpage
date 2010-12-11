@@ -1,3 +1,7 @@
+* DONE gnu list is not working.
+  http://lists.gnu.org/archive/html/emacs-devel/2009-12/msg00835.html
+
+  add "Thread Next" to keyword list.
 * DONE make it work for online mailman mailing list archive	      :fixed:
   http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
   <li>Next message: <a href="051888.html">[MPlayer-users] scale and FATAL: Cannot initialize video driver.
