@@ -1,4 +1,7 @@
 * 
+* BUG real-time preference window detect doesn't work.
+* BUG click button in preference window to update hotkey doesn't work.
+complain about key is null. getElementById return nothing for every Id.
 * add support for reading drupal document (better support for rel link)
 * page not working:
   http://itmanagement.earthweb.com/osrc/article.php/3890111/Debian-vs-Ubuntu-Contrasting-Philosophies.htm#

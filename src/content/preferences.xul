@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE prefwindow SYSTEM "chrome://nextpage/locale/preferences.dtd">
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+
+<!--
+prefwindow offer an easier way to edit preferences for casual users.
+everything can be edit directly in about:config.
+-->
+
+<prefwindow
+    id="nextpage-preferences"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <prefpane id="nextpage-prefpane" label="&nextpage.prefpane.label;">
+    <preferences>
+      <preference id="extensions.nextpage.use-1-2"
+		  name="extensions.nextpage.use-1-2"
+		  type="bool" />
+      <preference id="extensions.nextpage.use-space"
+		  name="extensions.nextpage.use-space"
+		  type="bool"/>
+      <preference id="extensions.nextpage.use-n-p"
+		  name="extensions.nextpage.use-n-p"
+		  type="bool" />
+      <preference id="extensions.nextpage.use-alt-n"
+		  name="extensions.nextpage.use-alt-n"
+		  type="bool" />
+    </preferences>
+
+    <checkbox preference="extensions.nextpage.use-space"
+	      label="&nextpage.prefpane.use-space;"
+	      checked="true" />
+    <checkbox preference="extensions.nextpage.use-n-p"
+	      label="&nextpage.prefpane.use-n-p;"
+	      checked="true" />
+    <checkbox preference="extensions.nextpage.use-1-2"
+	      label="&nextpage.prefpane.use-1-2;"
+	      checked="false" />
+    <checkbox preference="extensions.nextpage.use-alt-n"
+	      label="&nextpage.prefpane.use-alt-n;"
+	      checked="false" />
+
+    <label value="&nextpage.prefpane.effective-on-next-firefox-restart;" />
+  </prefpane>
+</prefwindow>

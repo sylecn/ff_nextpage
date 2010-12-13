@@ -8,6 +8,7 @@ v:
 xpi: xpi4
 xpi4: clean-xpi4
 	cp -r src/content src/locale xpi-ff4/chrome/
+	cp -r src/defaults xpi-ff4/
 	cd xpi-ff4/ && zip -r nextpage.xpi *
 	mv xpi-ff4/nextpage.xpi ./
 	@echo "${PWD}/nextpage.xpi"
@@ -15,4 +16,4 @@ xpi4: clean-xpi4
 	@echo "xpi file path copied to clipboard."
 clean-xpi4:
 	rm -f xpi-ff4/nextpage.xpi nextpage.xpi
-	rm -rf xpi-ff4/chrome/*
+	rm -rf xpi-ff4/chrome/* xpi-ff4/defaults

@@ -49,6 +49,12 @@ use SPC key to goto next page when at the bottom of a page
 
 * XUL tips
 ** the key element must be placed inside a keyset element.
+** here is how you modify chrome XUL element in the console:
+   // disable n
+   // var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor) .getInterface(Components.interfaces.nsIWebNavigation) .QueryInterface(Components.interfaces.nsIDocShellTreeItem) .rootTreeItem .QueryInterface(Components.interfaces.nsIInterfaceRequestor) .getInterface(Components.interfaces.nsIDOMWindow); a=mainWindow.document.getElementById('nextpage-key-n'); a.setAttribute('disabled', true); a.getAttribute('disabled')
+   // enable n
+   // var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor) .getInterface(Components.interfaces.nsIWebNavigation) .QueryInterface(Components.interfaces.nsIDocShellTreeItem) .rootTreeItem .QueryInterface(Components.interfaces.nsIInterfaceRequestor) .getInterface(Components.interfaces.nsIDOMWindow); a=mainWindow.document.getElementById('nextpage-key-n'); a.setAttribute('disabled', false); a.getAttribute('disabled')
+
 
 * js tips
 ** js regexp tester

@@ -18,7 +18,9 @@
 // through which recipients can access the Corresponding Source.
 
 // all our functions and vars will be inside this object.
-var nextpage = {};
+if (typeof nextpage === 'undefined') {
+    var nextpage = {};
+};
 
 /**
  * l10n strings defined in locale/en-US/nextpage.properties
@@ -76,7 +78,7 @@ nextpage.goto_next_page_maybe = function () {
     // space on checkbox should do check/uncheck only.
     var focusElement = content.document.activeElement;
     if (focusElement.tagName.toLowerCase() === "input") {
-	return;
+	return undefined;
     }
 
     if (nextpage.is_at_bottom()) {
@@ -86,7 +88,7 @@ nextpage.goto_next_page_maybe = function () {
 	// scroll up a page
 	content.scrollByPages(1);
     }
-    return this;
+    return undefined;
 };
 
 /**
@@ -241,6 +243,10 @@ nextpage.get_next_page_link = function () {
     }
     return false;
 };
+
+// main()
+// updateHotKeys on startup.
+window.addEventListener("load", nextpage.updateHotKeys, false);
 
 /**
  * debug only functions

@@ -17,5 +17,6 @@
         <em:maxVersion>4.0b8pre</em:maxVersion>
       </Description>
     </em:targetApplication>
+    <em:optionsURL>chrome://nextpage/content/preferences.xul</em:optionsURL>
   </Description>
 </RDF>

@@ -1,0 +1,6 @@
+<!ENTITY nextpage.prefpane.label "开启／关闭热键">
+<!ENTITY nextpage.prefpane.use-space "綁定 空格">
+<!ENTITY nextpage.prefpane.use-n-p "綁定 n/p">
+<!ENTITY nextpage.prefpane.use-1-2 "綁定 1/2">
+<!ENTITY nextpage.prefpane.use-alt-n "綁定 Alt-n">
+<!ENTITY nextpage.prefpane.effective-on-next-firefox-restart "热键改动重启firefox后生效">

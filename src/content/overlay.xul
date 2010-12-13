@@ -7,7 +7,8 @@
     <stringbundle id="nextpage-strings" src="chrome://nextpage/locale/nextpage.properties"/>
   </stringbundleset>
 
-  <script src="nextpage.js"/>
+  <script src="update-hotkeys.js" />
+  <script src="nextpage.js" />
 
   <menupopup id="menu_viewPopup">
     <menuitem id="nextpage-nextpage"
@@ -25,27 +26,25 @@
     <!-- <key id="key-next-page-maybe-spc-keycode" -->
     <!-- 	 keycode="VK_SPACE" -->
     <!-- 	 oncommand="nextpage.goto_next_page_maybe();" /> -->
-    <key id="key-next-page-maybe-spc"
-    	 key=" "
+    <key id="nextpage-key-space"
+	 key=" "
     	 oncommand="nextpage.goto_next_page_maybe();" />
 
-    <key id="key-history-go-back-p"
+    <key id="nextpage-key-p"
 	 key="p"
 	 oncommand="nextpage.history_back()" />
-
-    <key id="key-next-page-n"
+    <key id="nextpage-key-n"
 	 key="n"
 	 oncommand="nextpage.goto_next_page();"/>
 
-    <key id="key-history-go-back-1"
-    	 key="1"
+    <key id="nextpage-key-1"
+	 key="1"
 	 oncommand="nextpage.history_back()" />
-    <key id="key-next-page-2"
-    	 key="2"
+    <key id="nextpage-key-2"
+	 key="2"
     	 oncommand="nextpage.goto_next_page();" />
 
-    <!-- if we are at location bar or search box, this should work. -->
-    <key id="key-next-page-alt-n"
+    <key id="nextpage-key-alt-n"
 	 modifiers="alt" key="n"
 	 oncommand="nextpage.goto_next_page();"/>
   </keyset>
