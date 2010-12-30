@@ -15,7 +15,7 @@
 	      label="&nextpage.label;"
 	      accesskey="&nextpage.accesskey;"
 	      acceltext="n"
-              oncommand="nextpage.goto_next_page();"/>
+              oncommand="nextpage.gotoNextPage();"/>
     <!-- description is shown in the menuitem for windows version, I don't
          like it. -->
     <!-- description="&nextpage.description;" -->
@@ -28,24 +28,24 @@
     <!-- 	 oncommand="nextpage.goto_next_page_maybe();" /> -->
     <key id="nextpage-key-space"
 	 key=" "
-    	 oncommand="nextpage.goto_next_page_maybe();" />
+    	 oncommand="nextpage.gotoNextPageMaybe();" />
 
     <key id="nextpage-key-p"
 	 key="p"
-	 oncommand="nextpage.history_back()" />
+	 oncommand="nextpage.historyBack()" />
     <key id="nextpage-key-n"
 	 key="n"
-	 oncommand="nextpage.goto_next_page();"/>
+	 oncommand="nextpage.gotoNextPage();"/>
 
     <key id="nextpage-key-1"
 	 key="1"
-	 oncommand="nextpage.history_back()" />
+	 oncommand="nextpage.historyBack()" />
     <key id="nextpage-key-2"
 	 key="2"
-    	 oncommand="nextpage.goto_next_page();" />
+    	 oncommand="nextpage.gotoNextPage();" />
 
     <key id="nextpage-key-alt-n"
 	 modifiers="alt" key="n"
-	 oncommand="nextpage.goto_next_page();"/>
+	 oncommand="nextpage.gotoNextPage();"/>
   </keyset>
 </overlay>

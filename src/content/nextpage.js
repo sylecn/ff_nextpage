@@ -31,13 +31,13 @@ nextpage.strings = document.getElementById("nextpage-strings");
  * @return true if we are at bottom of a page.
  * @return false otherwise.
  */
-nextpage.is_at_bottom = function () {
+nextpage.isAtBottom = function () {
     // this bad site doesn't have a correct html markup, firefox can't
     // return the right document height, so I want SPC to just scroll
     // up.
-    var has_bad_markup_domain_list = [ "msdn.microsoft.com",
+    var hasBadMarkupDomainList = [ "msdn.microsoft.com",
 				       "bbs.sgamer.com" ];
-    if (nextpage.in_array(content.document.domain, has_bad_markup_domain_list)) {
+    if (nextpage.inArray(content.document.domain, hasBadMarkupDomainList)) {
 	return false;
     }
 
@@ -48,7 +48,7 @@ nextpage.is_at_bottom = function () {
     }
 };
 
-nextpage.history_back = function () {
+nextpage.historyBack = function () {
     var historyObj = content.history;
     historyObj.back();
 };
@@ -57,10 +57,10 @@ nextpage.history_back = function () {
  * goto next page if a next page link was found. otherwise do nothing.
  * this function will be bind to 2 key by default
  */
-nextpage.goto_next_page = function () {
-    var next_page_link = nextpage.get_next_page_link();
-    if (next_page_link) {
-	content.location = next_page_link.href;
+nextpage.gotoNextPage = function () {
+    var nextpageLink = nextpage.getNextPageLink();
+    if (nextpageLink) {
+	content.location = nextpageLink.href;
     }
     // else {
     // 	//TODO show a nice auto timeout message at the bottom of the
@@ -73,7 +73,7 @@ nextpage.goto_next_page = function () {
 /**
  * this function will be bind to SPC key by default
  */
-nextpage.goto_next_page_maybe = function () {
+nextpage.gotoNextPageMaybe = function () {
     // return if event fired on a checkbox.
     // space on checkbox should do check/uncheck only.
     var focusElement = content.document.activeElement;
@@ -81,9 +81,9 @@ nextpage.goto_next_page_maybe = function () {
 	return undefined;
     }
 
-    if (nextpage.is_at_bottom()) {
+    if (nextpage.isAtBottom()) {
 	// go to next page
-	nextpage.goto_next_page();
+	nextpage.gotoNextPage();
     } else {
 	// scroll up a page
 	content.scrollByPages(1);
@@ -96,7 +96,7 @@ nextpage.goto_next_page_maybe = function () {
  * @return true if it is.
  * @return false otherwise.
  */
-nextpage.in_array = function (element, array) {
+nextpage.inArray = function (element, array) {
     for (var i = 0; i < array.length; i++) {
     	if (element === array[i]) {
     	    return true;
@@ -108,19 +108,19 @@ nextpage.in_array = function (element, array) {
 /**
  * @param url a url string
  * @return true if the url is a file:// url or if the url matches the
- * document domain. thus the url passed the domain_check.
- * @return false otherwise. thus the url failed the domain_check.
+ * document domain. thus the url passed the domain check.
+ * @return false otherwise. thus the url failed the domain check.
  */
-nextpage.domain_check = function (url) {
-    var parse_domain = /^([^:]+):\/\/\/?([^:\/]+)/;
-    var match_result = parse_domain.exec(url);
-    if (! match_result) {
+nextpage.checkDomain = function (url) {
+    var domainPattern = /^([^:]+):\/\/\/?([^:\/]+)/;
+    var matchResult = domainPattern.exec(url);
+    if (! matchResult) {
 	return false;
     }
-    if (match_result[1] === "file") {
+    if (matchResult[1] === "file") {
 	return true;
     }
-    if (match_result[2] === content.document.domain) {
+    if (matchResult[2] === content.document.domain) {
 	return true;
     }
 
@@ -135,8 +135,8 @@ nextpage.domain_check = function (url) {
      * the domain test if not in the white list.
      */
     // TODO make this list customizable
-    var domain_white_list = [ "tieba.baidu.com", "zhidao.baidu.com" ];
-    if (nextpage.in_array(match_result[2], domain_white_list)) {
+    var domainWhitelist = [ "tieba.baidu.com", "zhidao.baidu.com" ];
+    if (nextpage.inArray(matchResult[2], domainWhitelist)) {
 	return true;
     }
     return false;
@@ -147,11 +147,11 @@ nextpage.domain_check = function (url) {
  * equivalent to 'next'.
  * @return false otherwise.
  */
-nextpage.matches_next = function (str) {
+nextpage.matchesNext = function (str) {
     // ignore case.
     // TODO make this regexp configurable
-    var parse_next = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?»|^Thread Next$| &gt;&gt; )/i;
-    return parse_next.test(str);
+    var nextPattern = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?»|^Thread Next$| &gt;&gt; )/i;
+    return nextPattern.test(str);
 };
 
 /**
@@ -159,12 +159,12 @@ nextpage.matches_next = function (str) {
  * @return true if this anchor is link to next page
  * @return false otherwise
  */
-nextpage.is_next_page_link = function (l) {
-    var img_maybe;
+nextpage.isNextPageLink = function (l) {
+    var imgMaybe;
 
     // check rel
     if (l.rel) {
-	if (nextpage.matches_next(l.rel)) {
+	if (nextpage.matchesNext(l.rel)) {
 	    // if rel is used, it's usually the right link. GNU info
 	    // html doc is using rel to represent the relation of the
 	    // nodes.
@@ -183,20 +183,20 @@ nextpage.is_next_page_link = function (l) {
     // restrict rules apply.
 
     // check domain
-    if (! nextpage.domain_check(l.href)) {
+    if (! nextpage.checkDomain(l.href)) {
     	return false;
     }
 
     // check innerHTML
-    if (nextpage.matches_next(l.innerHTML)) {
+    if (nextpage.matchesNext(l.innerHTML)) {
 	return true;
     }
 
     // check inner <img> tag
-    img_maybe = l.getElementsByTagName("IMG");
-    if (img_maybe.length !== 0) {
-	if (nextpage.matches_next(img_maybe[0].alt) ||
-	    nextpage.matches_next(img_maybe[0].name)) {
+    imgMaybe = l.getElementsByTagName("IMG");
+    if (imgMaybe.length !== 0) {
+	if (nextpage.matchesNext(imgMaybe[0].alt) ||
+	    nextpage.matchesNext(imgMaybe[0].name)) {
 	    return true;
 	}
     }
@@ -210,7 +210,7 @@ nextpage.is_next_page_link = function (l) {
  * @return an anchor object containing the next page link if one is found.
  * @return false if next page link not found.
  */
-nextpage.get_next_page_link = function () {
+nextpage.getNextPageLink = function () {
     var links;
     /*
      note: on some generated document (such as this one:
@@ -218,7 +218,7 @@ nextpage.get_next_page_link = function () {
      rel "next". I don't know what that means. it's probably a broken page.
      As a result, LINK tag support is removed for now.
      */
-    // var tag_name_to_check = ["LINK", "A"];
+    // var tagNameToCheck = ["LINK", "A"];
 
     // check last none-text node in <head>
     var head = content.document.getElementsByTagName('head');
@@ -232,13 +232,22 @@ nextpage.get_next_page_link = function () {
 	}
     }
 
-    var tag_name_to_check = ["A"];
-    for (var i = 0; i < tag_name_to_check.length; i++) {
-	links = content.document.getElementsByTagName(tag_name_to_check[i]);
+    // check <a> and <link>links
+    var tagNameToCheck = ["A"];
+    for (var i = 0; i < tagNameToCheck.length; i++) {
+	links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	for (var j = 0; j < links.length; j++) {
-	    if (nextpage.is_next_page_link(links[j])) {
+	    if (nextpage.isNextPageLink(links[j])) {
 		return links[j];
 	    }
+	}
+    }
+
+    // check <input type="button" ...>
+    nodes = content.document.getElementsByTagName('INPUT');
+    for (var j = 0; j < links.length; j++) {
+	if (nextpage.isNextPageButton(links[j])) {
+	    return links[j];
 	}
     }
     return false;
@@ -253,7 +262,7 @@ window.addEventListener("load", nextpage.updateHotKeys, false);
  */
 
 // // convert anchor object to string
-// nextpage.link_to_string = function (l) {
+// nextpage.linkToString = function (l) {
 //     var re, prop;
 //     re = "link ";
 //     prop = ["href", "id", "name", "innerHTML", "accessKey", "rel"];
