@@ -1,4 +1,4 @@
-// Copyright (C) 2009, 2010  Yuanle Song <sylecn@gmail.com>
+// Copyright (C) 2009, 2010, 2011  Yuanle Song <sylecn@gmail.com>
 //
 // The JavaScript code in this page is free software: you can
 // redistribute it and/or modify it under the terms of the GNU
@@ -212,6 +212,13 @@ nextpage.isNextPageLink = function (l) {
  */
 nextpage.getNextPageLink = function () {
     var links;
+    var re;
+
+    /*
+     * special case for some website, pre-generic
+     */
+    // nothing yet.
+
     /*
      note: on some generated document (such as this one:
      http://www.netlib.org/lapack/lug/node5.html), there are two LINK tag with
@@ -232,7 +239,7 @@ nextpage.getNextPageLink = function () {
 	}
     }
 
-    // check <a> and <link>links
+    // check <a> links
     var tagNameToCheck = ["A"];
     for (var i = 0; i < tagNameToCheck.length; i++) {
 	links = content.document.getElementsByTagName(tagNameToCheck[i]);
@@ -250,6 +257,25 @@ nextpage.getNextPageLink = function () {
 	    return links[j];
 	}
     }
+
+    /*
+     * special case for some website, post-generic
+     */
+
+    // // for acl2 tour
+    // if ($('a[href="acl2-doc-info.html"] > img[src="index.gif"]',
+    // 	  content.document).get(0)) {
+    // 	re = $('a > img[src$=".gif"]', content.document).filter(
+    // 	    function (index) {
+    // 		return ((this.src == "walking.gif") ||
+    // 			(this.src == "flying.gif"))
+    // 	    }
+    // 	).get(0);
+    // 	if (re) {
+    // 	    return re;
+    // 	}
+    // }
+
     return false;
 };
 

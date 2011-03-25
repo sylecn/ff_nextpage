@@ -1,4 +1,16 @@
 * 
+* add support for
+  http://www.cs.utexas.edu/users/moore/acl2/v4-2/About_the_ACL2_Home_Page.html
+  <a href="foo.html"><img src="flying.gif"></a>
+* doesn't work on amazon list all reviews:
+  http://www.amazon.com/Lenovo-ThinkPad-90W-AC-Adapter/product-reviews/B000BUIP6K/ref=cm_cr_pr_top_link_next_2?ie=UTF8&showViewpoints=0&pageNumber=2&sortBy=bySubmissionDateDescending
+* page doesn't work, bestbuy.com
+  http://www.bestbuy.com/site/olstemplatemapper.jsp?id=pcat17071&type=page&initialize=false&sp=&nrp=15&iht=y&list=n&sc=Global&st=ac+adapter&usc=All+Categories&ks=960&prids=&cp=2&qp=&_requestid=133557
+* page doesn't work
+  http://www.disneyhome.cc/products.asp?productSort=186
+  <input name="Submit5" value="下页 " title="下页" onclick="Javascript:jumpTo(3)" style="font-size: 9pt; border: 0px solid rgb(255, 255, 255); background-color: rgb(255, 255, 255);" type="button">
+
+  should detect <input> type="button", value or title match nextpage.
 * BUG real-time preference window detect doesn't work.
 * BUG click button in preference window to update hotkey doesn't work.
 complain about key is null. getElementById return nothing for every Id.
@@ -36,6 +48,10 @@ complain about key is null. getElementById return nothing for every Id.
    http://ant.apache.org/manual/index.html
    frames, same problem as last item.
    the SPC should be passed to the element at point if failed to scroll?
+
+   http://docs.amazonwebservices.com/AmazonSimpleDB/latest/DeveloperGuide/index.html?using.html
+   SPC does nothing.
+   <a accesskey="n" href="MakingRESTRequests.html"><img src="images/next.gif" alt="Next"></a>
 
 ** SPC jump to one spot, not scrolling
    http://tieba.baidu.com/f?kz=706343798
