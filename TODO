@@ -1,7 +1,9 @@
 * 
+* release 1.2.1
+** BUG changes made in preference window only become effective after restart firefox
+   this bug must be fixed.
 * http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
   <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
-* BUG changes made in preference window only become effective after restart firefox
 * test what happens if the user has 'Find As You Type' on
 ** How to activate 'Find As You Type' in Firefox
    Tools - Options - Advanced - General
