@@ -1,7 +1,21 @@
 * 
 * release 1.2.1
-** BUG changes made in preference window only become effective after restart firefox
+** BUG can't enable/disable <key>.
    this bug must be fixed.
+   need to rewrite src/content/update-hotkeys.js
+
+   maybe I should not use <key> at the first place. see how firemacs do it:
+   chrome/firemacs.jar/content/keyhandler.js
+   https://addons.mozilla.org/en-US/firefox/files/browse/114031
+   He is not using <key>!
+
+** BUG in XUL, keyset can't have an id like
+   <keyset id="nextpage-keyset">
+   otherwise, the whole group is disabled.
+
+   I'm sure that id is not used by other elements.
+
+   took me a long time to figure this out.
 * http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
   <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
 * test what happens if the user has 'Find As You Type' on

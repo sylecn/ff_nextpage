@@ -110,16 +110,6 @@ use SPC key to goto next page when at the bottom of a page
   define a function to load a URL in current page
   bind a hotkey to a function
 
-* general ff addon info
-all in one ref center:
-https://addons.mozilla.org/en-US/developers/docs/reference
-firefox extension tutorial:
-https://developer.mozilla.org/en/Extensions/Firefox
-XUL tutorial:
-https://developer.mozilla.org/en/XUL_Tutorial
-Gecko & firefox version compare
-https://developer.mozilla.org/en/Gecko
-
 * add functions for viewing documents in firefox	:firefox:programming:
   goal:
   press SPC twice can go to next page, when we are at bottom.

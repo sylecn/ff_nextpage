@@ -41,6 +41,5 @@ everything can be edit directly in about:config.
 	      label="&nextpage.prefpane.use-alt-n;"
 	      checked="false" />
 
-    <label value="&nextpage.prefpane.effective-on-next-firefox-restart;" />
   </prefpane>
 </prefwindow>

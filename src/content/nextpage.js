@@ -385,7 +385,9 @@ nextpage.getNextPageLink = function () {
 
 // main()
 // updateHotKeys on startup.
-window.addEventListener("load", nextpage.updateHotKeys, false);
+// will do this in update-hotkeys.js
+// window.addEventListener("load", nextpage.updateHotKeys, false);
+
 if (nextpage.debugging) {
     nextpage.log("nextpage ready.");
     nextpage.app.console.open();

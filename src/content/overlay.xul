@@ -35,7 +35,7 @@
 	 oncommand="nextpage.historyBack()" />
     <key id="nextpage-key-n"
 	 key="n"
-	 oncommand="nextpage.gotoNextPage();"/>
+	 oncommand="nextpage.gotoNextPage();" />
 
     <key id="nextpage-key-1"
 	 key="1"
