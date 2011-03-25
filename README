@@ -138,6 +138,22 @@ https://developer.mozilla.org/en/Gecko
   info generated docs
   tex generated docs
 
+** selected testing pages:
+   google, A tag, innerHTML with span.
+   http://www.google.com/search?q=dict&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:en-US:unofficial&client=iceweasel-a
+
+   A tag, has both href and onclick action, both being javascript:
+   http://www.bestbuy.com/site/olstemplatemapper.jsp?id=pcat17071&type=page&initialize=false&sp=&nrp=15&iht=y&list=n&sc=Global&st=ac+adapter&usc=All+Categories&ks=960&prids=&cp=2&qp=&_requestid=133557
+
+   INPUT tag, button, onclick action.
+   http://www.disneyhome.cc/products.asp?productSort=186
+
+   mailing lists
+   http://lists.gnu.org/archive/html/emacs-devel/2009-12/msg00835.html
+   http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-March/051882.html
+   A tag, title
+   http://www.mail-archive.com/debian-user@lists.debian.org/msg535462.html
+
 ** testing page:
    an online ebook:
    http://www.tianyabook.com/wangluo2005/changanluan/004.htm

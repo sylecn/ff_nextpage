@@ -1,18 +1,7 @@
 * 
-* use Application to do logging.
-* action for link (href) and button (onclick) should be very different.
-* add support for					    :complicated:low:
-  http://www.cs.utexas.edu/users/moore/acl2/v4-2/About_the_ACL2_Home_Page.html
-  <a href="foo.html"><img src="flying.gif"></a>
-
-  need jQuery to do this effectively.
-* BUG real-time preference window detect doesn't work.
-* BUG click button in preference window to update hotkey doesn't work.
-complain about key is null. getElementById return nothing for every Id.
-* add support for reading drupal document (better support for rel link)
-* page not working:
-  http://itmanagement.earthweb.com/osrc/article.php/3890111/Debian-vs-Ubuntu-Contrasting-Philosophies.htm#
-  http://www.mail-archive.com/debian-user@lists.debian.org/msg535462.html
+* http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
+  <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
+* BUG changes made in preference window only become effective after restart firefox
 * test what happens if the user has 'Find As You Type' on
 ** How to activate 'Find As You Type' in Firefox
    Tools - Options - Advanced - General
@@ -32,8 +21,6 @@ complain about key is null. getElementById return nothing for every Id.
 ** check/uncheck the option should trigger a function call to add
    binding/remove binding.
 * pages not working
-** can't scroll on
-   http://tieba.baidu.com/f?z=12607727&ct=335544320&lm=0&sc=0&rn=50&tn=baiduPostBrowser&word=%CC%EC%D6%AE%BA%DB&pn=0
 ** pages with frames
    https://addons.mozilla.org/en-US/firefox/files/browse/66631
    when there is no scrollbar and no nextpage link.
@@ -58,12 +45,6 @@ complain about key is null. getElementById return nothing for every Id.
 *** content.scrollY is always 0
     http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx
 
-** can't go to next page
-   http://cantorion.org/recordings/?form_main__action=&sort=favourites-desc&type=audio&page=2
-   http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
-   gougou this is a big one:
-   http://content.gougou.com/content?cid=64912733AE5D3D9307BC7C8DF6017F266004EB2D&t=4&fmt=flv&usrinput=%D4%BD%B9%E2%B1%A6%BA%D0&dt=96000100&ps=640_360&rt=592kbs&plt=5160&spd=3&movieq=2&bp=1#com_anchor
-
 ** go to the wrong page
 *** ambiguity
     http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
@@ -80,3 +61,17 @@ complain about key is null. getElementById return nothing for every Id.
 * find/design an icon							:low:
   can be an open book with a 'n' on it
   the icon will be shown at addon menu. also on addon website.
+* TODO failed page, gougou, this is a big one: 		      :later:
+  http://content.gougou.com/content?cid=64912733AE5D3D9307BC7C8DF6017F266004EB2D&t=4&fmt=flv&usrinput=%D4%BD%B9%E2%B1%A6%BA%D0&dt=96000100&ps=640_360&rt=592kbs&plt=5160&spd=3&movieq=2&bp=1#com_anchor
+  Can't access gougou.com in US.
+* broken baidu?						       :needmoreinfo:
+  can't use any hotkeys: p n SPC.
+      space doesn't scroll on, can't go to prev/next page.
+  NextPage menuitem in View menu does work.
+  http://tieba.baidu.com/f?z=12607727&ct=335544320&lm=0&sc=0&rn=50&tn=baiduPostBrowser&word=%CC%EC%D6%AE%BA%DB&pn=0
+  <a href="/f?z=12607727&amp;ct=335544320&amp;lm=0&amp;sc=0&amp;rn=30&amp;tn=baiduPostBrowser&amp;word=%CC%EC%D6%AE%BA%DB&amp;pn=30">下一页</a>
+* add support for					    :complicated:low:
+  http://www.cs.utexas.edu/users/moore/acl2/v4-2/About_the_ACL2_Home_Page.html
+  <a href="foo.html"><img src="flying.gif"></a>
+
+  need jQuery to do this effectively.

@@ -24,7 +24,13 @@ if (typeof nextpage === 'undefined') {
     var nextpage = {};
 };
 
+// add ! to enable debugging.
 nextpage.debugging = false;
+nextpage.debugATag = false;
+
+// never set this to true. Will cause problems even when debugging.
+// set them to true for interesting links. see the A tag loop.
+nextpage.debugDomainCheck = false;
 
 // the FUEL Application
 if (! nextpage.app) {
@@ -68,23 +74,30 @@ nextpage.historyBack = function () {
  * this function will be bind to 2 key by default
  */
 nextpage.gotoNextPage = function () {
-    /**/nextpage.log("in gotoNextPage");
+    if (nextpage.debugging) {
+	nextpage.log("in gotoNextPage()");
+    }
     var nextpageLink = nextpage.getNextPageLink();
     if (nextpageLink) {
 	if (nextpageLink.hasAttribute("href")) {
+	    if (nextpage.debugging) {
+		nextpage.log("will goto link:" + nextpageLink.href);
+	    }
 	    content.location = nextpageLink.href;
 	} else if (nextpageLink.hasAttribute("onclick")) {
 	    if (nextpage.debugging) {
-		nextpage.log("found onclick attribute. will now execute click().");
+		nextpage.log("will now execute click().");
 	    }
 	    nextpageLink.click();
 	}
+    } else {
+	// TODO show a nice auto timeout message at the bottom of the content
+	// window. using html and css. use msg in
+	// nextpage.strings.getString("msg_no_link_found")
+	if (nextpage.debugging) {
+	    nextpage.log("No link/button found. will stay at current page.");
+	}
     }
-    // else {
-    // 	//TODO show a nice auto timeout message at the bottom of the
-    // 	//     content window.  using html and css.
-    //  use msg in nextpage.strings.getString("msg_no_link_found")
-    // }
     return this;
 };
 
@@ -131,14 +144,20 @@ nextpage.inArray = function (element, array) {
  * @return false otherwise. thus the url failed the domain check.
  */
 nextpage.checkDomain = function (url) {
-    if (url.match(/javascript:/i)) {
+    if (nextpage.debugging && nextpage.debugDomainCheck) {
+	nextpage.log("checkDomain " + url);
+    }
+
+    if (url.match(/^javascript:/i)) {
 	return true;
     }
 
     var domainPattern = /^([^:]+):\/\/\/?([^:\/]+)/;
     var matchResult = domainPattern.exec(url);
+
     if (! matchResult) {
-	return false;
+	// should be a relative link.
+	return true;
     }
     if (matchResult[1] === "file") {
 	return true;
@@ -146,7 +165,9 @@ nextpage.checkDomain = function (url) {
     if (matchResult[2] === content.document.domain) {
 	return true;
     }
-
+    if (nextpage.debugging && nextpage.debugDomainCheck) {
+	nextpage.log("domain compare:" + matchResult[2] + " vs " + content.domain.domain);
+    }
     /**
      * some document have a different domain than that in the url,
      * here is a white list for those urls.
@@ -162,6 +183,9 @@ nextpage.checkDomain = function (url) {
     if (nextpage.inArray(matchResult[2], domainWhitelist)) {
 	return true;
     }
+    if (nextpage.debugging && nextpage.debugDomainCheck) {
+	nextpage.log("domain check failed.");
+    }
     return false;
 };
 
@@ -171,9 +195,9 @@ nextpage.checkDomain = function (url) {
  * @return false otherwise.
  */
 nextpage.matchesNext = function (str) {
-    // ignore case.
+    if (! str) return false;
     // TODO make this regexp configurable
-    var nextPattern = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
+    var nextPattern = /(?:^\s*(Go to )?next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
     return nextPattern.test(str);
 };
 
@@ -187,8 +211,8 @@ nextpage.isNextPageLink = function (l) {
     var spanMaybe;
 
     // check rel
-    if (l.rel) {
-	if (nextpage.matchesNext(l.rel)) {
+    if (l.hasAttribute("rel")) {
+	if (nextpage.matchesNext(l.getAttribute("rel"))) {
 	    // if rel is used, it's usually the right link. GNU info
 	    // html doc is using rel to represent the relation of the
 	    // nodes.
@@ -197,18 +221,28 @@ nextpage.isNextPageLink = function (l) {
     }
 
     // check accesskey
-    if (l.accesskey === 'n') {
+    if (l.getAttribute("accesskey") === 'n') {
 	// some well written html already use accesskey n to go to
 	// next page, in firefox you could just use Alt-Shift-n.
 	return true;
+    }
+
+    if (l.hasAttribute("title")) {
+	if (nextpage.matchesNext(l.getAttribute("title"))) {
+	    return true;
+	}
     }
 
     // if we come here, it's not that clear we get a next page link, so more
     // restrict rules apply.
 
     // check domain
-    if (! nextpage.checkDomain(l.href)) {
-    	return false;
+    if (l.hasAttribute("href")) {
+	// this version will expand l.href to full URL. if it's a relative URL.
+	// if (! nextpage.checkDomain(l.href)) {
+	if (! nextpage.checkDomain(l.getAttribute("href"))) {
+    	    return false;
+	}
     }
 
     // check innerHTML
@@ -241,21 +275,19 @@ nextpage.isNextPageLink = function (l) {
  */
 nextpage.isNextPageButton = function (l) {
     // check value
-    if (l.value) {
-	if (nextpage.matchesNext(l.value)) {
-	    return true;
-	}
+    if (nextpage.matchesNext(l.getAttribute("value"))) {
+	return true;
     }
 
     // check title
-    if (l.title) {
-	if (nextpage.matchesNext(l.title)) {
+    if (l.hasAttribute("title")) {
+	if (nextpage.matchesNext(l.getAttribute("title"))) {
 	    return true;
 	}
     }
 
     // check accesskey
-    if (l.accesskey === 'n') {
+    if (l.getAttribute("accesskey") === 'n') {
 	// some well written html already use accesskey n to go to
 	// next page, in firefox you could just use Alt-Shift-n.
 	return true;
@@ -305,6 +337,17 @@ nextpage.getNextPageLink = function () {
     for (var i = 0; i < tagNameToCheck.length; i++) {
 	links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	for (var j = 0; j < links.length; j++) {
+	    if (nextpage.debugging) {
+		if (nextpage.debugATag) {
+		    // define your filter condition here:
+		    if (false) {
+			nextpage.log("A-tag innerHTML:" + links[j].innerHTML);
+			nextpage.debugATag = false;
+			// can enable other debug options here.
+			nextpage.debugDomainCheck = true;
+		    }
+		}
+	    }
 	    if (nextpage.isNextPageLink(links[j])) {
 		return links[j];
 	    }

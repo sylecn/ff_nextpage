@@ -1,3 +1,51 @@
+
+* DONE baidu tieba fail (using menu) when I enable all debugging.
+  edit:
+  pages with lots of A tag link will fail if you have set debugATag or
+  debugDomainCheck to true.
+  This is probably because console.log function is TOO slow.
+  Only enable them with some filters in debugATag. Then disable DebugATag.
+  Do *not* enable debugDomainCheck at the beginning. Remeber to use filter with
+  DebugATag.
+* DONE ! google.com doesn't work.				      :fixed:
+  <a href="/search?q=dct&amp;hl=en&amp;client=iceweasel-a&amp;rls=org.mozilla:en-US:unofficial&amp;prmd=ivnsu&amp;ei=9jiMTZeqC4Li0gHN3PCjCw&amp;start=10&amp;sa=N" class=pn id=pnnext style="text-align:left;text-decoration:none"><span class="csb ch" style="background-position:-96px 0;width:71px"></span><span style="display:block;margin-left:53px;text-decoration:underline">Next</span></a>
+  I have no regression test.
+
+  found the problem:
+  with this change:
+  --if (! nextpage.checkDomain(l.href)) {
+  ++if (! nextpage.checkDomain(l.getAttribute("href"))) {
+
+  if href="/abc/def"
+  l.href will be expanded to a full URL like http://www.foo.com/abc/def,
+  while l.getAttribute("href") is "/abc/def".
+
+  in checkDomain l.getAttribute("href") will not have a match.
+  Now I update checkDomain to solve this problem.
+** DONE regression again after update checkDomain.		      :fixed:
+   http://cantorion.org/recordings/?form_main__action=&sort=favourites-desc&type=audio&page=2
+   http://drupal.org/getting-started
+   stop working
+* DONE can't go to next page
+  http://cantorion.org/recordings/?form_main__action=&sort=favourites-desc&type=audio&page=2
+  <a href='javascript:$("form_main_page").value=3;$("form_main").submit();'>Next</a>
+  this is fixed by earlier updates.
+* DONE page not working:
+  http://www.mail-archive.com/debian-user@lists.debian.org/msg535462.html
+  <a href="msg535467.html" accesskey="n" title="Later messages"><img src="/rightarrow.png" alt="right arrow" border="0" height="22" width="20" align="top"></a>
+
+  BUGFIX should use .getAttribute("accesskey") to check the value.
+* DONE add support for reading drupal document
+  test page: http://drupal.org/getting-started
+  test page: http://drupal.org/documentation/customization/tutorials/beginners-cookbook
+
+  <a href="/getting-started/before/overview" 
+  class="page-next"
+  title="Go to next page">The Drupal overview ›</a>
+
+  isNextPageLink: also check l.title
+* DONE action for link (href) and button (onclick) should be very different.
+* DONE use Application to do logging.
 * DONE doesn't work on amazon list all reviews:
   http://www.amazon.com/Lenovo-ThinkPad-90W-AC-Adapter/product-reviews/B000BUIP6K/ref=cm_cr_pr_top_link_next_2?ie=UTF8&showViewpoints=0&pageNumber=2&sortBy=bySubmissionDateDescending
   Next ›
