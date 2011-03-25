@@ -17,10 +17,20 @@
 // section 4, provided you include this license notice and a URL
 // through which recipients can access the Corresponding Source.
 
+// TODO search for debugging code, with mark: /**/
+
 // all our functions and vars will be inside this object.
 if (typeof nextpage === 'undefined') {
     var nextpage = {};
 };
+
+nextpage.debugging = false;
+
+// the FUEL Application
+if (! nextpage.app) {
+    nextpage.app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
+    nextpage.log = nextpage.app.console.log;
+}
 
 /**
  * l10n strings defined in locale/en-US/nextpage.properties
@@ -58,9 +68,17 @@ nextpage.historyBack = function () {
  * this function will be bind to 2 key by default
  */
 nextpage.gotoNextPage = function () {
+    /**/nextpage.log("in gotoNextPage");
     var nextpageLink = nextpage.getNextPageLink();
     if (nextpageLink) {
-	content.location = nextpageLink.href;
+	if (nextpageLink.hasAttribute("href")) {
+	    content.location = nextpageLink.href;
+	} else if (nextpageLink.hasAttribute("onclick")) {
+	    if (nextpage.debugging) {
+		nextpage.log("found onclick attribute. will now execute click().");
+	    }
+	    nextpageLink.click();
+	}
     }
     // else {
     // 	//TODO show a nice auto timeout message at the bottom of the
@@ -107,11 +125,16 @@ nextpage.inArray = function (element, array) {
 
 /**
  * @param url a url string
- * @return true if the url is a file:// url or if the url matches the
- * document domain. thus the url passed the domain check.
+ * @return true if the url pass the domain check.
+ * This means the url matches the document domain, or it's a file:// or
+ * javascript: url.
  * @return false otherwise. thus the url failed the domain check.
  */
 nextpage.checkDomain = function (url) {
+    if (url.match(/javascript:/i)) {
+	return true;
+    }
+
     var domainPattern = /^([^:]+):\/\/\/?([^:\/]+)/;
     var matchResult = domainPattern.exec(url);
     if (! matchResult) {
@@ -150,7 +173,7 @@ nextpage.checkDomain = function (url) {
 nextpage.matchesNext = function (str) {
     // ignore case.
     // TODO make this regexp configurable
-    var nextPattern = /(?:>Next Page<|^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
+    var nextPattern = /(?:^\s*next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
     return nextPattern.test(str);
 };
 
@@ -161,6 +184,7 @@ nextpage.matchesNext = function (str) {
  */
 nextpage.isNextPageLink = function (l) {
     var imgMaybe;
+    var spanMaybe;
 
     // check rel
     if (l.rel) {
@@ -200,6 +224,42 @@ nextpage.isNextPageLink = function (l) {
 	    return true;
 	}
     }
+    // check inner <span> tag
+    spanMaybe = l.getElementsByTagName("SPAN");
+    if (spanMaybe.length !== 0) {
+	if (nextpage.matchesNext(spanMaybe[0].innerHTML))
+	    return true;
+    }
+
+    return false;
+};
+
+/**
+ * @param l an INPUT type="button" object
+ * @return true if this button is link to next page
+ * @return false otherwise
+ */
+nextpage.isNextPageButton = function (l) {
+    // check value
+    if (l.value) {
+	if (nextpage.matchesNext(l.value)) {
+	    return true;
+	}
+    }
+
+    // check title
+    if (l.title) {
+	if (nextpage.matchesNext(l.title)) {
+	    return true;
+	}
+    }
+
+    // check accesskey
+    if (l.accesskey === 'n') {
+	// some well written html already use accesskey n to go to
+	// next page, in firefox you could just use Alt-Shift-n.
+	return true;
+    }
 
     return false;
 };
@@ -212,7 +272,8 @@ nextpage.isNextPageLink = function (l) {
  */
 nextpage.getNextPageLink = function () {
     var links;
-    var re;
+    var nodes;
+    // var re;
 
     /*
      * special case for some website, pre-generic
@@ -252,9 +313,9 @@ nextpage.getNextPageLink = function () {
 
     // check <input type="button" ...>
     nodes = content.document.getElementsByTagName('INPUT');
-    for (var j = 0; j < links.length; j++) {
-	if (nextpage.isNextPageButton(links[j])) {
-	    return links[j];
+    for (var j = 0; j < nodes.length; j++) {
+	if (nextpage.isNextPageButton(nodes[j])) {
+	    return nodes[j];
 	}
     }
 
@@ -282,6 +343,10 @@ nextpage.getNextPageLink = function () {
 // main()
 // updateHotKeys on startup.
 window.addEventListener("load", nextpage.updateHotKeys, false);
+if (nextpage.debugging) {
+    nextpage.log("nextpage ready.");
+    nextpage.app.console.open();
+}
 
 /**
  * debug only functions
