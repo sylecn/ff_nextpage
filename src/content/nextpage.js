@@ -20,6 +20,11 @@
 // TODO search for debugging code, with mark: /**/
 
 var nextpage = {
+    prefsNameList: ["extensions.nextpage.use-space",
+		    "extensions.nextpage.use-n-p",
+		    "extensions.nextpage.use-1-2",
+		    "extensions.nextpage.use-alt-n"],
+
     init: function () {
 	// the FUEL Application
 	this.app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
@@ -47,6 +52,14 @@ var nextpage = {
     },
 
     keypress: function(e) {
+	// /**/this.log(this.debug.show(e.target));
+
+	// ignore keyevents in XUL, only catch keyevents in content.
+	if (e.target["namespaceURI"] ===
+	    "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul") {
+	    return;
+	}
+
 	var key = this.utils.describeKeyInEmacsNotation(e);
 	if (nextpage.debug.debugging) {
 	    nextpage.log("keypressed: " + key);
@@ -60,11 +73,6 @@ var nextpage = {
 	    return;
 	}
     },
-
-    prefsNameList: ["extensions.nextpage.use-space",
-		    "extensions.nextpage.use-n-p",
-		    "extensions.nextpage.use-1-2",
-		    "extensions.nextpage.use-alt-n"],
 
     updateStatus: function () {
 	this.prefsValueList = this.prefsNameList.map(function (v, index, ar) {
@@ -342,8 +350,8 @@ var nextpage = {
 	// 	  content.document).get(0)) {
 	// 	re = $('a > img[src$=".gif"]', content.document).filter(
 	// 	    function (index) {
-	// 		return ((this.src == "walking.gif") ||
-	// 			(this.src == "flying.gif"))
+	// 		return ((this.src === "walking.gif") ||
+	// 			(this.src === "flying.gif"))
 	// 	    }
 	// 	).get(0);
 	// 	if (re) {
@@ -356,7 +364,7 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging: false,
+    debugging: !false,
     debugATag: false,
     debugDomainCheck: false,
 
@@ -371,6 +379,30 @@ nextpage.debug = {
 	    }
 	}
 	return re;
+    },
+
+    dirStrict: function (obj) {
+	var dirResult = [];
+	for (prop in obj) if (obj.hasOwnProperty(prop)) {
+	    dirResult.push([prop, typeof obj[prop]].join(': '));
+	}
+	return dirResult.join('\n');
+    },
+
+    dir: function (obj) {
+	var dirResult = [];
+	for (prop in obj) {
+	    dirResult.push([prop, typeof obj[prop]].join(': '));
+	}
+	return dirResult.join('\n');
+    },
+
+    show: function (obj, listOfProp) {
+	var dirResult = [];
+	for (prop in (listOfProp || obj)) {
+	    dirResult.push([prop, obj[prop]].join(': '));
+	}
+	return dirResult.join('\n');
     }
 };
 
@@ -512,7 +544,7 @@ nextpage.utils = {
 	var keyIsChar = (e.charCode != 0);
 	var keyname = keyIsChar ? this.itoa(e.charCode) :
 	    getNameForKeyCode(e.keyCode);
-	if (keyname == " ") keyname = "SPC";  //SPC is emacs syntax and it's
+	if (keyname === " ") keyname = "SPC";  //SPC is emacs syntax and it's
 					      //more readable.
 	// /**/if (nextpage.debug.debugging) {
 	//     nextpage.log("keyname:" + keyname);
@@ -554,16 +586,16 @@ nextpage.prefWatcher = {
     }
 };
 
-window.addEventListener("load",
-			function(e) {
-			    // main()
-			    nextpage.init();
-			    nextpage.prefWatcher.startup();
-			},
-			false);
-window.addEventListener("unload",
-			function(e) {nextpage.prefWatcher.shutdown();},
-			false);
-window.addEventListener('keypress',
-			function(e) {nextpage.keypress(e); },
-			true);
+window.addEventListener("load", function (e) {
+    // main()
+    nextpage.init();
+    nextpage.prefWatcher.startup();
+}, false);
+
+window.addEventListener("unload", function (e) {
+    nextpage.prefWatcher.shutdown();
+}, false);
+
+window.addEventListener('keypress', function (e) {
+    nextpage.keypress(e);
+}, false);

@@ -1,4 +1,6 @@
 * 
+* regression: can't type in input box in webpage.
+* DONE regression: can't type n in location bar or search box.		 :rc:
 * binding keys appear twice in source code.				:low:
   remove the duplication.
   'SPC'
