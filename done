@@ -1,4 +1,14 @@
 
+* DONE regression: SPC key break google reader.				 :rc:
+  It does jump to next item. but it should not go to another page after that.
+
+  last <link rel="..."> in <head>.
+  <link rel="alternate" type="application/atom+xml" href="http://www.blogjava.net/jarod/rss.aspx" title="feed/http://www.blogjava.net/jarod/rss.aspx" id="auto-discovery">
+
+  one <span> in innerHTML contains " &gt;&gt; "!
+  <span class="name sub-name name-d-1" id="sub-tree-item-71-name" title="BlogJava-Jarod@termainal$ tail * &gt;&gt; blog">
+
+  fix regexp " &gt;&gt; ", merged with &gt; rule. added ^$ constrain.
 * DONE prepare for release 1.2.1
 ** DONE BUG can't enable/disable <key>.
    this bug must be fixed.

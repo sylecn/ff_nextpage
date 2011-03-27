@@ -181,7 +181,7 @@ var nextpage = {
     matchesNext: function (str) {
 	if (! str) return false;
 	// TODO make this regexp configurable
-	var nextPattern = /(?:^\s*(Go to )?(next page|Nächste Seite)|^\s*(next|nächste)\s*$|^\s*(next|nächste)\s*<|>\s*(next|nächste)$|>\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
+	var nextPattern = /(?:^\s*(Go to )?(next page|Nächste Seite)|^\s*(next|nächste)\s*$|^\s*(next|nächste)\s*<|>\s*(next|nächste)$|>\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^(››| ?(&gt;)+ ?)$|Next (Chapter )?(?:»|›)|^Thread Next$)/i;
 	return nextPattern.test(str);
     },
 
@@ -308,10 +308,13 @@ var nextpage = {
 	var head = content.document.getElementsByTagName('head');
 	if (head) {
 	    var lastElement = head[0].lastElementChild;
-	    if ((lastElement.tagName.toLowerCase() === "link") &&
+	    if ((lastElement.tagName.toUpperCase() === "LINK") &&
 		lastElement.hasAttribute('rel') &&
 		(lastElement.getAttribute('rel').toLowerCase() === "next")) {
 		// find a next page link
+		if (this.debug.debugging) {
+		    this.log("found <LINK rel=\"next\"> href=" + lastElement.href);
+		}
 		return lastElement;
 	    }
 	}
@@ -376,14 +379,15 @@ nextpage.debug = {
     // convert anchor (link) object to string
     linkToString: function (l) {
 	var re, prop;
-	re = "link ";
-	prop = ["href", "id", "name", "innerHTML", "accessKey", "rel"];
+	re = "link = {\n";
+	prop = ["rel", "accessKey", "title", "href", "innerHTML",
+		"id", "name"];
 	for (var i = 0; i < prop.length; i++) {
 	    if (l[prop[i]]) {
-		re += prop[i] + "=" + l[prop[i]] + " ";
+		re += prop[i] + ": " + l[prop[i]] + ",\n";
 	    }
 	}
-	return re;
+	return re + "}";
     },
 
     dirStrict: function (obj) {
@@ -428,7 +432,8 @@ nextpage.commands = {
 	if (nextpageLink) {
 	    if (nextpageLink.hasAttribute("href")) {
 		if (nextpage.debug.debugging) {
-		    nextpage.log("will goto link:" + nextpageLink.href);
+		    nextpage.log("will goto link:" + nextpageLink.href +
+				 nextpage.debug.linkToString(nextpageLink));
 		}
 		// FIX Issue 4: don't follow a link to index.html
 		if (nextpageLink.href.match(/index\....l?$/i)) {
