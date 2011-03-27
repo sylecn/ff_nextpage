@@ -1,4 +1,6 @@
 * 
+* rewrite preference observer using preload JS Module.			:low:
+  avoid explicit XPCOM calls.
 * release 1.2.1
 ** BUG can't enable/disable <key>.
    this bug must be fixed.
@@ -8,7 +10,8 @@
    chrome/firemacs.jar/content/keyhandler.js
    https://addons.mozilla.org/en-US/firefox/files/browse/114031
    He is not using <key>!
-
+** BUG <key>
+    keyNode.setAttribute("disabled", true), keyNode.disabled = true neither works.
 ** BUG in XUL, keyset can't have an id like
    <keyset id="nextpage-keyset">
    otherwise, the whole group is disabled.

@@ -19,12 +19,6 @@ nextpage.prefWatcher = {
 	// TODO where is addObserver documented?
 	this.prefs.addObserver("", this, false);
 
-	// get pref values
-	this.prefValues = this.prefList.map(function (prefId) {
-	    // fetch value for this prefId.
-	    return nextpage.prefWater.prefs.getBoolPref(prefId);
-	});
-
 	nextpage.updateHotKeys();
     },
     shutdown: function()
@@ -44,8 +38,48 @@ nextpage.prefWatcher = {
 
 nextpage.updateHotKeys = function () {
     // TODO how to enable/disable <key> in overlay.xul
-    document.getElementById("nextpage-key-1").disabled = true;
-    document.getElementById("nextpage-key-2").disabled = true;
+    var byId = function (id) {
+	if (typeof nextpage.mainWindow === 'undefined')
+	    nextpage.mainWindow = window.QueryInterface(
+		Components.interfaces.nsIInterfaceRequestor)
+	    .getInterface(Components.interfaces.nsIWebNavigation)
+	    .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+	    .rootTreeItem
+	    .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+	    .getInterface(Components.interfaces.nsIDOMWindow);
+	return nextpage.mainWindow.document.getElementById(id);
+	// return window.document.getElementById(id);
+    };
+
+    // get pref values
+    this.prefValues = this.prefList.map(function (prefId) {
+	// fetch value for this prefId.
+	return nextpage.prefWatcher.prefs.getBoolPref(prefId);
+    });
+
+    var disable12    = !nextpage.prefWatcher.prefList[0];
+    var disableSpace = !nextpage.prefWatcher.prefList[1];
+    var disableNP    = !nextpage.prefWatcher.prefList[2];
+    var disableAltN  = !nextpage.prefWatcher.prefList[3];
+
+    var disableMaybe = function (id, disable) {
+    	var key = byId(id);
+    	if ((! key) || (key.tagName !== 'key')) {
+    	    alert('Can\'t find key node. id = ' + id);
+    	}
+    	if (disable) {
+    	    key.disabled = true;
+    	} else {
+    	    key.disabled = false;
+    	    // key.removeAttribute('disabled');
+    	}
+    };
+    disableMaybe('nextpage-key-1', disable12);
+    disableMaybe('nextpage-key-2', disable12);
+    disableMaybe('nextpage-key-space', disableSpace);
+    disableMaybe('nextpage-key-n', disableNP);
+    disableMaybe('nextpage-key-p', disableNP);
+    disableMaybe('nextpage-key-alt-n', disableAltN);
 };
 
 // main()
