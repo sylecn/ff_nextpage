@@ -1,4 +1,28 @@
 
+* DONE prepare for release 1.2.1
+** DONE BUG can't enable/disable <key>.
+   this bug must be fixed.
+   need to rewrite src/content/update-hotkeys.js
+
+   maybe I should not use <key> at the first place. see how firemacs do it:
+   chrome/firemacs.jar/content/keyhandler.js
+   https://addons.mozilla.org/en-US/firefox/files/browse/114031
+   He is not using <key>!
+** BUG <key>							    :wontfix:
+    keyNode.setAttribute("disabled", true), keyNode.disabled = true neither works.
+** BUG in XUL, keyset can't have an id like			    :wontfix:
+   <keyset id="nextpage-keyset">
+   otherwise, the whole group is disabled.
+
+   I'm sure that id is not used by other elements.
+
+   took me a long time to figure this out.
+* DONE how to use the options defined in prefwindow.xul?
+** DONE how to fetch that value in nextpage.js?
+   ref: https://developer.mozilla.org/En/Firefox_addons_developer_guide/Using_XPCOM%e2%80%94Implementing_advanced_processes
+   actually there is no need to fetch the property. see the entry below.
+** check/uncheck the option should trigger a function call to add
+   binding/remove binding.
 * DONE regression: can't type n in location bar or search box.		 :rc:
 * DONE regression: can't type in input box in webpage.
   <key> will not be triggered on <input> tag in HTML document.

@@ -1,50 +1,8 @@
 * 
-* binding keys appear twice in source code.				:low:
-  remove the duplication.
-  'SPC'
-  'n'
-  ...
-* rewrite preference observer using preload JS Module.			:low:
-  avoid explicit XPCOM calls.
-* release 1.2.1
-** DONE BUG can't enable/disable <key>.
-   this bug must be fixed.
-   need to rewrite src/content/update-hotkeys.js
-
-   maybe I should not use <key> at the first place. see how firemacs do it:
-   chrome/firemacs.jar/content/keyhandler.js
-   https://addons.mozilla.org/en-US/firefox/files/browse/114031
-   He is not using <key>!
-** BUG <key>							    :wontfix:
-    keyNode.setAttribute("disabled", true), keyNode.disabled = true neither works.
-** BUG in XUL, keyset can't have an id like			    :wontfix:
-   <keyset id="nextpage-keyset">
-   otherwise, the whole group is disabled.
-
-   I'm sure that id is not used by other elements.
-
-   took me a long time to figure this out.
-* http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
-  <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
-* test what happens if the user has 'Find As You Type' on
-** How to activate 'Find As You Type' in Firefox
-   Tools - Options - Advanced - General
-   Select 'Search for text when I start typing'
-* keep addon page up-to-date
-  https://addons.mozilla.org/en-US/firefox/addon/53484
-* integrate nextpage to firemacs, and keep the two versions going.
-  both the independent and the one inside firemacs.
-  of course I need to rewrite firemacs, esp the UI, before that.
-* TODO then submit addon to http://www.babelzilla.org/
-   after I add preference/options window.
-* make bindings configurable, also for firemacs.
-* how to use the options defined in prefwindow.xul?
-** DONE how to fetch that value in nextpage.js?
-   ref: https://developer.mozilla.org/En/Firefox_addons_developer_guide/Using_XPCOM%e2%80%94Implementing_advanced_processes
-   actually there is no need to fetch the property. see the entry below.
-** check/uncheck the option should trigger a function call to add
-   binding/remove binding.
 * pages not working
+** reason unknown
+   http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
+   <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
 ** pages with frames
    https://addons.mozilla.org/en-US/firefox/files/browse/66631
    when there is no scrollbar and no nextpage link.
@@ -74,6 +32,18 @@
     http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
     one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at
     center, end of article)
+* test what happens if the user has 'Find As You Type' on
+** How to activate 'Find As You Type' in Firefox
+   Tools - Options - Advanced - General
+   Select 'Search for text when I start typing'
+* keep addon page up-to-date
+  https://addons.mozilla.org/en-US/firefox/addon/53484
+* integrate nextpage to firemacs, and keep the two versions going.
+  both the independent and the one inside firemacs.
+  of course I need to rewrite firemacs, esp the UI, before that.
+* TODO then submit addon to http://www.babelzilla.org/
+   after I add preference/options window.
+* make bindings configurable, also for firemacs.
 * firefox china								:low:
   http://addons.sociz.com/firefox/
   my addon is not shown on this "official" website.
@@ -99,3 +69,10 @@
   <a href="foo.html"><img src="flying.gif"></a>
 
   need jQuery to do this effectively.
+* binding keys appear twice in source code.				:low:
+  remove the duplication.
+  'SPC'
+  'n'
+  ...
+* rewrite preference observer using preload JS Module.			:low:
+  avoid explicit XPCOM calls.
