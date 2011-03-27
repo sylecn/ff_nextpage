@@ -59,9 +59,9 @@ var nextpage = {
 	    "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul") {
 	    return;
 	}
-	// ignore keyevents in HTML input control.
+	// ignore keyevents in HTML input controls.
 	var focusElement = content.document.activeElement;
-	if (focusElement.tagName.toUpperCase() === "INPUT") {
+	if (focusElement.tagName.match(/^(INPUT|TEXTAREA)$/i)) {
 	    return;
 	}
 
