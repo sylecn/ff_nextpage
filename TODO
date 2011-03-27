@@ -1,6 +1,4 @@
 * 
-* regression: can't type in input box in webpage.
-* DONE regression: can't type n in location bar or search box.		 :rc:
 * binding keys appear twice in source code.				:low:
   remove the duplication.
   'SPC'
@@ -17,9 +15,9 @@
    chrome/firemacs.jar/content/keyhandler.js
    https://addons.mozilla.org/en-US/firefox/files/browse/114031
    He is not using <key>!
-** BUG <key>
+** BUG <key>							    :wontfix:
     keyNode.setAttribute("disabled", true), keyNode.disabled = true neither works.
-** BUG in XUL, keyset can't have an id like
+** BUG in XUL, keyset can't have an id like			    :wontfix:
    <keyset id="nextpage-keyset">
    otherwise, the whole group is disabled.
 

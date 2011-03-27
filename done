@@ -1,4 +1,10 @@
 
+* DONE regression: can't type n in location bar or search box.		 :rc:
+* DONE regression: can't type in input box in webpage.
+  <key> will not be triggered on <input> tag in HTML document.
+  but keypress event will.
+
+  update keypress(e) function and gotoNextPageMaybe().
 * DONE baidu tieba fail (using menu) when I enable all debugging.
   edit:
   pages with lots of A tag link will fail if you have set debugATag or

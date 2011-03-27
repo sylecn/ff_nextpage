@@ -59,6 +59,11 @@ var nextpage = {
 	    "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul") {
 	    return;
 	}
+	// ignore keyevents in HTML input control.
+	var focusElement = content.document.activeElement;
+	if (focusElement.tagName.toUpperCase() === "INPUT") {
+	    return;
+	}
 
 	var key = this.utils.describeKeyInEmacsNotation(e);
 	if (nextpage.debug.debugging) {
@@ -364,7 +369,7 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging: !false,
+    debugging: false,
     debugATag: false,
     debugDomainCheck: false,
 
@@ -448,13 +453,6 @@ nextpage.commands = {
      * this function will be bind to SPC key by default
      */
     gotoNextPageMaybe: function () {
-	// return if event fired on a checkbox.
-	// space on checkbox should do check/uncheck only.
-	var focusElement = content.document.activeElement;
-	if (focusElement.tagName.toLowerCase() === "input") {
-	    return undefined;
-	}
-
 	if (nextpage.isAtBottom()) {
 	    // go to next page
 	    nextpage.commands.gotoNextPage();
