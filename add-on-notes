@@ -3,14 +3,14 @@ Gecko & firefox version compare
 https://developer.mozilla.org/en/Gecko
 also: http://en.wikipedia.org/wiki/History_of_Firefox
 
-| Firefox | Gecko |
-|---------+-------|
-|       3 |   1.9 |
-|     3.5 | 1.9.1 |
-|     3.6 | 1.9.2 |
-|    3.7a | 1.9.3 |
-|       4 |   2.0 |
-|         |       |
+| Firefox | Gecko | Javascript version                                      |
+|---------+-------+---------------------------------------------------------|
+|       3 |   1.9 | 1.8, add reduce(), reduceRight()                        |
+|     3.5 | 1.9.1 | 1.8.1, native JSON encode/decode, string trim()         |
+|     3.6 | 1.9.2 |                                                         |
+|    3.7a | 1.9.3 |                                                         |
+|       4 |   2.0 | 1.8.5, ECMAScript 5 Object and Object.prototype methods |
+|         |       |                                                         |
 
 * built-in functions
 ** base64
@@ -18,6 +18,12 @@ also: http://en.wikipedia.org/wiki/History_of_Firefox
    btoa
 ** md5/sha1
    Hashes can be computed using nsICryptoHash
+* built-in objects
+** KeyEvent  //https://developer.mozilla.org/en/DOM/Event/UIEvent/KeyEvent
+   KeyEvent.DOM_VK_RETURN
+   KeyEvent.DOM_VK_ENTER
+   KeyEvent.DOM_VK_ESCAPE
+   KeyEvent.DOM_VK_INSERT
 * built-in function in globalOverlay.js
 ** BrowserOpenExtensions('extensions'|'themes'|);
 ** var paste = readFromClipboard();

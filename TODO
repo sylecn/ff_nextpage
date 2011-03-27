@@ -1,8 +1,13 @@
 * 
+* binding keys appear twice in source code.				:low:
+  remove the duplication.
+  'SPC'
+  'n'
+  ...
 * rewrite preference observer using preload JS Module.			:low:
   avoid explicit XPCOM calls.
 * release 1.2.1
-** BUG can't enable/disable <key>.
+** DONE BUG can't enable/disable <key>.
    this bug must be fixed.
    need to rewrite src/content/update-hotkeys.js
 
