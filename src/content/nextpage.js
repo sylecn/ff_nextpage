@@ -181,7 +181,7 @@ var nextpage = {
     matchesNext: function (str) {
 	if (! str) return false;
 	// TODO make this regexp configurable
-	var nextPattern = /(?:^\s*(Go to )?next page|^\s*next\s*$|^\s*next\s*<|>\s*next$|>\s*next\W|next1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
+	var nextPattern = /(?:^\s*(Go to )?(next page|Nächste Seite)|^\s*(next|nächste)\s*$|^\s*(next|nächste)\s*<|>\s*(next|nächste)$|>\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^››$|^(?:&gt;)+$|Next (Chapter )?(?:»|›)|^Thread Next$| &gt;&gt; )/i;
 	return nextPattern.test(str);
     },
 
