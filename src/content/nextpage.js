@@ -419,7 +419,6 @@ nextpage.commands = {
 
     /**
      * goto next page if a next page link was found. otherwise do nothing.
-     * this function will be bind to 2 key by default
      */
     gotoNextPage: function () {
 	if (nextpage.debug.debugging) {
@@ -430,6 +429,15 @@ nextpage.commands = {
 	    if (nextpageLink.hasAttribute("href")) {
 		if (nextpage.debug.debugging) {
 		    nextpage.log("will goto link:" + nextpageLink.href);
+		}
+		// FIX Issue 4: don't follow a link to index.html
+		if (nextpageLink.href.match(/index\....l?$/i)) {
+		    return;
+		}
+		// don't follow a link to current page
+		if (nextpageLink.href ===
+		    content.document.location.toString()) {
+		    return;
 		}
 		content.location = nextpageLink.href;
 	    } else if (nextpageLink.hasAttribute("onclick")) {
@@ -446,7 +454,7 @@ nextpage.commands = {
 		nextpage.log("No link/button found. will stay at current page.");
 	    }
 	}
-	return this;
+	return;
     },
 
     /**
@@ -460,7 +468,7 @@ nextpage.commands = {
 	    // scroll up a page
 	    content.scrollByPages(1);
 	}
-	return undefined;
+	return;
     }
 };
 
