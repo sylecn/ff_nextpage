@@ -1,4 +1,10 @@
 
+* DONE 0 in [1,2] returns true. why?
+  because in means "prop in obj",
+  obj Array[0] exists, value is 1, so 0 in [1,2] return true.
+  for a non-empty array, 0 in ar will always be true.
+
+  in does not mean the set membership contained-in or a-member-of.
 * DONE do not capture SPC, 1, 2 on google reader.
 * DONE button tag is introduced in HTML 4. is checkbox or radio button also introduced.
   if so, add them to the list of HTML INPUT Controls.
