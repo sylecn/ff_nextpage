@@ -1,4 +1,92 @@
 
+* DONE pages with frames
+  https://addons.mozilla.org/en-US/firefox/files/browse/105117
+  when there is no scrollbar and no nextpage link.
+  nextpage will 'eat' the SPC key. and do scroll page.
+  while it should send SPC key event to element at mouse point?
+
+  http://ant.apache.org/manual/index.html
+  frames, same problem as last item.
+  the SPC should be passed to the element at point if failed to scroll?
+
+  these pages are working fine after I changed from <key> in XUL to keyevent
+  in JS. and removed "eat the key" code in keypress() handler.
+* DONE pages with frames
+  https://addons.mozilla.org/en-US/firefox/files/browse/105117
+  when there is no scrollbar and no nextpage link.
+  nextpage will 'eat' the SPC key. and do scroll page.
+  while it should send SPC key event to element at mouse point?
+
+  http://ant.apache.org/manual/index.html
+  frames, same problem as last item.
+  the SPC should be passed to the element at point if failed to scroll?
+
+  these pages are working fine after I changed from <key> in XUL to keyevent
+  in JS. and removed "eat the key" code in keypress() handler.
+** pages with frames
+   http://docs.amazonwebservices.com/AmazonSimpleDB/latest/DeveloperGuide/index.html?using.html
+   SPC does nothing.
+   <a accesskey="n" href="MakingRESTRequests.html"><img src="images/next.gif" alt="Next"></a>
+
+** SPC jump to one spot, not scrolling
+   http://tieba.baidu.com/f?kz=706343798
+   yahoo search
+
+** sites doesn't have right value for content.scrollY or content.scrollMaxY
+*** both are 0
+    http://bbs.sgamer.com/html/Post_328269.html
+*** content.scrollY is always 0
+    http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx
+
+** go to the wrong page
+*** ambiguity
+    http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
+    one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at
+    center, end of article)
+* DONE pages with frames
+  https://addons.mozilla.org/en-US/firefox/files/browse/105117
+  when there is no scrollbar and no nextpage link.
+  nextpage will 'eat' the SPC key. and do scroll page.
+  while it should send SPC key event to element at mouse point?
+
+  http://ant.apache.org/manual/index.html
+  frames, same problem as last item.
+  the SPC should be passed to the element at point if failed to scroll?
+
+  these pages are working fine after I changed from <key> in XUL to keyevent
+  in JS. and removed "eat the key" code in keypress() handler.
+** pages with frames
+   http://docs.amazonwebservices.com/AmazonSimpleDB/latest/DeveloperGuide/index.html?using.html
+   SPC does nothing.
+   <a accesskey="n" href="MakingRESTRequests.html"><img src="images/next.gif" alt="Next"></a>
+
+** SPC jump to one spot, not scrolling
+   http://tieba.baidu.com/f?kz=706343798
+   yahoo search
+
+** sites doesn't have right value for content.scrollY or content.scrollMaxY
+*** both are 0
+    http://bbs.sgamer.com/html/Post_328269.html
+*** content.scrollY is always 0
+    http://msdn.microsoft.com/en-us/library/t65b74ad%28VS.80%29.aspx
+
+** go to the wrong page
+*** ambiguity
+    http://www.readwriteweb.com/archives/top_10_semantic_web_products_of_2009.php
+    one is "Next Post »" (twice, at top and bottom) the other is "Next  »" (at
+    center, end of article)
+* DONE BUG I don't need to eat the key.				      :fixed:
+removed:
+// 	e.stopPropagation();
+// 	e.preventDefault();
+
+this solves the rc bug that nextpage eat unexpected keys.
+* DONE nextpage should not capture n on
+  https?://www.google.com/transliterate/chinese
+
+  nextpage also break SPC and delete.
+  ignored keys on that website.
+* DONE add window title for preference window
 * DONE 0 in [1,2] returns true. why?
   because in means "prop in obj",
   obj Array[0] exists, value is 1, so 0 in [1,2] return true.

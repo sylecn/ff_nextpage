@@ -58,7 +58,8 @@ var nextpage = {
 	 */
 	// TODO make this list configurable.
 	this.ignoreBindingAList = [
-	    [/https?:\/\/www.google.com\/reader\/view/i, ['SPC', '1', '2']]
+	    [/https?:\/\/www\.google\.com\/reader\/view/i, ['SPC', '1', '2']],
+	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"]
 	];
 
 	if (nextpage.debug.debugging) {
@@ -78,7 +79,8 @@ var nextpage = {
 	for (var pair in it) {
 	    // ignore the index, get the value in pair.
 	    v = pair[1];
-	    if (url.match(v[0]) && this.utils.inArray(key, v[1])) {
+	    if (url.match(v[0]) &&
+		(v[1] === "*" || this.utils.inArray(key, v[1]))) {
 		if (this.debug.debugging) {
 		    this.log("ignore " + key + " for " + v[0]);
 		}
@@ -89,6 +91,7 @@ var nextpage = {
     },
 
     keypress: function (e) {
+	var command;
 	// /**/this.log(this.debug.show(e.target));
 
 	// ignore keyevents in XUL, only catch keyevents in content.
@@ -107,13 +110,8 @@ var nextpage = {
 	    nextpage.log("keypressed: " + key);
 	}
 	if (this.status[key] && ! this.ignore(key)
-	    && (re = this.binding[key])) {
-	    re();
-
-	    e.stopPropagation();
-	    e.preventDefault();
-	} else {
-	    return;
+	    && (command = this.binding[key])) {
+	    command();
 	}
     },
 
@@ -219,7 +217,8 @@ var nextpage = {
     matchesNext: function (str) {
 	if (! str) return false;
 	// TODO make this regexp configurable
-	var nextPattern = /(?:^\s*(Go to )?(next page|Nächste Seite)|^\s*(next|nächste)\s*$|^\s*(next|nächste)\s*<|>\s*(next|nächste)$|>\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|下一(?:页|糗事|章|回)|下页|\[下一页\]|后一页|^(››| ?(&gt;)+ ?)$|Next (Chapter )?(?:»|›)|^Thread Next$)/i;
+	// TODO is (>|^)\s*(next|nächste)\W too eager?
+	var nextPattern = /(?:^\s*((Go to )?next page|Nächste Seite)|(^|>)\s*(next|nächste)\s*(<|$)|(>|^)\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|(下|后)一?(?:页|糗事|章|回)|^(››| ?(&gt;)+ ?)$|Next (Chapter )?(?:»|›|&gt;)|^Thread Next$)/i;
 	return nextPattern.test(str);
     },
 
@@ -469,17 +468,21 @@ nextpage.commands = {
 	var nextpageLink = nextpage.getNextPageLink();
 	if (nextpageLink) {
 	    if (nextpageLink.hasAttribute("href")) {
-		if (nextpage.debug.debugging) {
-		    nextpage.log("will goto link:" + nextpageLink.href +
-				 nextpage.debug.linkToString(nextpageLink));
-		}
 		// FIX Issue 4: don't follow a link to index.html
 		if (nextpageLink.href.match(/index\....l?$/i)) {
-		    return;
+		    return false;
 		}
 		// don't follow a link to current page
 		if (nextpageLink.href === nextpage.utils.getURL()) {
-		    return;
+		    return false;
+		}
+		if (nextpage.debug.debugging) {
+		    nextpage.log("will goto link:" + nextpageLink.href + "\n" +
+				 nextpage.debug.linkToString(nextpageLink));
+		}
+		if (nextpage.debug.debugging) {
+		    nextpage.log("will goto link:" + nextpageLink.href +
+				 nextpage.debug.linkToString(nextpageLink));
 		}
 		content.location = nextpageLink.href;
 	    } else if (nextpageLink.hasAttribute("onclick")) {
@@ -488,15 +491,17 @@ nextpage.commands = {
 		}
 		nextpageLink.click();
 	    }
+	    // if there is a chance to return anything.
+	    return true;
 	} else {
-	    // TODO show a nice auto timeout message at the bottom of the content
-	    // window. using html and css. use msg in
+	    // TODO show a nice auto timeout message at the bottom of the
+	    // content window. using html and css. use msg in
 	    // nextpage.strings.getString("msg_no_link_found")
 	    if (nextpage.debug.debugging) {
 		nextpage.log("No link/button found. will stay at current page.");
 	    }
+	    return false;
 	}
-	return;
     },
 
     /**
@@ -505,12 +510,9 @@ nextpage.commands = {
     gotoNextPageMaybe: function () {
 	if (nextpage.isAtBottom()) {
 	    // go to next page
-	    nextpage.commands.gotoNextPage();
-	} else {
-	    // scroll up a page
-	    content.scrollByPages(1);
+	    return nextpage.commands.gotoNextPage();
 	}
-	return;
+	return false;
     }
 };
 

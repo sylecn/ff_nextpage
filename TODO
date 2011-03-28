@@ -1,25 +1,30 @@
 * 
 * pages not working
+** yahoo search
+   http://search.yahoo.com/search;_ylt=A0oG7hM1TJBNBl0AOwal87UF;_ylc=X1MDUCM5NTgxMDQ2OQRfcgMyBGFvAzEEZnIDc2ZwBGZyMgNzYnRuBGhvc3RwdmlkA1VmaU1xa29HN3Y3OU9NQUFUVU5UMHcwZFJuRFR3MDJRVERVQUIwMFIEbl9ncHMDMTAEb3JpZ2luA3NycARxdWVyeQN5YWhvbyBzZWFyY2gEc2FvAzEEdnRlc3RpZAM-?p=yahoo+search&fr=sfp&fr2=&iscqry=
+   add Next &gt; to regexp
 ** reason unknown
    http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
    <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
-** pages with frames
-   https://addons.mozilla.org/en-US/firefox/files/browse/66631
-   when there is no scrollbar and no nextpage link.
-   nextpage will 'eat' the SPC key. and do scroll page.
-   while it should send SPC key event to element at mouse point?
-
-   http://ant.apache.org/manual/index.html
-   frames, same problem as last item.
-   the SPC should be passed to the element at point if failed to scroll?
-
+** page with complex frames, can't get nextpage link.			:low:
    http://docs.amazonwebservices.com/AmazonSimpleDB/latest/DeveloperGuide/index.html?using.html
-   SPC does nothing.
+   Here is the frameset in source:
+   <frameset rows="50,*" cols="*" frameborder="no" color="#006699" onload="loadContent()">
+      <frame src="_title.html" name="titleFrame" scrolling="no" noresize="yes">
+      <frameset cols="220,*">
+         <frame src="_toc.html" name="navFrame" scrolling="yes">
+
+         <frame src="Welcome.html" name="mainFrame" onload="extractFileName()">
+      </frameset>
+   </frameset>
+
+   no <a> tag in the source. page is dynamically loaded?
+
+   using view selection source:
    <a accesskey="n" href="MakingRESTRequests.html"><img src="images/next.gif" alt="Next"></a>
 
 ** SPC jump to one spot, not scrolling
    http://tieba.baidu.com/f?kz=706343798
-   yahoo search
 
 ** sites doesn't have right value for content.scrollY or content.scrollMaxY
 *** both are 0
