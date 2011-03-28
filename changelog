@@ -1,5 +1,11 @@
 -*- mode: org -*-
 * 
+* v1.3.1
+feature:
+bugfix:
+dev:
+  change source layout.
+  since firefox 4 does not need a jar file, now I just pack in place.
 * v1.3.0
 feature:
   preferences window added.

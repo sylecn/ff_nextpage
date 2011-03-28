@@ -1,4 +1,5 @@
-content	nextpage content/
-locale	nextpage en-US locale/en-US/
-locale	nextpage zh-CN locale/zh-CN/
+resource nextpage modules/
+content	nextpage chrome/content/
+locale	nextpage en-US chrome/locale/en-US/
+locale	nextpage zh-CN chrome/locale/zh-CN/
 overlay	chrome://browser/content/browser.xul chrome://nextpage/content/overlay.xul

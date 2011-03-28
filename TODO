@@ -1,4 +1,33 @@
 * 
+* BUG src/chrome.manifest duplicates with xpi-ff4/chrome.manifest
+* before release
+** test it in firefox 4							 :rc:
+** test 3.5/3.6/4 in windows						 :rc:
+** test it in firefox 3
+* add report bug link in preferences window.
+* add user config file.
+** which dir
+   $profile or $HOME
+
+   accept both. the user can create/edit both. load order is 
+   --$HOME/.nextpage.json        # for all profiles, all firefox versions.
+   $profile/.nextpage.json       # for this profile only.
+   No error if they do not exists.
+
+   // side note: maybe I can avoid using preferences. write preferences always
+   // flash my hard disk lights. my preferences value has only 3 booleans!
+   // but firefox 4 offer the ability to sync profiles online, so using
+   // preferences has some advantages.
+** syntax
+   JS eval is good. eval in sandbox.
+   JSON syntax is easy to read/write. JSON can be parsed, no need to call eval.
+
+   see example in ~/.nextpage.json
+** implementation
+   learn eval in sandbox and get
+   debugging: true
+   working.
+
 * pages not working
 ** with frames
 http://pubs.opengroup.org/onlinepubs/9699919799/
