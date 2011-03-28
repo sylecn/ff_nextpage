@@ -3,4 +3,3 @@
 <!ENTITY nextpage.prefpane.use-n-p "bind n/p">
 <!ENTITY nextpage.prefpane.use-1-2 "bind 1/2">
 <!ENTITY nextpage.prefpane.use-alt-n "bind Alt-n">
-<!ENTITY nextpage.prefpane.effective-on-next-firefox-restart "Hotkey change will be effective after firefox restarts.">

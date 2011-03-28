@@ -10,6 +10,7 @@ everything can be edit directly in about:config.
 
 <prefwindow
     id="nextpage-preferences"
+    title="nextpage Preferences"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <prefpane id="nextpage-prefpane" label="&nextpage.prefpane.label;">
