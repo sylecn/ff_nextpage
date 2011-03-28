@@ -1,8 +1,5 @@
 * 
 * pages not working
-** yahoo search
-   http://search.yahoo.com/search;_ylt=A0oG7hM1TJBNBl0AOwal87UF;_ylc=X1MDUCM5NTgxMDQ2OQRfcgMyBGFvAzEEZnIDc2ZwBGZyMgNzYnRuBGhvc3RwdmlkA1VmaU1xa29HN3Y3OU9NQUFUVU5UMHcwZFJuRFR3MDJRVERVQUIwMFIEbl9ncHMDMTAEb3JpZ2luA3NycARxdWVyeQN5YWhvbyBzZWFyY2gEc2FvAzEEdnRlc3RpZAM-?p=yahoo+search&fr=sfp&fr2=&iscqry=
-   add Next &gt; to regexp
 ** reason unknown
    http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml
    <a href="http://www.tianya.cn/publicforum/content/funinfo/1/1765096.shtml">下一页</a>
