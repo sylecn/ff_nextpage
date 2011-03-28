@@ -477,7 +477,7 @@ nextpage.commands = {
 		    return;
 		}
 		// don't follow a link to current page
-		if (nextpageLink.href === this.utils.getURL()) {
+		if (nextpageLink.href === nextpage.utils.getURL()) {
 		    return;
 		}
 		content.location = nextpageLink.href;
