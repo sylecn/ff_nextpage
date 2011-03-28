@@ -56,6 +56,7 @@ var nextpage = {
 	 * the key can be a literal string as well, which will be converted to
 	 * regexp by calling new RegExp(str).
 	 */
+	// TODO make this list configurable.
 	this.ignoreBindingAList = [
 	    [/https?:\/\/www.google.com\/reader\/view/i, ['SPC', '1', '2']]
 	];
