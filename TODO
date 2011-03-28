@@ -1,7 +1,5 @@
 * 
-* do not capture SPC, 1, 2 on google reader.
-* button tag is introduced in HTML 5. is checkbox or radio button also introduced.
-  if so, add them to the list of HTML INPUT Controls.
+* 0 in [1,2] returns true. why?
 * pages not working
 ** reason unknown
    http://www.tianya.cn/publicforum/content/funinfo/1/1764322.shtml

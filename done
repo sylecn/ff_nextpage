@@ -1,4 +1,8 @@
 
+* DONE do not capture SPC, 1, 2 on google reader.
+* DONE button tag is introduced in HTML 4. is checkbox or radio button also introduced.
+  if so, add them to the list of HTML INPUT Controls.
+  button tag is introduced in HTML 4, no other input control has their own tag.
 * DONE regression: SPC key break google reader.				 :rc:
   It does jump to next item. but it should not go to another page after that.
 

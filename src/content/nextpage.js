@@ -45,13 +45,49 @@ var nextpage = {
 	    'M-n' : nextpage.commands.gotoNextPage
 	};
 
+	/**
+	 * Some websites use the same hotkeys as nextpage. To prevent nextpage
+	 * from capturing the hotkeys, add the website and key binding they
+	 * use in this alist.
+	 *
+	 * the key of the alist is a regexp that matches to document URL.
+	 * the value of the alist is a list of keys to ignore.
+	 *
+	 * the key can be a literal string as well, which will be converted to
+	 * regexp by calling new RegExp(str).
+	 */
+	this.ignoreBindingAList = [
+	    [/https?:\/\/www.google.com\/reader\/view/i, ['SPC', '1', '2']]
+	];
+
 	if (nextpage.debug.debugging) {
 	    nextpage.log("nextpage ready.");
 	    nextpage.app.console.open();
 	}
     },
 
-    keypress: function(e) {
+    /**
+     * @return true if key should be ignored.
+     *
+     * this method use this.ignoreBinding object to decide which keys to ignore.
+     */
+    ignore: function (key) {
+	var url = this.utils.getURL();
+	var it = Iterator(this.ignoreBindingAList);
+	for (var pair in it) {
+	    // ignore the index, get the value in pair.
+	    v = pair[1];
+	    if (url.match(v[0]) && this.utils.inArray(key, v[1])) {
+		if (this.debug.debugging) {
+		    this.log("ignore " + key + " for " + v[0]);
+		}
+		return true;
+	    }
+	};
+	return false;
+    },
+
+    keypress: function (e) {
 	// /**/this.log(this.debug.show(e.target));
 
 	// ignore keyevents in XUL, only catch keyevents in content.
@@ -69,7 +105,8 @@ var nextpage = {
 	if (nextpage.debug.debugging) {
 	    nextpage.log("keypressed: " + key);
 	}
-	if (this.status[key] && (re = this.binding[key])) {
+	if (this.status[key] && ! this.ignore(key)
+	    && (re = this.binding[key])) {
 	    re();
 
 	    e.stopPropagation();
@@ -440,8 +477,7 @@ nextpage.commands = {
 		    return;
 		}
 		// don't follow a link to current page
-		if (nextpageLink.href ===
-		    content.document.location.toString()) {
+		if (nextpageLink.href === this.utils.getURL()) {
 		    return;
 		}
 		content.location = nextpageLink.href;
@@ -566,6 +602,13 @@ nextpage.utils = {
 	var re = keyIsChar ? ctrl + meta + keyname :
 	    '<' + ctrl + meta + shift + keyname + '>';
 	return re;
+    },
+
+    /**
+     * @return current page's URL as a string.
+     */
+    getURL: function () {
+	return content.location.toString();
     }
 };
 
@@ -582,11 +625,11 @@ nextpage.prefWatcher = {
 
 	nextpage.updateHotKeys();
     },
-    shutdown: function()
+    shutdown: function ()
     {
 	this.prefs.removeObserver("", this);
     },
-    observe: function(subject, topic, data)
+    observe: function (subject, topic, data)
     {
 	if (topic != "nsPref:changed")
 	{
