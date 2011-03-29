@@ -24,37 +24,11 @@ var nextpage = {
 		    "extensions.nextpage.use-n-p",
 		    "extensions.nextpage.use-1-2",
 		    "extensions.nextpage.use-alt-n"],
-    JSON: null,
-    JSIO: null,
-    FileIO: null,
-    DirIO: null,
 
     init: function () {
 	// the FUEL Application
 	this.app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
 	this.log = this.app.console.log;
-
-	// portable JSON support vi.
-	// nextpage.JSON
-	Components.utils.import("resource://nextpage/JSON.js", this);
-	if (this.debug.debugging && this.debug.debugModule) {
-	    if (this.JSON.stringify({a:1,b:2,c:3}) ===
-		'{"a":1,"b":2,"c":3}') {
-		this.log("JSON.js module loaded.");
-	    } else {
-		this.log("Error: JSON module stringify not working.");
-	    }
-	}
-
-	// nextpage.FileIO, nextpage.DirIO
-	Components.utils.import("resource://nextpage/IO.js", this);
-	// read user's config file at $HOME
-	var homeDir = this.DirIO.get("Home");
-	var profD = this.DirIO.get("ProfD");
-	if (this.debug.debugging && this.debug.debugModule) {
-	    this.log("IO.js module loaded");
-	    // this.log([homeDir.path, profD.path].join(':'));
-	}
 
 	/**
 	 * l10n strings defined in locale/en-US/nextpage.properties
@@ -435,12 +409,11 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging: !false,
+    debugging: false,
     debugKeyEvents: false,
     debugGotoNextPage: false,
     debugATag: false,
     debugDomainCheck: false,
-    debugModule: !false,
 
     // convert anchor (link) object to string
     linkToString: function (l) {

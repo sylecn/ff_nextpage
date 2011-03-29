@@ -29,7 +29,6 @@ everything can be edit directly in about:config.
 		  type="bool" />
     </preferences>
 
-    <box>
     <groupbox>
       <caption label="keybindings"/>
       <checkbox preference="extensions.nextpage.use-space"
@@ -45,21 +44,6 @@ everything can be edit directly in about:config.
 		label="&nextpage.prefpane.use-alt-n;"
 		checked="false" />
     </groupbox>
-    <groupbox>
-      <caption label="config file"/>
-      <box>
-	<vbox>
-	  <textbox id="nextpage-user-config" value="$HOME/.nextpage.json"/>
-	  <box>
-	    <button label="Create/Edit"
-		    oncommand="nextpage.config.createOrEdit()"/>
-	<button label="Reload" oncommand="nextpage.config.reload()"/>
-	  </box>
-
-	</vbox>
-      </box>
-    </groupbox>
-    </box>
 
     <groupbox>
       <caption label="links"/>
