@@ -1,4 +1,5 @@
 
+* DONE BUG src/chrome.manifest duplicates with xpi-ff4/chrome.manifest
 * DONE pages with frames
   https://addons.mozilla.org/en-US/firefox/files/browse/105117
   when there is no scrollbar and no nextpage link.

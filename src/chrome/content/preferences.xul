@@ -29,18 +29,46 @@ everything can be edit directly in about:config.
 		  type="bool" />
     </preferences>
 
-    <checkbox preference="extensions.nextpage.use-space"
-	      label="&nextpage.prefpane.use-space;"
-	      checked="true" />
-    <checkbox preference="extensions.nextpage.use-n-p"
-	      label="&nextpage.prefpane.use-n-p;"
-	      checked="true" />
-    <checkbox preference="extensions.nextpage.use-1-2"
-	      label="&nextpage.prefpane.use-1-2;"
-	      checked="false" />
-    <checkbox preference="extensions.nextpage.use-alt-n"
-	      label="&nextpage.prefpane.use-alt-n;"
-	      checked="false" />
+    <box>
+    <groupbox>
+      <caption label="keybindings"/>
+      <checkbox preference="extensions.nextpage.use-space"
+		label="&nextpage.prefpane.use-space;"
+		checked="true" />
+      <checkbox preference="extensions.nextpage.use-n-p"
+		label="&nextpage.prefpane.use-n-p;"
+		checked="true" />
+      <checkbox preference="extensions.nextpage.use-1-2"
+		label="&nextpage.prefpane.use-1-2;"
+		checked="false" />
+      <checkbox preference="extensions.nextpage.use-alt-n"
+		label="&nextpage.prefpane.use-alt-n;"
+		checked="false" />
+    </groupbox>
+    <groupbox>
+      <caption label="config file"/>
+      <box>
+	<vbox>
+	  <textbox id="nextpage-user-config" value="$HOME/.nextpage.json"/>
+	  <box>
+	    <button label="Create/Edit"
+		    oncommand="nextpage.config.createOrEdit()"/>
+	<button label="Reload" oncommand="nextpage.config.reload()"/>
+	  </box>
+
+	</vbox>
+      </box>
+    </groupbox>
+    </box>
+
+    <groupbox>
+      <caption label="links"/>
+      <label class="text-link"
+	     href="http://code.google.com/p/ff-nextpage/issues/list"
+	     value="Report bugs"/>
+    </groupbox>
 
   </prefpane>
+
+  <script src="config.js"/>
 </prefwindow>

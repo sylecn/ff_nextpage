@@ -53,7 +53,7 @@ var nextpage = {
 	var profD = this.DirIO.get("ProfD");
 	if (this.debug.debugging && this.debug.debugModule) {
 	    this.log("IO.js module loaded");
-	    this.log([homeDir.path, profD.path].join(':'));
+	    // this.log([homeDir.path, profD.path].join(':'));
 	}
 
 	/**
@@ -132,7 +132,7 @@ var nextpage = {
 	}
 
 	var key = this.utils.describeKeyInEmacsNotation(e);
-	if (nextpage.debug.debugging) {
+	if (nextpage.debug.debugging && nextpage.debug.debugKeyEvents) {
 	    nextpage.log("keypressed: " + key);
 	}
 	if (this.status[key] && ! this.ignore(key)
@@ -436,6 +436,8 @@ var nextpage = {
 
 nextpage.debug = {
     debugging: !false,
+    debugKeyEvents: false,
+    debugGotoNextPage: false,
     debugATag: false,
     debugDomainCheck: false,
     debugModule: !false,
@@ -489,7 +491,7 @@ nextpage.commands = {
      * goto next page if a next page link was found. otherwise do nothing.
      */
     gotoNextPage: function () {
-	if (nextpage.debug.debugging) {
+	if (nextpage.debug.debugging && nextpage.debug.debugGotoNextPage) {
 	    nextpage.log("in gotoNextPage()");
 	}
 	var nextpageLink = nextpage.getNextPageLink();
@@ -503,12 +505,9 @@ nextpage.commands = {
 		if (nextpageLink.href === nextpage.utils.getURL()) {
 		    return false;
 		}
-		if (nextpage.debug.debugging) {
+		if (nextpage.debug.debugging
+		    && nextpage.debug.debugGotoNextPage) {
 		    nextpage.log("will goto link:" + nextpageLink.href + "\n" +
-				 nextpage.debug.linkToString(nextpageLink));
-		}
-		if (nextpage.debug.debugging) {
-		    nextpage.log("will goto link:" + nextpageLink.href +
 				 nextpage.debug.linkToString(nextpageLink));
 		}
 		content.location = nextpageLink.href;

@@ -1,10 +1,22 @@
 * 
-* BUG src/chrome.manifest duplicates with xpi-ff4/chrome.manifest
+* how does prefwindow.xul talk to overlay.xul and nextpage.js?
+  use observer pattern?
+
+  prefwindow.xul needs to know where is $HOME, how to lunch editor,
+  how to parse the config file and get a user config object.
+
+  problem is overlay.xul is already running, so how prefwindow.xul can pass
+  that user config object to overlay.xul so it know the new pattern, debug
+  settings?
+** why is there not a obvious way to do it?
 * before release
 ** test it in firefox 4							 :rc:
 ** test 3.5/3.6/4 in windows						 :rc:
 ** test it in firefox 3
-* add report bug link in preferences window.
+* preferences window
+** add reload config file, edit config file button.
+** add translate strings for preferences.
+** add report bug link in preferences window.
 * add user config file.
 ** which dir
    $profile or $HOME
