@@ -11,13 +11,14 @@ feature:
   preferences window added.
     1/2/Alt-n is no longer binded by default.
     You can enable/disable predefined key bindings in preferences.
+  updated core nextpage regexp.
+    German language support (in review comments) added.
   can find nextpage link in buttons.
   can follow onclick="" style nextpage link.
   can disable bindings on specific website (No UI added yet).
     default rules added:
     disable SPC/1/2 binding on google reader website.
 bugfix:
-  updated nextpage regexp. German language support (in review comments) added.
   fix support for accesskey attribute
 dev:
   change naming style to javascript.
