@@ -1,4 +1,17 @@
 * 
+* in info html doc, when at the end of a topic, there is no next page link.
+should I jump to index of that topic? (follow the Up link)
+http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Tracing.html#Tracing
+** add better support for Info html doc.
+   recognize Info html doc from <head>, then, for Info html doc:
+   create bindings similar to the info program.
+   n/p   next/previous node
+   SPC   next page (linear)
+   u     jump up
+   l     go back
+   t     top
+
+   add commands in nextpage.commands.info namespace.
 * stopped development of 1.3.1, add a config file for the advanced user only.
   Do not add anything in preferences window. It's not worth the effort.
 * how does prefwindow.xul talk to overlay.xul and nextpage.js?
