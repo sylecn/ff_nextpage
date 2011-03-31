@@ -1,4 +1,9 @@
 * 
+* not work on
+** special page
+http://tronche.com/gui/x/xlib/introduction/
+<h5 align="right"><i>Next: <a href="overview.html">Overview of the X Window System</a></i></h5>
+also the PCL
 * in info html doc, when at the end of a topic, there is no next page link.
 should I jump to index of that topic? (follow the Up link)
 http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Tracing.html#Tracing
