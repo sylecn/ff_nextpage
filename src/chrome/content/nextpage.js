@@ -434,9 +434,9 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging: !false,
-    debugIFrame: !false,
-    debugKeyEvents: !false,
+    debugging: false,
+    debugIFrame: false,
+    debugKeyEvents: false,
     debugGotoNextPage: false,
     debugATag: false,
     debugDomainCheck: false,
