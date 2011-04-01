@@ -1,0 +1,25 @@
+#!/bin/sh
+
+PROFILE="$HOME/.mozilla/firefox/sa1uwb8v.dev"
+FILE="$PROFILE/extensions/nextpage@yuanle.song"
+
+if [ ! -d "$PROFILE" ]; then
+	echo "Error: profile $PROFILE not exists." > /dev/stderr
+	exit 1
+fi
+
+if [ -e "$FILE" ]; then
+	if [ -f "$FILE" ]; then
+		echo "file status ok. quit."
+		exit 0
+	elif [ -d "$FILE" ]; then
+		echo "rm dir $FILE."
+		rm -rf "$FILE"
+	fi
+fi
+
+cat > "$FILE" <<EOF
+~/projects/firefox/nextpage/src/
+EOF
+
+echo "$FILE created."
