@@ -3,9 +3,8 @@
 * v1.3.1
 feature:
 bugfix:
+  [Issue 6] do not catch keys on webmail/blog RichEdit UI.
 dev:
-  change source layout.
-  since firefox 4 does not need a jar file, now I just pack in place.
 * v1.3.0
 feature:
   preferences window added.
@@ -22,6 +21,7 @@ bugfix:
   fix support for accesskey attribute
 dev:
   change naming style to javascript.
+  change xpi layout and source code layout. Since now there is no jar file.
   use keyevent instead of <key> in overlay.xul to capture keypress events.
   completely rewrite checkDomain(). To support "javascript:" in href and more.
 * v1.2.0
