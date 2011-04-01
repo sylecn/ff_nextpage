@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>test iframe text editor box</title>
+    <script type="text/javascript">
+      function getTextInIFrame() {
+      document.getElementById("re").innerHTML = document.getElementById("ii").contentDocument.body.innerHTML;
+      document.getElementById("r1").innerHTML = "" + document.getElementById("ii").contentDocument.designMode;
+      document.getElementById("r2").innerHTML = "" + document.getElementById("ij").contentDocument.designMode;
+      document.getElementById("r3").innerHTML = "" + document.getElementById("ij").contentDocument.body.contentEditable;    //"inherit"
+      <!-- or *.body.textContent / innerHTML -->
+      }
+    </script>
+  </head>
+
+  <body>
+    <textarea>abc</textarea>
+    <iframe id="ii" src="iframe-edit.html" style="display: block;"> </iframe>
+    <iframe id="ij" src="iframe-noneditable.html" style="display: block;"> </iframe>
+    <button onclick="getTextInIFrame()">Get Text in IFrame Body</button>
+    <pre id="re"></pre>
+    <pre id="r1"></pre>
+    <pre id="r2"></pre>
+    <pre id="r3"></pre>
+  </body>
+
+</html>

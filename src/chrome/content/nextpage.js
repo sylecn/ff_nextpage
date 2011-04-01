@@ -59,7 +59,10 @@ var nextpage = {
 	// TODO make this list configurable.
 	this.ignoreBindingAList = [
 	    [/https?:\/\/www\.google\.com\/reader\/view/i, ['SPC', '1', '2']],
-	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"]
+	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"],
+	    // ignore common webmail hosts, nextpage bindings can do little on
+	    // these domains.
+	    [/\W(web)?mail\.[^.]+\.(com|org|net|edu)/i, "*"]
 	];
 
 	if (nextpage.debug.debugging) {
@@ -69,6 +72,7 @@ var nextpage = {
     },
 
     /**
+     * @param key a keyname returned by utils.describeKeyInEmacsNotation(e)
      * @return true if key should be ignored.
      *
      * this method use this.ignoreBinding object to decide which keys to ignore.
@@ -102,6 +106,27 @@ var nextpage = {
 	// ignore keyevents in HTML input controls.
 	var focusElement = content.document.activeElement;
 	if (focusElement.tagName.match(/^(INPUT|TEXTAREA)$/i)) {
+	    return;
+	}
+	// IFRAME is a also an input control when inner document.designMode is
+	// set to "on". Some blog/webmail rich editor use IFRAME in place of
+	// textarea.
+	if (nextpage.debug.debugging && nextpage.debug.debugIFrame) {
+	    if (focusElement.tagName === "IFRAME") {
+		this.log(focusElement.tagName +
+			 "\nfocusElement.contentEditable=" +
+			 focusElement.contentEditable +
+			 "\ndocument.designMode=" +
+			 focusElement.contentDocument.designMode +
+			 "\nbody.contentEditable=" +
+			 focusElement.contentDocument.body.contentEditable);
+	    }
+	}
+	// TODO some website is using IFRAME for textarea, but designMode is
+	// not set to "on", including: gmail, qq mail. I don't know how they
+	// make that work.
+	if (focusElement.tagName === "IFRAME" &&
+	    focusElement.contentDocument.designMode.toLowerCase() === "on") {
 	    return;
 	}
 
@@ -409,8 +434,9 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging: false,
-    debugKeyEvents: false,
+    debugging: !false,
+    debugIFrame: !false,
+    debugKeyEvents: !false,
     debugGotoNextPage: false,
     debugATag: false,
     debugDomainCheck: false,

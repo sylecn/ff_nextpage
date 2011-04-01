@@ -1,4 +1,43 @@
 
+* DONE Issue 6, can't type p on gmail when compose new mail.
+  gmail compose editor is not a textarea!
+  should disable nextpage on that site.
+
+** My solution:
+   add ignore website: /\W(web)?mail\.[^.]+\.(com|org|net|edu)\//i
+
+   add IFRAME as one of the possible input control.
+
+** what about other online webmail? what about editors in blog system and wikis?
+title contains "compose mail"
+** yahoo mail
+   IFRAME compose_editorArea
+   head style="#text"
+** gmail
+   plain text mode: use textarea
+
+   rich formatting:
+   IFRAME id=":ko" class="Am Al editable"    //.editable
+   HEAD style="#text"
+   BODY id=":yr" class="editable LW-yrriRe"
+
+   IFRAME document.designMode=off    !very special
+** qq mail
+   IFRAME document.designMode=off    !very special
+   class="QMEditorIfrmEditArea"
+** wordpress
+   title: add new post
+   use IFRAME id=content_ifr
+*** comment: use textarea. good.
+** blogger
+   title: create post
+   Hide compose mode: use textarea, good.
+   Old editor: IFRAME id=richeditorframe
+   updated editor: use textarea id=postingHtmlBox class=htmlBox, good.
+** DONE wikipedia, use textarea
+** DONE emacswiki, use textarea
+** DONE discuz new post, use textarea
+** DONE discuz reply, use textarea
 * DONE BUG src/chrome.manifest duplicates with xpi-ff4/chrome.manifest
 * DONE pages with frames
   https://addons.mozilla.org/en-US/firefox/files/browse/105117
