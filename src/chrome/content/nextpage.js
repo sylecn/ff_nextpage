@@ -105,7 +105,7 @@ var nextpage = {
 	}
 	// ignore keyevents in HTML input controls.
 	var focusElement = content.document.activeElement;
-	if (focusElement.tagName.match(/^(INPUT|TEXTAREA)$/i)) {
+	if (focusElement.tagName.match(/^(INPUT|TEXTAREA|SELECT)$/i)) {
 	    return;
 	}
 	// IFRAME is a also an input control when inner document.designMode is

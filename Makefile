@@ -3,7 +3,7 @@ SRC = src
 XPI_FILE = nextpage.xpi
 
 default:
-	@echo "make [xpi|ls|test|v]."
+	@echo "Usage: make [xpi|ls|test|v]"
 ls:
 	@echo "${PWD}/$(XPI_FILE)" | xsel -b
 	@echo "xpi file path copied to clipboard."
