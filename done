@@ -6,6 +6,17 @@ should do thread next, not date next.
 special case added.
 
 btw, osdir.com looks horrible without adblock plus!
+** edit: some links are broken.
+   http://osdir.com/ml/debian-user-debian/
+   search thread: Aptitude and apt-get curiosity.....
+   first thread:
+   http://osdir.com/ml/debian-user-debian/2011-04/msg00461.html
+   next thread link on it:
+   http://osdir.com/ml/debian-user-debian/2011-04/msg00469.html
+   the correct next thread:
+   http://osdir.com/ml/debian-user-debian/2011-04/msg00511.html
+
+   nextpage can't do anything about wrong links.
 * DONE Issue 6, can't type p on gmail when compose new mail.
   gmail compose editor is not a textarea!
   should disable nextpage on that site.
