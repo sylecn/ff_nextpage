@@ -1,7 +1,4 @@
-* 
-* wrong page on mailing list
-http://osdir.com/ml/emacs-orgmode-gnu/2010-05/msg00010.html
-should do thread next, not date next.
+*
 * not work on
 ** special page
 http://tronche.com/gui/x/xlib/introduction/
@@ -44,7 +41,7 @@ http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Tracing.html#Tracing
 ** which dir
    $profile or $HOME
 
-   accept both. the user can create/edit both. load order is 
+   accept both. the user can create/edit both. load order is
    --$HOME/.nextpage.json        # for all profiles, all firefox versions.
    $profile/.nextpage.json       # for this profile only.
    No error if they do not exists.

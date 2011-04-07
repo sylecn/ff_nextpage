@@ -342,6 +342,29 @@ var nextpage = {
 	return false;
     },
 
+    /*
+     * hook functions for special cases defined in
+     * nextpage.getNextPageLink.preGeneric and postGeneric.
+     *
+     * all hook functions are called with two arguments: url and doc.
+     * hook function should return false if no link is found, otherwise,
+     * it should return the link object.
+     */
+    getLinkForOsdirML: function (url, doc) {
+	// last <a> in div.osDirPrevNext. I wish I have jQuery at my disposal.
+	// $("div.osDirPrevNext > a:last")
+	var nodes = doc.getElementsByClassName("osDirPrevNext");  // FF3 only.
+	if (nodes.length < 1) {
+	    return false;
+	}
+	var links = nodes[0].getElementsByTagName("a");
+	var link = links[links.length - 1];
+	// /**/nextpage.log('innerHTML' + link.innerHTML);
+	if (link.innerHTML === "&gt;&gt;") {
+	    return link;
+	}
+	return false;
+    },
 
     /**
      * parse next page links in current document
@@ -351,12 +374,28 @@ var nextpage = {
     getNextPageLink: function () {
 	var links;
 	var nodes;
+	var i;
 	// var re;
 
 	/*
 	 * special case for some website, pre-generic
 	 */
-	// nothing yet.
+	var preGeneric = [
+	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML]
+	];
+	var url = this.utils.getURL();
+	for (i = 0; i < preGeneric.length; ++i) {
+	    if (url.match(preGeneric[i][0])) {
+		var re = preGeneric[i][1](url, content.document);
+		if (this.debug.debugging && this.debug.debugSpecialCase) {
+		    this.log("special case for " + preGeneric[i][0]);
+		    this.log("hook function returned " + re);
+		}
+		if (re) {
+		    return re;
+		}
+	    }
+	}
 
 	/*
 	  note: on some generated document (such as this one:
@@ -383,7 +422,7 @@ var nextpage = {
 
 	// check <a> links
 	var tagNameToCheck = ["A"];
-	for (var i = 0; i < tagNameToCheck.length; i++) {
+	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (var j = 0; j < links.length; j++) {
 		if (nextpage.debug.debugging) {
@@ -435,6 +474,7 @@ var nextpage = {
 
 nextpage.debug = {
     debugging: false,
+    debugSpecialCase: false,
     debugIFrame: false,
     debugKeyEvents: false,
     debugGotoNextPage: false,

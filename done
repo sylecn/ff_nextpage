@@ -1,4 +1,11 @@
 
+* DONE wrong page on mailing list
+http://osdir.com/ml/emacs-orgmode-gnu/2010-05/msg00010.html
+should do thread next, not date next.
+
+special case added.
+
+btw, osdir.com looks horrible without adblock plus!
 * DONE Issue 6, can't type p on gmail when compose new mail.
   gmail compose editor is not a textarea!
   should disable nextpage on that site.
