@@ -1,10 +1,11 @@
 -*- mode: org -*-
 * 
+* v1.3.2
+bugfix:
+  [Issue 7] do not catch keys on <select> element.
 * v1.3.1
-feature:
 bugfix:
   [Issue 6] do not catch keys on webmail/blog RichEdit UI.
-dev:
 * v1.3.0
 feature:
   preferences window added.
