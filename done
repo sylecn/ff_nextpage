@@ -1,4 +1,69 @@
 
+* not working on
+** DONE Discuz! X1.5
+http://www.barca.cn/thread-407188-1-1.html
+<a href="http://www.barca.cn/thread-407188-2-1.html" class="nxt">下一页</a>
+
+works in dev profile with debug on/off.
+does not work in default profile.
+probably not a bug of nextpage.
+
+default profile
+
+will goto link:javascript:;
+link = {
+href: javascript:;,
+innerHTML: 下页,
+}
+
+It's in a hidden div:
+
+#+BEGIN_SRC html
+  <div id="append_parent"><div class="sllt" style="display: none;" id="fastpostsml_menu"><div style="overflow: hidden;" id="fastpostsmiliesdiv"><div class="slg"><ul><li><a href="javascript:;" hidefocus="true" class="current" id="fastpoststype_1" onclick="smilies_switch('fastpostsmiliesdiv', '8', 1, 1, 'fastpost');if(CURRENTSTYPE) {$('fastpoststype_'+CURRENTSTYPE).className='';}this.className='current';CURRENTSTYPE=1;doane(event);">悠嘻猴</a></li><li>...洋葱头...</li><li>...呆呆男...</li></ul></div> ... <div class="z"><a href="javascript:;" onclick="smilies_switch('fastpostsmiliesdiv', '8', 1, 4, 'fastpost');doane(event);">上页</a>
+  <a href="javascript:;" onclick="smilies_switch('fastpostsmiliesdiv', '8', 1, 2, 'fastpost');doane(event);">下页</a>
+  </div>1/4</div></div></div></div><div id="ajaxwaitid"></div>
+#+END_SRC
+
+click the smile face in the quick reply at the bottom to see the link.
+
+*** add rule: prefer 下一页 to 下页?
+Why it works in dev profile? maybe it's because the order <a> tag array is
+returned. In dev profile, some debug/no-cache options is enable resulting
+different DOM array object returned?
+
+better add special rule for discuz:
+
+if <a href="http://www.discuz.net" target="_blank">Discuz!</a>, then
+find $("a.nxt")
+
+(may also add other optional bindings, just like info-mode)
+
+**** how to make sure the page is discuz bbs
+
+<meta name="generator" content="Discuz! X1.5" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2010 Comsenz Inc." />
+==> class="nxt"
+
+<meta name="generator" content="Discuz! 7.2" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2009 Comsenz Inc." />
+==> class="next"
+
+Powered by <strong><a href="http://www.discuz.net" target="_blank">Discuz!</a>
+<p class="xs0">&copy; 2001-2010 <a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a></p>
+
+**** discuz binding:							:low:
+     | key | function     | Discuz! 7.2                | Discuz! X1.5 |
+     |-----+--------------+----------------------------+--------------|
+     | n   | nextpage     | follow a.next              | follow a.nxt |
+     | p   | history-back |                            |              |
+     | u   | back-to-list |                            |              |
+     | r   | quick reply  | jump to #fastpostmessage   |              |
+     | R   | reply        |                            |              |
+     | N   | new post     | follow a[innerHTML="发帖"] |              |
+     | s   | search       | /search.php                |              |
+
 * DONE wrong page on mailing list
 http://osdir.com/ml/emacs-orgmode-gnu/2010-05/msg00010.html
 should do thread next, not date next.

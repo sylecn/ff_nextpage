@@ -1,4 +1,8 @@
-*
+* 
+* the whole "this" thing sucks.
+  some times I can use this.utils, sometimes I must use nextpage.utils.
+  how to get some consistency?
+* add 下一頁 to regexp
 * not work on
 ** special page
 http://tronche.com/gui/x/xlib/introduction/

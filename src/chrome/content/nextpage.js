@@ -297,7 +297,7 @@ var nextpage = {
 	}
 
 	// check inner <img> tag
-	imgMaybe = l.getElementsByTagName("IMG");
+	imgMaybe = l.getElementsByTagName("img");
 	if (imgMaybe.length !== 0) {
 	    if (nextpage.matchesNext(imgMaybe[0].alt) ||
 		nextpage.matchesNext(imgMaybe[0].name)) {
@@ -305,7 +305,7 @@ var nextpage = {
 	    }
 	}
 	// check inner <span> tag
-	spanMaybe = l.getElementsByTagName("SPAN");
+	spanMaybe = l.getElementsByTagName("span");
 	if (spanMaybe.length !== 0) {
 	    if (nextpage.matchesNext(spanMaybe[0].innerHTML))
 		return true;
@@ -365,6 +365,22 @@ var nextpage = {
 	}
 	return false;
     },
+    getLinkForDiscuz: function (url, doc) {
+	var generator = nextpage.utils.getMeta("generator");
+	var className;
+	if (generator.match(/^Discuz! X/)) {
+	    className = "nxt";
+	} else if (generator.match(/^Discuz! /)) {
+	    className = "next";
+	} else {
+	    return false;
+	}
+	var nodes = doc.getElementsByClassName(className);
+	if (nodes.length < 1) {
+	    return false;
+	}
+	return nodes[0];
+    },
 
     /**
      * parse next page links in current document
@@ -381,6 +397,7 @@ var nextpage = {
 	 * special case for some website, pre-generic
 	 */
 	var preGeneric = [
+	    [/\/(thread|forum)-/i, this.getLinkForDiscuz],
 	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML]
 	];
 	var url = this.utils.getURL();
@@ -421,7 +438,7 @@ var nextpage = {
 	}
 
 	// check <a> links
-	var tagNameToCheck = ["A"];
+	var tagNameToCheck = ["a"];
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (var j = 0; j < links.length; j++) {
@@ -443,7 +460,7 @@ var nextpage = {
 	}
 
 	// check <input type="button" ...>
-	nodes = content.document.getElementsByTagName('INPUT');
+	nodes = content.document.getElementsByTagName('input');
 	for (var j = 0; j < nodes.length; j++) {
 	    if (nextpage.isNextPageButton(nodes[j])) {
 		return nodes[j];
@@ -675,8 +692,28 @@ nextpage.utils = {
     /**
      * @return current page's URL as a string.
      */
-    getURL: function () {
-	return content.location.toString();
+    getURL: function (win) {
+	if (! win) {
+	    win = content;
+	}
+	return win.location.toString();
+    },
+
+    /**
+     * @return <meta> tag with given name. in jQuery syntax:
+     * $("meta[name=$name]").attr("content")
+     */
+    getMeta: function (name, doc) {
+	if (! doc) {
+	    doc = content.document;
+	}
+	var metas = doc.getElementsByTagName("meta");
+	for (var i = 0; i < metas.length; ++i) {
+	    if (metas[i].getAttribute("name") === name) {
+		return metas[i].getAttribute("content");
+	    }
+	}
+	return;
     }
 };
 

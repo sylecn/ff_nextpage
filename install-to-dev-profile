@@ -11,6 +11,7 @@ fi
 if [ -e "$FILE" ]; then
 	if [ -f "$FILE" ]; then
 		echo "file status ok. quit."
+		echo "use file: $FILE"
 		exit 0
 	elif [ -d "$FILE" ]; then
 		echo "rm dir $FILE."
