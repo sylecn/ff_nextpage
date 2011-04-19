@@ -53,13 +53,15 @@ var nextpage = {
 	 * the key of the alist is a regexp that matches to document URL.
 	 * the value of the alist is a list of keys to ignore.
 	 *
-	 * the key can be a literal string as well, which will be converted to
-	 * regexp by calling new RegExp(str).
+	 * the key of the alist can be a literal string as well, which will be
+	 * converted to regexp by calling new RegExp(str).
 	 */
 	// TODO make this list configurable.
 	this.ignoreBindingAList = [
 	    [/https?:\/\/www\.google\.com\/reader\/view/i, ['SPC', '1', '2']],
 	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"],
+	    // exception rule, mail.python.org is not webmail, but mailing list
+	    [/mail.python.org/i, ""],
 	    // ignore common webmail hosts, nextpage bindings can do little on
 	    // these domains.
 	    [/\W(web)?mail\.[^.]+\.(com|org|net|edu)/i, "*"]
@@ -83,14 +85,19 @@ var nextpage = {
 	for (var pair in it) {
 	    // ignore the index, get the value in pair.
 	    v = pair[1];
-	    if (url.match(v[0]) &&
-		(v[1] === "*" || this.utils.inArray(key, v[1]))) {
-		if (this.debug.debugging) {
-		    this.log("ignore " + key + " for " + v[0]);
+	    if (url.match(v[0])) {
+		if (v[1] === "") {
+		    // do not ingore any key
+		    return false;
 		}
-		return true;
+		if (v[1] === "*" || this.utils.inArray(key, v[1])) {
+		    if (this.debug.debugging) {
+			this.log("ignore " + key + " for " + v[0]);
+		    }
+		    return true;
+		}
 	    }
-	};
+	}
 	return false;
     },
 
@@ -207,26 +214,12 @@ var nextpage = {
 	if (matchResult[1] === "file") {
 	    return true;
 	}
-	if (matchResult[2] === content.document.domain) {
+	if (matchResult[2].indexOf(content.document.domain) !== -1) {
 	    return true;
 	}
 	if (nextpage.debug.debugging && nextpage.debug.debugDomainCheck) {
-	    nextpage.log("domain compare:" + matchResult[2] + " vs " + content.domain.domain);
-	}
-	/**
-	 * some document have a different domain than that in the url,
-	 * here is a white list for those urls.
-	 *
-	 *     tieba.baidu.com
-	 *     zhidao.baidu.com
-	 *
-	 * content.document.domain for them is baidu.com. so it will fail
-	 * the domain test if not in the white list.
-	 */
-	// TODO make this list customizable
-	var domainWhitelist = [ "tieba.baidu.com", "zhidao.baidu.com" ];
-	if (nextpage.utils.inArray(matchResult[2], domainWhitelist)) {
-	    return true;
+	    nextpage.log("domain compare: link at " + matchResult[2] +
+			 ", this doc at " + content.document.domain);
 	}
 	if (nextpage.debug.debugging && nextpage.debug.debugDomainCheck) {
 	    nextpage.log("domain check failed.");
@@ -240,10 +233,19 @@ var nextpage = {
      * @return false otherwise.
      */
     matchesNext: function (str) {
+	// str could be null
 	if (! str) return false;
+	str = str.trim();
+	// str could be space only
+	if (! str) return false;
+
+	// to add more languages, load
+	// /home/sylecn/projects/firefox/nextpage/make-regexp.el
+	// M-x insert-nextpage-regexp
+
+	// var nextPattern = /(?:^\s*((Go to )?next page|Nächste Seite)|(^|>)\s*(next|nächste)\s*(<|$)|(>|^)\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|(下|后)一?(?:页|糗事|章|回|頁)|^(››| ?(&gt;)+ ?)$|Next (Chapter )?(?:»|›|&gt;)|^Thread Next$)/i;
 	// TODO make this regexp configurable
-	// TODO is (>|^)\s*(next|nächste)\W too eager?
-	var nextPattern = /(?:^\s*((Go to )?next page|Nächste Seite)|(^|>)\s*(next|nächste)\s*(<|$)|(>|^)\s*(next|nächste)\W|(next|nächste)1?\.(?:gif|jpg|png)|(下|后)一?(?:页|糗事|章|回)|^(››| ?(&gt;)+ ?)$|Next (Chapter )?(?:»|›|&gt;)|^Thread Next$)/i;
+	var nextPattern = /(?:(^|>)(next page|Nächste Seite)(<|$)|(^|>\s*)(next|nächste)(\s*<|$| ?(?:»|›|&gt;)|1?\.(?:gif|jpg|png))|^(››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁)|^(Next Chapter|Thread Next|Go to next page))/i;
 	return nextPattern.test(str);
     },
 
@@ -490,13 +492,13 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging: false,
-    debugSpecialCase: false,
-    debugIFrame: false,
-    debugKeyEvents: false,
-    debugGotoNextPage: false,
-    debugATag: false,
-    debugDomainCheck: false,
+    debugging		: false,
+    debugSpecialCase	: !false,
+    debugGotoNextPage	: !false,
+    debugDomainCheck	: !false,
+    debugATag		: false,
+    debugIFrame		: false,
+    debugKeyEvents	: false,
 
     // convert anchor (link) object to string
     linkToString: function (l) {

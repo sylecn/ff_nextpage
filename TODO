@@ -1,8 +1,35 @@
 * 
-* the whole "this" thing sucks.
+* http://www.verycd.com/base/movie/
+domain check failed.
+domain compare:www.verycd.com vs verycd.com
+* grab support for other languages from
+  NextPlease! done.
+  others.
+** fr-FR
+   Suivant
+   la page suivante
+** ru-RU
+   Следующая
+   следующей страницы
+* not working on
+http://comment5.comic.qq.com/comment.htm?site=comic&id=28175373
+<a href="javascript:void(0)" class="enable"><span>下一页</span></a>
+
+all links on that page has href="javascript:void(0)". So how the click event
+is dispatched?
+
+
+<script src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPageLib.js?v=20110104" type="text/javascript"></script>
+<script  src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPage.js?v=20110104" type="text/javascript"></script>
+
+* check whether these nextpagers support frames
+SuperGo2 for maxthen
+SuperGo2 2.15 百度不能用 
+Super Next Page for Greasemonkey
+http://userscripts.org/scripts/show/38066
+* the whole "this" thing in JS sucks. 					 :js:
   some times I can use this.utils, sometimes I must use nextpage.utils.
   how to get some consistency?
-* add 下一頁 to regexp
 * not work on
 ** special page
 http://tronche.com/gui/x/xlib/introduction/
@@ -33,10 +60,6 @@ http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Tracing.html#Tracing
   that user config object to overlay.xul so it know the new pattern, debug
   settings?
 ** why is there not a obvious way to do it?
-* before release
-** test it in firefox 4							 :rc:
-** test 3.5/3.6/4 in windows						 :rc:
-** test it in firefox 3
 * preferences window
 ** add reload config file, edit config file button.
 ** add translate strings for preferences.
@@ -149,3 +172,28 @@ http://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html
   ...
 * rewrite preference observer using preload JS Module.			:low:
   avoid explicit XPCOM calls.
+* support gesture add-on, make nextpage callable from other add-ons. :low:
+  so that when I finally have my keyconfig add-on, I can also call it.
+
+  that seems impossible for security reasons. A better request is make nextpage
+  a JS module. and provide the following exports:
+  /**
+   * get next page link from doc
+   * @param doc a document obj
+   * @return a URL or false if no next page link found.
+   */
+  nextpage.getNextPageLink(doc);
+  /**
+   * find nextpage link in win.document and goto next page. or if nextPageLink is given, load that URL in win.
+   * @param win a window obj
+   * @param nextPageLink optional. a string that contains a URL.
+   */
+  nextpage.gotoNextPage(win, &optional nextPageLink);
+  nextpage.gotoNextPageMaybe(win);
+* make nextpage install without needing to restart	    :low:complicated:
+* make a greasemonkey script for nextpage.				:low:
+** make a greasemonkey script for nextpage, rewrite using jQuery.
+* port nextpage to chrome, IE, maxthon, 360browser	    :low:complicated:
+  for
+  1. test how easy/hard it is to write extension for these browser.
+  2. to make nextpage available to more users.

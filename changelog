@@ -6,7 +6,10 @@ feature:
   better support for Discuz! forum
 bugfix:
 dev:
+  rewrite the nextpage regexp to be more concise
   [consistency] all getElementsByTagName call use lower-case tag name.
+  checkDomain now use indexOf instead of === to compare target domain.
+    get rid of domain whitelist.
 * v1.3.2
 bugfix:
   [Issue 7] do not catch keys on <select> element.
