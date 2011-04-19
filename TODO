@@ -1,14 +1,12 @@
 * 
-* http://www.verycd.com/base/movie/
-domain check failed.
-domain compare:www.verycd.com vs verycd.com
+* grab more language support and publish 1.3.3
 * grab support for other languages from
   NextPlease! done.
   others.
-** fr-FR
+** DONE fr-FR
    Suivant
    la page suivante
-** ru-RU
+** DONE ru-RU
    Следующая
    следующей страницы
 * not working on
