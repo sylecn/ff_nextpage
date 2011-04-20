@@ -402,7 +402,7 @@ var nextpage = {
 	 * special case for some website, pre-generic
 	 */
 	var preGeneric = [
-	    [/\/(thread|forum)-/i, this.getLinkForDiscuz],
+	    [/\/((thread|forum)-|(viewthread|forumdisplay)\.php)/i, this.getLinkForDiscuz],
 	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML]
 	];
 	var url = this.utils.getURL();
