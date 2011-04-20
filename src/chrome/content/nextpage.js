@@ -491,10 +491,10 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging		: false,
+    debugging		: !false,
     debugSpecialCase	: !false,
     debugGotoNextPage	: !false,
-    debugDomainCheck	: !false,
+    debugDomainCheck	: false,
     debugATag		: false,
     debugIFrame		: false,
     debugKeyEvents	: false,
@@ -504,10 +504,12 @@ nextpage.debug = {
 	var re, prop;
 	re = "link = {\n";
 	prop = ["rel", "accessKey", "title", "href", "innerHTML",
-		"id", "name"];
+		"id", "name", "onclick"];
+	// TODO how to show "onclick" property?
+
 	for (var i = 0; i < prop.length; i++) {
-	    if (l[prop[i]]) {
-		re += prop[i] + ": " + l[prop[i]] + ",\n";
+	    if (l.hasAttribute(prop[i])) {
+		re += prop[i] + ": " + l.getAttribute(prop[i]) + ",\n";
 	    }
 	}
 	return re + "}";
@@ -553,7 +555,34 @@ nextpage.commands = {
 	}
 	var nextpageLink = nextpage.getNextPageLink();
 	if (nextpageLink) {
-	    if (nextpageLink.hasAttribute("href")) {
+	    if (nextpage.debug.debugging &&
+		nextpage.debug.debugGotoNextPage) {
+		nextpage.log("got nextpage link:\n" +
+			     nextpage.debug.linkToString(nextpageLink));
+	    }
+	    if (nextpageLink.hasAttribute("onclick")) {
+		if (nextpage.debug.debugging &&
+		    nextpage.debug.debugGotoNextPage) {
+		    nextpage.log("will click the element");
+		}
+		if (nextpageLink.click) {
+		    // buttons has .click() function
+		    nextpageLink.click();
+		} else {
+		    // <a> link doesn't have a .click() function
+		    var clickEvent =
+			content.document.createEvent("MouseEvents");
+		    clickEvent.initMouseEvent("click", true, true, window,
+					      0, 0, 0, 0, 0,
+					      false, false, false, false, 0,
+					      null);
+		    nextpageLink.dispatchEvent(clickEvent);
+		}
+	    } else if (nextpageLink.hasAttribute("href")) {
+		if (nextpage.debug.debugging &&
+		    nextpage.debug.debugGotoNextPage) {
+		    nextpage.log("will follow link.href");
+		}
 		// FIX Issue 4: don't follow a link to index.html
 		if (nextpageLink.href.match(/index\....l?$/i)) {
 		    return false;
@@ -562,17 +591,7 @@ nextpage.commands = {
 		if (nextpageLink.href === nextpage.utils.getURL()) {
 		    return false;
 		}
-		if (nextpage.debug.debugging
-		    && nextpage.debug.debugGotoNextPage) {
-		    nextpage.log("will goto link:" + nextpageLink.href + "\n" +
-				 nextpage.debug.linkToString(nextpageLink));
-		}
 		content.location = nextpageLink.href;
-	    } else if (nextpageLink.hasAttribute("onclick")) {
-		if (nextpage.debug.debugging) {
-		    nextpage.log("will now execute click().");
-		}
-		nextpageLink.click();
 	    }
 	    // if there is a chance to return anything.
 	    return true;

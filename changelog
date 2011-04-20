@@ -2,9 +2,12 @@
 * 
 * v1.3.3
 feature:
-  //add Traditional Chinese support
+  add partial Traditional Chinese, French and Russian support
   better support for Discuz! forum
+  support ajax style links
 bugfix:
+  should prefer onclick to href on <a> link if both are present
+  follow onclick attribute on <a> link by dispatching a mouse click event
 dev:
   rewrite the nextpage regexp to be more concise
   [consistency] all getElementsByTagName call use lower-case tag name.

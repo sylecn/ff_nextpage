@@ -9,16 +9,6 @@
 ** DONE ru-RU
    Следующая
    следующей страницы
-* not working on
-http://comment5.comic.qq.com/comment.htm?site=comic&id=28175373
-<a href="javascript:void(0)" class="enable"><span>下一页</span></a>
-
-all links on that page has href="javascript:void(0)". So how the click event
-is dispatched?
-
-<script src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPageLib.js?v=20110104" type="text/javascript"></script>
-<script  src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPage.js?v=20110104" type="text/javascript"></script>
-
 * check whether these nextpagers support frames
 SuperGo2 for maxthen
 SuperGo2 2.15 百度不能用 

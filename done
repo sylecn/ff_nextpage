@@ -1,4 +1,18 @@
 
+* DONE ajax next page button. no refreshing ajax call.
+they have onclick attribute which maps to js func call.
+** baidu image search
+http://image.baidu.com/i?tn=baiduimage&ct=201326592&lm=-1&cl=2&word=%CC%EC%D6%AE%BA%DB
+same problem with that qq page
+** qq comics comments
+http://comment5.comic.qq.com/comment.htm?site=comic&id=28175373
+<a href="javascript:void(0)" class="enable"><span>下一页</span></a>
+
+all links on that page has href="javascript:void(0)". So how the click event
+is dispatched?
+
+<script src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPageLib.js?v=20110104" type="text/javascript"></script>
+<script  src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPage.js?v=20110104" type="text/javascript"></script>
 * DONE http://www.verycd.com/base/movie/
 domain check failed.
 domain compare:www.verycd.com vs verycd.com

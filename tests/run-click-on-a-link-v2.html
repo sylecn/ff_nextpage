@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>test whether I can run click function on a &lt;a&gt; link</title>
+  </head>
+
+  <body>
+    <p>
+      <a id="top" href="error()" onclick="return f1(event);">click me</a>
+    </p>
+
+    <p>
+      <a href="#error"
+	 onclick="return f2(event);">run click() on the link above</a>
+    </p>
+
+    <script type="text/javascript">
+      function f1(e) {
+	  document.title = "you clicked at timestamp: " + new Date().getTime();
+	  return false;
+      }
+
+      function f2(e) {
+	  var l = document.getElementById("top");
+
+	  // version 2. use dispatch event.
+	  var clickTopLink = document.createEvent("MouseEvents");
+	  clickTopLink.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+	  return !l.dispatchEvent(clickTopLink);
+      }
+
+      function error() {
+	  document.title = "error: should not follow href link";
+      }
+    </script>
+  </body>
+
+</html>
