@@ -16,7 +16,6 @@ http://comment5.comic.qq.com/comment.htm?site=comic&id=28175373
 all links on that page has href="javascript:void(0)". So how the click event
 is dispatched?
 
-
 <script src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPageLib.js?v=20110104" type="text/javascript"></script>
 <script  src="http://mat1.qq.com/pinglun/js/3.1.5/CommentPage.js?v=20110104" type="text/javascript"></script>
 
@@ -113,7 +112,7 @@ http://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html
    <a accesskey="n" href="MakingRESTRequests.html"><img src="images/next.gif" alt="Next"></a>
 
 ** SPC jump to one spot, not scrolling
-   http://tieba.baidu.com/f?kz=706343798
+   
 
 ** sites doesn't have right value for content.scrollY or content.scrollMaxY
 *** both are 0
@@ -152,12 +151,6 @@ http://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html
 * TODO failed page, gougou, this is a big one: 		      :later:
   http://content.gougou.com/content?cid=64912733AE5D3D9307BC7C8DF6017F266004EB2D&t=4&fmt=flv&usrinput=%D4%BD%B9%E2%B1%A6%BA%D0&dt=96000100&ps=640_360&rt=592kbs&plt=5160&spd=3&movieq=2&bp=1#com_anchor
   Can't access gougou.com in US.
-* broken baidu?						       :needmoreinfo:
-  can't use any hotkeys: p n SPC.
-      space doesn't scroll on, can't go to prev/next page.
-  NextPage menuitem in View menu does work.
-  http://tieba.baidu.com/f?z=12607727&ct=335544320&lm=0&sc=0&rn=50&tn=baiduPostBrowser&word=%CC%EC%D6%AE%BA%DB&pn=0
-  <a href="/f?z=12607727&amp;ct=335544320&amp;lm=0&amp;sc=0&amp;rn=30&amp;tn=baiduPostBrowser&amp;word=%CC%EC%D6%AE%BA%DB&amp;pn=30">下一页</a>
 * add support for					    :complicated:low:
   http://www.cs.utexas.edu/users/moore/acl2/v4-2/About_the_ACL2_Home_Page.html
   <a href="foo.html"><img src="flying.gif"></a>
@@ -195,3 +188,17 @@ http://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html
   for
   1. test how easy/hard it is to write extension for these browser.
   2. to make nextpage available to more users.
+* baidu website, broken baidu?						:low:
+  n key and menu item works to goto next page, but SPC key doesn't scroll well.
+** http://tieba.baidu.com/f?kz=706343798
+   http://tieba.baidu.com/f?kz=690342917 (only one page, no next page link here)
+SPC jump to top of page on load.
+n   don't work.
+
+after click here and there, SPC/PGDOWN sometimes scroll, and stop at middle.
+HOME/END/PGUP/PGDOWN don't work sometimes.
+
+this page is definitely broken at least in Firefox.
+Report bugs to Baidu. with patches.
+** http://tieba.baidu.com/f?z=12607727&ct=335544320&lm=0&sc=0&rn=50&tn=baiduPostBrowser&word=%CC%EC%D6%AE%BA%DB&pn=0
+SPC/HOME/END/PGUP/PGDOWN don't work.
