@@ -55,12 +55,15 @@ var nextpage = {
 	 *
 	 * the key of the alist can be a literal string as well, which will be
 	 * converted to regexp by calling new RegExp(str).
+	 *
+	 * nextpage will stop when it finds the first match, so you should put
+	 * more specific regexp earlier in the list.
 	 */
 	// TODO make this list configurable.
 	this.ignoreBindingAList = [
 	    [/https?:\/\/www\.google\.com\/reader\/view/i, ['SPC', '1', '2']],
 	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"],
-	    // exception rule, mail.python.org is not webmail, but mailing list
+	    // exception rule, mail.python.org is a mailing list, not webmail.
 	    [/mail.python.org/i, ""],
 	    // ignore common webmail hosts, nextpage bindings can do little on
 	    // these domains.
@@ -87,7 +90,7 @@ var nextpage = {
 	    v = pair[1];
 	    if (url.match(v[0])) {
 		if (v[1] === "") {
-		    // do not ingore any key
+		    // user explicitly says do not ingore any key
 		    return false;
 		}
 		if (v[1] === "*" || this.utils.inArray(key, v[1])) {
@@ -96,6 +99,7 @@ var nextpage = {
 		    }
 		    return true;
 		}
+		return false;
 	    }
 	}
 	return false;
@@ -491,7 +495,7 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging		: !false,
+    debugging		: false,
     debugSpecialCase	: !false,
     debugGotoNextPage	: !false,
     debugDomainCheck	: false,
@@ -503,10 +507,8 @@ nextpage.debug = {
     linkToString: function (l) {
 	var re, prop;
 	re = "link = {\n";
-	prop = ["rel", "accessKey", "title", "href", "innerHTML",
-		"id", "name", "onclick"];
-	// TODO how to show "onclick" property?
-
+	prop = ["rel", "accessKey", "title", "href", "onclick",
+		"innerHTML", "id", "name"];
 	for (var i = 0; i < prop.length; i++) {
 	    if (l.hasAttribute(prop[i])) {
 		re += prop[i] + ": " + l.getAttribute(prop[i]) + ",\n";
@@ -722,6 +724,7 @@ nextpage.utils = {
     /**
      * @return <meta> tag with given name. in jQuery syntax:
      * $("meta[name=$name]").attr("content")
+     * @return false if the name is not found.
      */
     getMeta: function (name, doc) {
 	if (! doc) {
@@ -733,7 +736,7 @@ nextpage.utils = {
 		return metas[i].getAttribute("content");
 	    }
 	}
-	return;
+	return false;
     }
 };
 
