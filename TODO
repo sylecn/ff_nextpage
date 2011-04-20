@@ -1,4 +1,7 @@
 * 
+* add git tag hook.							:low:
+show associated changelog.
+rename xpi file
 * build for mobile platform
 ** I see android and me??? is listed when I upload v1.3.3
 * upload Screenshot-nextpage-preferences.png
