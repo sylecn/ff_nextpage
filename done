@@ -1,4 +1,11 @@
 
+* DONE not working on
+[IPython-dev] NameError: global name 'error' is not defined
+http://mail.scipy.org/pipermail/ipython-dev/2008-June/003960.html
+   <LINK REL="Previous"  HREF="003963.html">
+   <LINK REL="Next"  HREF="003977.html">
+
+edit: updated ignore pattern list
 * DONE ajax next page button. no refreshing ajax call.
 they have onclick attribute which maps to js func call.
 ** baidu image search

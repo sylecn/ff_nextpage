@@ -63,8 +63,8 @@ var nextpage = {
 	this.ignoreBindingAList = [
 	    [/https?:\/\/www\.google\.com\/reader\/view/i, ['SPC', '1', '2']],
 	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"],
-	    // exception rule, mail.python.org is a mailing list, not webmail.
-	    [/mail.python.org/i, ""],
+	    // exception rule, pipermail mailing list is not webmail.
+	    [/mail\..*\/pipermail/i, ""],
 	    // ignore common webmail hosts, nextpage bindings can do little on
 	    // these domains.
 	    [/\W(web)?mail\.[^.]+\.(com|org|net|edu)/i, "*"]

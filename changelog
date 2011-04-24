@@ -1,5 +1,10 @@
 -*- mode: org -*-
 * 
+* v1.3.4
+feature:
+bugfix:
+  update webmail pattern to exclude pipermail
+dev:
 * v1.3.3
 feature:
   add partial Traditional Chinese, French and Russian support

@@ -6,7 +6,7 @@
     <!-- Indicates that this add-on is an extension -->
     <em:type>2</em:type>
     <em:name>nextpage</em:name>
-    <em:version>1.3.3</em:version>
+    <em:version>1.3.4dev</em:version>
     <em:description>use SPC key to goto next page when at the bottom of a page</em:description>
     <em:creator>Yuanle Song</em:creator>
     <em:homepageURL>http://code.google.com/p/ff-nextpage/</em:homepageURL>
