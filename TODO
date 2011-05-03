@@ -1,4 +1,17 @@
 * 
+* inferior support for digit nextpage link.
+*** http://www.talkcc.com/thread/2349389/1
+1 2 3 4 5...10 共 10 
+if URL ends in /\d+, let the number be n.
+and there is a link /n+1, then that's next page link.
+
+add to postGeneric rules.
+* My CopyFixer 1.2 has a nice (time-out) dialog show
+  xxx copied.
+  create a similar dialog when no next page link could be found.
+  (I don't need the slow fade-in/out. Just plain time-out message)
+* not working on
+http://www.dockapps.org/list.php/cat_id/6/pagerRow/2
 * add git tag hook.							:low:
 show associated changelog.
 rename xpi file
@@ -42,6 +55,10 @@ http://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Tracing.html#Tracing
    t     top
 
    add commands in nextpage.commands.info namespace.
+
+another example info page:
+http://orgmode.org/manual/Capture.html#Capture
+
 * stopped development of 1.3.1, add a config file for the advanced user only.
   Do not add anything in preferences window. It's not worth the effort.
 * how does prefwindow.xul talk to overlay.xul and nextpage.js?
