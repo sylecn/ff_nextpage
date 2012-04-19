@@ -1,9 +1,15 @@
 -*- mode: org -*-
 * 
-* v1.3.4
+* v1.3.5dev
 feature:
 bugfix:
+dev:
+* v1.3.4
+feature:
+  added optional Alt-p binding.
+bugfix:
   update webmail pattern to exclude pipermail
+  fix "p" key malfunction in wordpress new post page
 dev:
 * v1.3.3
 feature:

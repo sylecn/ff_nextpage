@@ -23,6 +23,7 @@ var nextpage = {
     prefsNameList: ["extensions.nextpage.use-space",
 		    "extensions.nextpage.use-n-p",
 		    "extensions.nextpage.use-1-2",
+		    "extensions.nextpage.use-alt-p",
 		    "extensions.nextpage.use-alt-n"],
 
     init: function () {
@@ -42,6 +43,7 @@ var nextpage = {
 	    'p' : nextpage.commands.historyBack,
 	    '1' : nextpage.commands.historyBack,
 	    '2' : nextpage.commands.gotoNextPage,
+	    'M-p' : nextpage.commands.historyBack,
 	    'M-n' : nextpage.commands.gotoNextPage
 	};
 
@@ -72,8 +74,9 @@ var nextpage = {
 
 	if (nextpage.debug.debugging) {
 	    nextpage.log("nextpage ready.");
-	    // does not work well under firefox 11. see bug #71.
-	    nextpage.app.console.open();
+	    // TODO console.open() does not work well under firefox 11.
+	    // see bug #71.
+	    // nextpage.app.console.open();
 	}
     },
 
@@ -174,7 +177,8 @@ var nextpage = {
 	    'p' : this.prefsValueList[1],
 	    '1' : this.prefsValueList[2],
 	    '2' : this.prefsValueList[2],
-	    'M-n' : this.prefsValueList[3]
+	    'M-p': this.prefsValueList[3],
+	    'M-n' : this.prefsValueList[4]
 	};
     },
 

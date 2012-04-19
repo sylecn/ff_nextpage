@@ -24,6 +24,9 @@ everything can be edit directly in about:config.
       <preference id="extensions.nextpage.use-n-p"
 		  name="extensions.nextpage.use-n-p"
 		  type="bool" />
+      <preference id="extensions.nextpage.use-alt-p"
+		  name="extensions.nextpage.use-alt-p"
+		  type="bool" />
       <preference id="extensions.nextpage.use-alt-n"
 		  name="extensions.nextpage.use-alt-n"
 		  type="bool" />
@@ -39,6 +42,9 @@ everything can be edit directly in about:config.
 		checked="true" />
       <checkbox preference="extensions.nextpage.use-1-2"
 		label="&nextpage.prefpane.use-1-2;"
+		checked="false" />
+      <checkbox preference="extensions.nextpage.use-alt-p"
+		label="&nextpage.prefpane.use-alt-p;"
 		checked="false" />
       <checkbox preference="extensions.nextpage.use-alt-n"
 		label="&nextpage.prefpane.use-alt-n;"
