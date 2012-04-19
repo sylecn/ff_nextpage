@@ -1,4 +1,4 @@
-// Copyright (C) 2009, 2010, 2011  Yuanle Song <sylecn@gmail.com>
+// Copyright (C) 2009, 2010, 2011, 2012  Yuanle Song <sylecn@gmail.com>
 //
 // The JavaScript code in this page is free software: you can
 // redistribute it and/or modify it under the terms of the GNU
@@ -119,9 +119,19 @@ var nextpage = {
 	if (focusElement.tagName.match(/^(INPUT|TEXTAREA|SELECT)$/i)) {
 	    return;
 	}
+	if (nextpage.debug.debugging && nextpage.debug.debugContentEditable) {
+	    this.log(focusElement.tagName +
+		     "\nfocusElement.contentEditable=" +
+		     focusElement.contentEditable);
+	}
+	// when contentEditable is set to true, a BODY tag or DIV tag will
+	// become editable, so treat them just like other input controls.
+	if (focusElement.contentEditable === "true") {
+	    return;
+	}
 	// IFRAME is a also an input control when inner document.designMode is
-	// set to "on". Some blog/webmail rich editor use IFRAME in place of
-	// textarea.
+	// set to "on". Some blog/webmail rich editor use IFRAME instead of
+	// TEXTAREA.
 	if (nextpage.debug.debugging && nextpage.debug.debugIFrame) {
 	    if (focusElement.tagName === "IFRAME") {
 		this.log(focusElement.tagName +
@@ -137,7 +147,8 @@ var nextpage = {
 	// not set to "on", including: gmail, qq mail. I don't know how they
 	// make that work.
 	if (focusElement.tagName === "IFRAME" &&
-	    focusElement.contentDocument.designMode.toLowerCase() === "on") {
+	    (focusElement.contentDocument.designMode.toLowerCase() === "on" ||
+	     focusElement.contentDocument.body.contentEditable)) {
 	    return;
 	}
 
@@ -495,13 +506,15 @@ var nextpage = {
 };
 
 nextpage.debug = {
-    debugging		: false,
-    debugSpecialCase	: !false,
-    debugGotoNextPage	: !false,
-    debugDomainCheck	: false,
-    debugATag		: false,
-    debugIFrame		: false,
-    debugKeyEvents	: false,
+    // make sure debugging is turned off when release
+    debugging			: false,
+    debugSpecialCase		: !false,
+    debugGotoNextPage		: false,
+    debugDomainCheck		: false,
+    debugATag			: false,
+    debugIFrame			: false,
+    debugContentEditable	: !false,
+    debugKeyEvents		: false,
 
     // convert anchor (link) object to string
     linkToString: function (l) {
