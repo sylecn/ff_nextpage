@@ -1,22 +1,26 @@
 #root of add-on code
+PROJECT_ROOT = $(PWD)
 SRC = src
-XPI_FILE = nextpage.xpi
+BUILD = build
+VERSION = $(shell ./utils/parse-version.py)
+XPI_FILE = $(PROJECT_ROOT)/$(BUILD)/nextpage-$(VERSION).xpi
 
 default:
 	@echo "Usage: make [xpi|ls|test|v]"
+build: xpi4
 ls:
-	@echo "${PWD}/$(XPI_FILE)" | xsel -b
+	@echo "$(XPI_FILE)" | xsel -b
 	@echo "xpi file path copied to clipboard."
 v:
 	@echo -n "version: "
 	@cat $(SRC)/install.rdf | sed -n "s;.*<em:version>\(.*\)</em:version>;\1;p"
 xpi: xpi4 ls
 xpi4: clean-xpi4
+	mkdir -p $(BUILD)
 	cd $(SRC)/ && zip -r $(XPI_FILE) *
-	mv $(SRC)/$(XPI_FILE) ./
-	@echo "${PWD}/$(XPI_FILE)"
+	@echo "$(XPI_FILE)"
 clean-xpi4:
-	rm -f $(SRC)/$(XPI_FILE) $(XPI_FILE)
+	rm -f $(XPI_FILE)
 code-review:
 	git diff --color release..HEAD src/chrome/content/nextpage.js
 test1:
