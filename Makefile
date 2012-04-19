@@ -7,7 +7,7 @@ XPI_FILE = $(PROJECT_ROOT)/$(BUILD)/nextpage-$(VERSION).xpi
 
 default:
 	@echo "Usage: make [xpi|ls|test|v]"
-build: xpi4
+build: xpi
 ls:
 	@echo "$(XPI_FILE)" | xsel -b
 	@echo "xpi file path copied to clipboard."
