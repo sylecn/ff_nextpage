@@ -1,4 +1,9 @@
 * 
+* 2011-11-23 nextpage, type p in INPUT text field result going back.
+  CheapVOIP4U - Sign Up For Cheap VOIP Calls
+  https://www.cheapvoip4u.com/signup.html
+
+  an INPUT inside a FRAME.
 * inferior support for digit nextpage link.
 *** http://www.talkcc.com/thread/2349389/1
 1 2 3 4 5...10 共 10 
@@ -12,6 +17,9 @@ add to postGeneric rules.
   (I don't need the slow fade-in/out. Just plain time-out message)
 * not working on
 http://www.dockapps.org/list.php/cat_id/6/pagerRow/2
+
+投资入门第五步：汇市教程
+http://forex.hexun.com/stepbystep/step5.html
 * add git tag hook.							:low:
 show associated changelog.
 rename xpi file
