@@ -72,6 +72,7 @@ var nextpage = {
 
 	if (nextpage.debug.debugging) {
 	    nextpage.log("nextpage ready.");
+	    // does not work well under firefox 11. see bug #71.
 	    nextpage.app.console.open();
 	}
     },
@@ -442,7 +443,8 @@ var nextpage = {
 	var head = content.document.getElementsByTagName('head');
 	if (head) {
 	    var lastElement = head[0].lastElementChild;
-	    if ((lastElement.tagName.toUpperCase() === "LINK") &&
+	    if (lastElement &&
+		(lastElement.tagName.toUpperCase() === "LINK") &&
 		lastElement.hasAttribute('rel') &&
 		(lastElement.getAttribute('rel').toLowerCase() === "next")) {
 		// find a next page link
@@ -509,7 +511,7 @@ nextpage.debug = {
     // make sure debugging is turned off when release
     debugging			: false,
     debugSpecialCase		: !false,
-    debugGotoNextPage		: false,
+    debugGotoNextPage		: !false,
     debugDomainCheck		: false,
     debugATag			: false,
     debugIFrame			: false,
