@@ -9,7 +9,7 @@ default:
 	@echo "Usage: make [xpi|ls|test|v]"
 build: xpi
 ls:
-	@echo "$(XPI_FILE)" | xsel -b
+	@echo -n "$(XPI_FILE)" | xsel -b
 	@echo "xpi file path copied to clipboard."
 v:
 	@echo -n "version: "
