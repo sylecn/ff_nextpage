@@ -1,8 +1,10 @@
 -*- mode: org -*-
 * 
-* v1.3.5dev
+* v1.3.6dev
+* v1.3.5
 feature:
 bugfix:
+  wrong next page link on baidu search
 dev:
 * v1.3.4
 feature:
