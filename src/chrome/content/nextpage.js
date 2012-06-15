@@ -371,6 +371,19 @@ var nextpage = {
      * hook function should return false if no link is found, otherwise,
      * it should return the link object.
      */
+    getLinkForBaiduSearch: function (url, doc) {
+	// locate A tag with class="n"
+	var nodes = doc.getElementsByClassName("n");
+	if (nodes.length < 1) {
+	    return false;
+	}
+	for (i = 0; i < nodes.length; ++i) {
+	    if (nodes[i].innerHTML === "下一页&gt;") {
+		return nodes[i];
+	    }
+	}
+	return false;
+    },
     getLinkForOsdirML: function (url, doc) {
 	// last <a> in div.osDirPrevNext. I wish I have jQuery at my disposal.
 	// $("div.osDirPrevNext > a:last")
@@ -419,7 +432,8 @@ var nextpage = {
 	 */
 	var preGeneric = [
 	    [/\/((thread|forum)-|(viewthread|forumdisplay)\.php)/i, this.getLinkForDiscuz],
-	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML]
+	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML],
+	    [/^http:\/\/www.baidu.com\/s\?wd=/i, this.getLinkForBaiduSearch]
 	];
 	var url = this.utils.getURL();
 	for (i = 0; i < preGeneric.length; ++i) {
