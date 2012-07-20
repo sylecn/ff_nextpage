@@ -1,0 +1,39 @@
+Date: 2012-07-20
+Time-stamp: <2012-07-20>
+
+* 2012-07-20 create a universal key binding add-on for firefox. :complicated:
+  Why:
+
+  The freedom to add or modify key bindings should be given to the user.
+  Ideally developers just write functions (user commands) and recommend a
+  default key binding. Users should be able bind/unbind whichever function as
+  they wish.
+
+  Firefox is pretty bad at this.
+  That's why there is Firemacs, Vimperator, vimkeybindings, many gesture based
+  add-ons, all creating their own way of doing things. There is no portability
+  and code reuse.
+
+  This universal key binding add-on aims to solve this problem by creating a
+  framework that all add-on developers can use. Users will be able to bind
+  arbitrary keys to built-in and external functions.
+
+** 2012-07-20 pre-condition
+   - Make sure one add-on can call functions defined in another add-on.
+     Firefox add-on namespace problem.
+
+** 2012-07-20 structure
+   This add-on:
+   - read key binding configuration, and check commands exists in the system.
+     later key bindings overwrite earlier.
+   - create key bindings on the fly.
+   - be able to get command declaration files.
+   - be able to get recommended (default) key bindings for some add-on.
+   - be able to get key binding profile that user can create and share.
+   - user can store their config file on the cloud. (add-on provide this
+     service for free.) or on their profile dir or even their home dir.
+
+     For example, firefox provide different default keybindings on Windows,
+     Linux and Mac, those three can be made into profile. User can get
+     universal key bindings if they wish.
+   - 
