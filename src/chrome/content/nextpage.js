@@ -424,7 +424,7 @@ var nextpage = {
     getNextPageLink: function () {
 	var links;
 	var nodes;
-	var i;
+	var i, j;
 	// var re;
 
 	/*
@@ -477,7 +477,7 @@ var nextpage = {
 	var tagNameToCheck = ["a"];
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
-	    for (var j = 0; j < links.length; j++) {
+	    for (j = 0; j < links.length; j++) {
 		if (nextpage.debug.debugging) {
 		    if (nextpage.debug.debugATag) {
 			// define your filter condition here:
@@ -497,7 +497,7 @@ var nextpage = {
 
 	// check <input type="button" ...>
 	nodes = content.document.getElementsByTagName('input');
-	for (var j = 0; j < nodes.length; j++) {
+	for (j = 0; j < nodes.length; j++) {
 	    if (nextpage.isNextPageButton(nodes[j])) {
 		return nodes[j];
 	    }
