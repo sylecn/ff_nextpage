@@ -400,10 +400,16 @@ var nextpage = {
 	return false;
     },
     getLinkForDerkeilerML: function (url, doc) {
-	// find li node that contains "Next (in|by) thread:", then search in
-	// this node for a link.
-	var nodes = doc.getElementsByTagName("li");
+	// when there is a ul.links element, locate it first. then find li
+	// node that contains "Next (in|by) thread:", then search in this node
+	// for a link. see bug #139, #208.
+	var nodes = doc.getElementsByClassName("links");
 	var links;
+	if (nodes.length > 0) {
+	    nodes = nodes[0].getElementsByTagName("li");
+	} else {
+	    nodes = doc.getElementsByTagName("li");
+	}
 	for (i = 0; i < nodes.length; ++i) {
 	    if (nodes[i].innerHTML.match(/Next (in|by) thread:/)) {
 		links = nodes[i].getElementsByTagName("a");
