@@ -420,6 +420,19 @@ var nextpage = {
 	}
 	return false;
     },
+    getLinkForWikiSource: function (url, doc) {
+	var nodes = doc.getElementsByTagName("td");
+	var links;
+	for (i = 0; i < nodes.length; ++i) {
+	    if (nodes[i].innerHTML.match(/→/)) {
+		links = nodes[i].getElementsByTagName("a");
+		if (links.length > 0) {
+		    return links[0];
+		}
+	    }
+	}
+	return false;
+    },
     getLinkForDiscuz: function (url, doc) {
 	var generator = nextpage.utils.getMeta("generator");
 	var className;
@@ -454,8 +467,9 @@ var nextpage = {
 	var preGeneric = [
 	    [/\/((thread|forum)-|(viewthread|forumdisplay)\.php)/i, this.getLinkForDiscuz],
 	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML],
-	    [/^http:\/\/coding.derkeiler.com\/Archive\//i, this.getLinkForDerkeilerML],
-	    [/^http:\/\/www.baidu.com\/s\?wd=/i, this.getLinkForBaiduSearch]
+	    [/^http:\/\/coding\.derkeiler\.com\/Archive\//i, this.getLinkForDerkeilerML],
+	    [/\.wikisource\.org\//i, this.getLinkForWikiSource],
+	    [/^http:\/\/www\.baidu\.com\/s\?wd=/i, this.getLinkForBaiduSearch]
 	];
 	var url = this.utils.getURL();
 	for (i = 0; i < preGeneric.length; ++i) {
