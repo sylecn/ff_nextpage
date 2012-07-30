@@ -399,6 +399,21 @@ var nextpage = {
 	}
 	return false;
     },
+    getLinkForDerkeilerML: function (url, doc) {
+	// find li node that contains "Next (in|by) thread:", then search in
+	// this node for a link.
+	var nodes = doc.getElementsByTagName("li");
+	var links;
+	for (i = 0; i < nodes.length; ++i) {
+	    if (nodes[i].innerHTML.match(/Next (in|by) thread:/)) {
+		links = nodes[i].getElementsByTagName("a");
+		if (links.length > 0) {
+		    return links[0];
+		}
+	    }
+	}
+	return false;
+    },
     getLinkForDiscuz: function (url, doc) {
 	var generator = nextpage.utils.getMeta("generator");
 	var className;
@@ -433,6 +448,7 @@ var nextpage = {
 	var preGeneric = [
 	    [/\/((thread|forum)-|(viewthread|forumdisplay)\.php)/i, this.getLinkForDiscuz],
 	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML],
+	    [/^http:\/\/coding.derkeiler.com\/Archive\//i, this.getLinkForDerkeilerML],
 	    [/^http:\/\/www.baidu.com\/s\?wd=/i, this.getLinkForBaiduSearch]
 	];
 	var url = this.utils.getURL();
