@@ -533,7 +533,7 @@ nextpage.debug = {
     debugDomainCheck		: false,
     debugATag			: false,
     debugIFrame			: false,
-    debugContentEditable	: !false,
+    debugContentEditable	: false,
     debugKeyEvents		: false,
 
     // convert anchor (link) object to string
@@ -616,7 +616,12 @@ nextpage.commands = {
 	    } else if (nextpageLink.hasAttribute("href")) {
 		if (nextpage.debug.debugging &&
 		    nextpage.debug.debugGotoNextPage) {
-		    nextpage.log("will follow link.href");
+		    nextpage.log("will follow link.href if it's good");
+		}
+		// don't follow javascript:void(0);
+		// instead simulate a click event.
+		if (nextpageLink.href.match(/void/i)) {
+		    nextpageLink.click();
 		}
 		// FIX Issue 4: don't follow a link to index.html
 		if (nextpageLink.href.match(/index\....l?$/i)) {
