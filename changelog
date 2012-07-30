@@ -1,6 +1,11 @@
 -*- mode: org -*-
 * 
 * v1.3.6dev
+- feature
+  - works for some more mailing list archives
+- bugfix
+  - when a href is set to javascript void(0), do not follow it.
+- dev
 * v1.3.5
 feature:
 bugfix:
