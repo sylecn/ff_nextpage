@@ -3,6 +3,7 @@
 * v1.3.6dev
 - feature
   - works for some more mailing list archives
+  - works for wikisource books
 - bugfix
   - when a href is set to javascript void(0), do not follow it.
 - dev
