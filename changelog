@@ -4,9 +4,11 @@
 - feature
   - works for some more mailing list archives
   - works for wikisource books
+  - support user config file for binding keys
 - bugfix
   - when a href is set to javascript void(0), do not follow it.
 - dev
+  - fix bug 68 debug var refactoring.
 * v1.3.5
 feature:
 bugfix:

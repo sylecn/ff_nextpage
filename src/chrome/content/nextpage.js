@@ -20,12 +20,6 @@
 // TODO search for debugging code, with mark: /**/
 
 var nextpage = {
-    prefsNameList: ["extensions.nextpage.use-space",
-		    "extensions.nextpage.use-n-p",
-		    "extensions.nextpage.use-1-2",
-		    "extensions.nextpage.use-alt-p",
-		    "extensions.nextpage.use-alt-n"],
-
     init: function () {
 	// the FUEL Application
 	this.app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
@@ -39,18 +33,7 @@ var nextpage = {
 	/**
 	 * read user's config file if there is one.
 	 */
-	// this.config.init();
-
-	// Note: if you edit keys in this object, also edit in this.status.
-	this.binding = {
-	    'SPC' : nextpage.commands.gotoNextPageMaybe,
-	    'n' : nextpage.commands.gotoNextPage,
-	    'p' : nextpage.commands.historyBack,
-	    '1' : nextpage.commands.historyBack,
-	    '2' : nextpage.commands.gotoNextPage,
-	    'M-p' : nextpage.commands.historyBack,
-	    'M-n' : nextpage.commands.gotoNextPage
-	};
+	this.config.init();
 
 	/**
 	 * Some websites use the same hotkeys as nextpage. To prevent nextpage
@@ -77,7 +60,7 @@ var nextpage = {
 	    [/\W(web)?mail\.[^.]+\.(com|org|net|edu)/i, "*"]
 	];
 
-	if (nextpage.debug.debugging) {
+	if (nextpage.debug.debugging()) {
 	    nextpage.log("nextpage ready.");
 	    // TODO console.open() does not work well under firefox 11.
 	    // see bug #71.
@@ -103,7 +86,7 @@ var nextpage = {
 		    return false;
 		}
 		if (v[1] === "*" || this.utils.inArray(key, v[1])) {
-		    if (this.debug.debugging) {
+		    if (this.debug.debugging()) {
 			this.log("ignore " + key + " for " + v[0]);
 		    }
 		    return true;
@@ -128,7 +111,7 @@ var nextpage = {
 	if (focusElement.tagName.match(/^(INPUT|TEXTAREA|SELECT)$/i)) {
 	    return;
 	}
-	if (nextpage.debug.debugging && nextpage.debug.debugContentEditable) {
+	if (nextpage.debug.debugContentEditable()) {
 	    this.log(focusElement.tagName +
 		     "\nfocusElement.contentEditable=" +
 		     focusElement.contentEditable);
@@ -141,7 +124,7 @@ var nextpage = {
 	// IFRAME is a also an input control when inner document.designMode is
 	// set to "on". Some blog/webmail rich editor use IFRAME instead of
 	// TEXTAREA.
-	if (nextpage.debug.debugging && nextpage.debug.debugIFrame) {
+	if (nextpage.debug.debugIFrame()) {
 	    if (focusElement.tagName === "IFRAME") {
 		this.log(focusElement.tagName +
 			 "\nfocusElement.contentEditable=" +
@@ -162,33 +145,12 @@ var nextpage = {
 	}
 
 	var key = this.utils.describeKeyInEmacsNotation(e);
-	if (nextpage.debug.debugging && nextpage.debug.debugKeyEvents) {
+	if (nextpage.debug.debugKeyEvents()) {
 	    nextpage.log("keypressed: " + key);
 	}
-	if (this.status[key] && ! this.ignore(key)
-	    && (command = this.binding[key])) {
+	if (! this.ignore(key) && (command = this.config.bindings[key])) {
 	    command();
 	}
-    },
-
-    updateStatus: function () {
-	this.prefsValueList = this.prefsNameList.map(function (v, index, ar) {
-	    return nextpage.app.prefs.getValue(v, false);
-	});
-	// Note: if you edit keys in this object, also edit in this.binding.
-	this.status = {
-	    'SPC' : this.prefsValueList[0],
-	    'n' : this.prefsValueList[1],
-	    'p' : this.prefsValueList[1],
-	    '1' : this.prefsValueList[2],
-	    '2' : this.prefsValueList[2],
-	    'M-p': this.prefsValueList[3],
-	    'M-n' : this.prefsValueList[4]
-	};
-    },
-
-    updateHotKeys: function () {
-	this.updateStatus();
     },
 
     /**
@@ -221,7 +183,7 @@ var nextpage = {
      * @return false otherwise. thus the url failed the domain check.
      */
     checkDomain: function (url) {
-	if (nextpage.debug.debugging && nextpage.debug.debugDomainCheck) {
+	if (nextpage.debug.debugDomainCheck()) {
 	    nextpage.log("checkDomain " + url);
 	}
 
@@ -242,11 +204,9 @@ var nextpage = {
 	if (matchResult[2].indexOf(content.document.domain) !== -1) {
 	    return true;
 	}
-	if (nextpage.debug.debugging && nextpage.debug.debugDomainCheck) {
+	if (nextpage.debug.debugDomainCheck()) {
 	    nextpage.log("domain compare: link at " + matchResult[2] +
 			 ", this doc at " + content.document.domain);
-	}
-	if (nextpage.debug.debugging && nextpage.debug.debugDomainCheck) {
 	    nextpage.log("domain check failed.");
 	}
 	return false;
@@ -480,7 +440,7 @@ var nextpage = {
 	for (i = 0; i < preGeneric.length; ++i) {
 	    if (url.match(preGeneric[i][0])) {
 		var re = preGeneric[i][1](url, content.document);
-		if (this.debug.debugging && this.debug.debugSpecialCase) {
+		if (this.debug.debugSpecialCase()) {
 		    this.log("special case for " + preGeneric[i][0]);
 		    this.log("hook function returned " + re);
 		}
@@ -507,7 +467,7 @@ var nextpage = {
 		lastElement.hasAttribute('rel') &&
 		(lastElement.getAttribute('rel').toLowerCase() === "next")) {
 		// find a next page link
-		if (this.debug.debugging) {
+		if (this.debug.debugging()) {
 		    this.log("found <LINK rel=\"next\"> href=" + lastElement.href);
 		}
 		return lastElement;
@@ -519,15 +479,13 @@ var nextpage = {
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (j = 0; j < links.length; j++) {
-		if (nextpage.debug.debugging) {
-		    if (nextpage.debug.debugATag) {
-			// define your filter condition here:
-			if (false) {
-			    nextpage.log("A-tag innerHTML:" + links[j].innerHTML);
-			    nextpage.debug.debugATag = false;
-			    // can enable other debug options here.
-			    nextpage.debug.debugDomainCheck = true;
-			}
+		if (nextpage.debug.debugATag()) {
+		    // define your filter condition here:
+		    if (false) {
+			nextpage.log("A-tag innerHTML:" + links[j].innerHTML);
+			nextpage.debug._debugATag = false;
+			// can enable other debug options here.
+			nextpage.debug._debugDomainCheck = true;
 		    }
 		}
 		if (nextpage.isNextPageLink(links[j])) {
@@ -566,48 +524,45 @@ var nextpage = {
     }
 };
 
-/**
- * config file based functions
- */
-nextpage.config = function () {
-    var functions = ["nextpage-maybe", "nextpage", "history-back",
-		     "close-tab", "undo-close-tab"];
-    var init = function () {
-	//requires firefox 3.6
-	Components.utils.import("resource://gre/modules/FileUtils.jsm");
-	Components.utils.import("resource://gre/modules/NetUtil.jsm");
-	var configFile = FileUtils.getFile("Home",
-					   [".config", "nextpage.lisp"]);
-	if (configFile.exists()) {
-	    NetUtil.asyncFetch(configFile, function(inputStream, status) {
-		if (!Components.isSuccessCode(status)) {
-		    // Handle error!
-		    return;
-		}
-
-		// The file data is contained within inputStream.
-		// You can read it into a string with
-		var data = NetUtil.readInputStreamToString(
-		    inputStream, inputStream.available());
-		nextpage.log("config file content: " + data);
-	    });
-	}
-    };
-    return {
-	init: init
-    };
-}();
-
 nextpage.debug = {
     // make sure debugging is turned off when release
-    debugging			: false,
-    debugSpecialCase		: !false,
-    debugGotoNextPage		: !false,
-    debugDomainCheck		: false,
-    debugATag			: false,
-    debugIFrame			: false,
-    debugContentEditable	: false,
-    debugKeyEvents		: false,
+    _debugging			: false,
+    _debugSpecialCase		: !false,
+    _debugGotoNextPage		: !false,
+    _debugDomainCheck		: false,
+    _debugATag			: false,
+    _debugIFrame			: false,
+    _debugContentEditable	: false,
+    _debugKeyEvents		: false,
+    _debugConfigFile             : !false,
+
+    debugging: function () {
+	return this._debugging;
+    },
+    debugSpecialCase: function () {
+	return this._debugging && this._debugSpecialCase;
+    },
+    debugGotoNextPage: function () {
+	return this._debugging && this._debugGotoNextPage;
+    },
+    debugDomainCheck: function () {
+	return this._debugging && this._debugDomainCheck;
+    },
+    debugATag: function () {
+	return this._debugging && this._debugATag;
+    },
+    debugIFrame: function () {
+	return this._debugging && this._debugIFrame;
+    },
+    debugContentEditable: function () {
+	return this._debugging && this._debugContentEditable;
+    },
+    debugKeyEvents: function () {
+	return this._debugging && this._debugKeyEvents;
+    },
+    debugConfigFile: function () {
+	return this._debugging && this._debugConfigFile;
+    },
 
     // convert anchor (link) object to string
     linkToString: function (l) {
@@ -658,19 +613,17 @@ nextpage.commands = {
      * goto next page if a next page link was found. otherwise do nothing.
      */
     gotoNextPage: function () {
-	if (nextpage.debug.debugging && nextpage.debug.debugGotoNextPage) {
+	if (nextpage.debug.debugGotoNextPage()) {
 	    nextpage.log("in gotoNextPage()");
 	}
 	var nextpageLink = nextpage.getNextPageLink();
 	if (nextpageLink) {
-	    if (nextpage.debug.debugging &&
-		nextpage.debug.debugGotoNextPage) {
+	    if (nextpage.debug.debugGotoNextPage()) {
 		nextpage.log("got nextpage link:\n" +
 			     nextpage.debug.linkToString(nextpageLink));
 	    }
 	    if (nextpageLink.hasAttribute("onclick")) {
-		if (nextpage.debug.debugging &&
-		    nextpage.debug.debugGotoNextPage) {
+		if (nextpage.debug.debugGotoNextPage()) {
 		    nextpage.log("will click the element");
 		}
 		if (nextpageLink.click) {
@@ -687,8 +640,7 @@ nextpage.commands = {
 		    nextpageLink.dispatchEvent(clickEvent);
 		}
 	    } else if (nextpageLink.hasAttribute("href")) {
-		if (nextpage.debug.debugging &&
-		    nextpage.debug.debugGotoNextPage) {
+		if (nextpage.debug.debugGotoNextPage()) {
 		    nextpage.log("will follow link.href if it's good");
 		}
 		// don't follow javascript:void(0);
@@ -712,7 +664,7 @@ nextpage.commands = {
 	    // TODO show a nice auto timeout message at the bottom of the
 	    // content window. using html and css. use msg in
 	    // nextpage.strings.getString("msg_no_link_found")
-	    if (nextpage.debug.debugging) {
+	    if (nextpage.debug.debugging()) {
 		nextpage.log("No link/button found. will stay at current page.");
 	    }
 	    return false;
@@ -730,6 +682,136 @@ nextpage.commands = {
 	return false;
     }
 };
+
+/**
+ * config file based functions.
+ * global bindings are stored in nextpage.config.bindings object.
+ */
+nextpage.config = function () {
+    /**
+     * map command used in config file to real function objects.
+     */
+    var command_name_map = {
+	"nextpage-maybe": nextpage.commands.gotoNextPageMaybe,
+	"nextpage": nextpage.commands.gotoNextPage,
+	// "close-tab": nextpage.commands.closeTab,
+	// "undo-close-tab": nextpage.commands.undoCloseTab,
+	"history-back": nextpage.commands.historyBack
+    };
+
+    /**
+     * parse nextpage config file. currently only bind is supported.
+     * using dumb regexp to do parsing. sexp read style parsing not supported.
+     * one bind per line.
+     *
+     * comments and empty lines are skipped.
+     */
+    var parse_config_file = function (str) {
+	var logs = [];
+	var line_index;
+	var log = function (msg) {
+	    logs.push('line ' + (line_index + 1) + ': ' + msg);
+	};
+	var bind_pattern = /\(bind\s+"(.*)"\s+'(.*)\)/;
+
+	/**
+	 * parse binding in line, if failed, return false.
+	 * @returns [key, command] pair in an array.
+	 */
+	var get_key_binding_pair = function (line) {
+	    var mo = bind_pattern.exec(line);
+	    var key, command;
+	    if (mo) {
+		key = mo[1];
+		command = mo[2];
+		if (command_name_map.hasOwnProperty(command)) {
+		    return [key, command];
+		}
+		log('ignore bind ' + key + ' with unkown command ' + command);
+	    }
+	    return false;
+	};
+
+	var lines = str.split('\n');
+	var result = {};
+	var r;
+	var i;
+	var line;
+	for (i = 0; i < lines.length; ++i) {
+	    line_index = i;
+	    line = lines[i];
+	    if (line.match(/^\s*;/)) {
+		continue;
+	    }
+	    r = get_key_binding_pair(line);
+	    if (r) {
+		if (result.hasOwnProperty(r[0])) {
+		    if (result[r[0]] !== r[1]) {
+			log('overwrite existing binding (' + r[0] +
+			    ', ' + result[r[0]] + ')');
+		    } else {
+			log('duplicate binding (' + r[0] +
+			    ', ' + result[r[0]] + ')');
+		    }
+		}
+		result[r[0]] = command_name_map[r[1]];
+	    }
+	}
+	return [result, logs];
+    };
+
+    var init = function () {
+	// This must be set for nextpage keypress function to work. It will be
+	// replaced by config from user's config files or nextpage's default.
+	nextpage.config.bindings = {};
+
+	//requires firefox 3.6
+	Components.utils.import("resource://gre/modules/FileUtils.jsm");
+	Components.utils.import("resource://gre/modules/NetUtil.jsm");
+	var configFile = FileUtils.getFile(
+	    "Home", [".config", "nextpage.lisp"]);
+	if (configFile.exists()) {
+	    NetUtil.asyncFetch(configFile, function(inputStream, status) {
+		if (!Components.isSuccessCode(status)) {
+		    // Handle error!
+		    return;
+		}
+
+		// The file data is contained within inputStream.
+		// You can read it into a string with
+		var data = NetUtil.readInputStreamToString(
+		    inputStream, inputStream.available());
+		// nextpage.log("config file content: " + data);
+		var r = parse_config_file(data);
+		nextpage.config.bindings = r[0];
+		if (nextpage.debug.debugConfigFile()) {
+		    nextpage.log("config file loaded.");
+		    nextpage.log('keys binded: ' + JSON.stringify(
+			Object.keys(nextpage.config.bindings))); //requires ff4
+		    if (r[1]) {
+			// TODO should show it to user more obviously, could use
+			// non blocking pop up.
+			nextpage.log(r[1].join("\n"));
+		    }
+		}
+	    });
+	} else {
+	    if (nextpage.debug.debugConfigFile()) {
+		nextpage.log("config file not found.");
+		// TODO create a default config file or build a default
+		// binding in memory.
+		nextpage.config.bindings = {
+		    "SPC": nextpage.commands.gotoNextPageMaybe,
+		    "n": nextpage.commands.gotoNextPage,
+		    "p": nextpage.commands.historyBack
+		};
+	    }
+	}
+    };
+    return {
+	init: init
+    };
+}();
 
 nextpage.utils = {
     /**
@@ -768,7 +850,7 @@ nextpage.utils = {
      * @return a string that describes which key was pressed.
      */
     describeKeyInEmacsNotation: function (e) {
-	// /**/if (nextpage.debug.debugging) {
+	// /**/if (nextpage.debug.debugging()) {
 	//     nextpage.log("keyCode charCode:" + e.keyCode + " " + e.charCode);
 	// }
 	var getNameForKeyCode = function (keyCode) {
@@ -811,7 +893,7 @@ nextpage.utils = {
 	    getNameForKeyCode(e.keyCode);
 	if (keyname === " ") keyname = "SPC";  //SPC is emacs syntax and it's
 					      //more readable.
-	// /**/if (nextpage.debug.debugging) {
+	// /**/if (nextpage.debug.debugging()) {
 	//     nextpage.log("keyname:" + keyname);
 	// }
 	var ctrl = e.ctrlKey ? "C-": "";
@@ -851,42 +933,9 @@ nextpage.utils = {
     }
 };
 
-nextpage.prefWatcher = {
-    prefs: null,
-    startup: function () {
-	// Register to receive notifications of preference changes
-
-	this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
-            .getService(Components.interfaces.nsIPrefService)
-            .getBranch("extensions.nextpage.");
-	this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
-	this.prefs.addObserver("", this, false);
-
-	nextpage.updateHotKeys();
-    },
-    shutdown: function ()
-    {
-	this.prefs.removeObserver("", this);
-    },
-    observe: function (subject, topic, data)
-    {
-	if (topic != "nsPref:changed")
-	{
-	    return;
-	}
-
-	nextpage.updateHotKeys();
-    }
-};
-
 window.addEventListener("load", function (e) {
     // main()
     nextpage.init();
-    nextpage.prefWatcher.startup();
-}, false);
-
-window.addEventListener("unload", function (e) {
-    nextpage.prefWatcher.shutdown();
 }, false);
 
 window.addEventListener('keypress', function (e) {
