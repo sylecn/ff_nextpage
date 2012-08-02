@@ -6,20 +6,14 @@ Time-stamp: <2012-08-02>
   entry. I prefers a persistent text file as config file. But I know some
   windows users would rather not.
 
-  - how to get user's home dir?
-    in windows use My Documents dir.
-    on unix, use $HOME.
-  - how to read the file
+  - DONE how to get user's home dir?
+    see https://developer-new.mozilla.org/en-US/docs/Code_snippets/File_I_O
+    use built-in FileUtils js module.
+  - DONE how to read the file. use NetUtil module.
   - how to parse the file
   - provide a button to reload config file.
-    which means current config should be in memory.
-** DONE quick prototype
-   - read $HOME/d/t1.firefox when add-on startup.
-   - print content of it when user type "x"
+    which means current config should be flushed and updated.
 
-     this one is new: https://developer-new.mozilla.org/en-US/docs/Code_snippets/File_I_O
-
-     read text file works.
 ** 2012-08-02 design the thing
    - add config file based key binding system.
      - parse config file, produce json
@@ -32,18 +26,10 @@ Time-stamp: <2012-08-02>
    - add a label to show config file path.
      add a button to copy config file path.
    - add a button to reload config file.
-   - remove preferences based binding.
+   - remove preferences based binding completely.
    - allow temperately disable a keybinding.
-     add ListBox or similar widget to show currently active key bindings.
-      active key bindings   inactive key bindings
-                          >
-                          <
-      add key binding:
-      ... (same as below)
-      config file: [/home/sylecn/.config/nextpage.conf]
-      [save permanently] [copy config filename]
-
-     comment that line will disable the bind.
+     by adding a text widget. (serves as a simple text editor)
+     save button and reload button.
 ** define the config file format
    #+BEGIN_SRC emacs-lisp
      ;; use emacs style key name.
@@ -60,22 +46,15 @@ Time-stamp: <2012-08-02>
      (bind "p" 'history-back)
    #+END_SRC
 ** define the preferences UI
-   two tabs
-   | basic | advanced |
+   config file: [/home/sylecn/.config/nextpage.conf] [copy]
+   [a big text area here]
+   [reload from disk] [check] [save to disk]
 
-   basic tab
-   keybindings list:
-   active bindings                    |    inactive bindings
-   scroll down or next page: SPC      |    next page: 2
-   next page: n                       |    history back: 1
-   history back: p                    |
+   when user press reload, reload config file from disk to text area widget.
+   press check will check the config in text area. either tell
+   "looks good." or "line 5: ignore bind with unkown command foobar." or
+   "line 6: overwrite existing binding (key, foobar)."
 
-   add key binding:
-   function: [       v]  key: [   ]
-
-   [add] [del]
-   function is a drop down select list.
-   key is a text input.
 * 2012-07-20 create a universal key binding add-on for firefox. :complicated:
   Why:
 
