@@ -1,6 +1,81 @@
 Date: 2012-07-20
-Time-stamp: <2012-07-20>
+Time-stamp: <2012-08-02>
 
+* 2012-07-31 support user binding config file
+  the config file could be a plain file or an encoded firefox preferences
+  entry. I prefers a persistent text file as config file. But I know some
+  windows users would rather not.
+
+  - how to get user's home dir?
+    in windows use My Documents dir.
+    on unix, use $HOME.
+  - how to read the file
+  - how to parse the file
+  - provide a button to reload config file.
+    which means current config should be in memory.
+** DONE quick prototype
+   - read $HOME/d/t1.firefox when add-on startup.
+   - print content of it when user type "x"
+
+     this one is new: https://developer-new.mozilla.org/en-US/docs/Code_snippets/File_I_O
+
+     read text file works.
+** 2012-08-02 design the thing
+   - add config file based key binding system.
+     - parse config file, produce json
+       nextpage.config.keybindings = []
+       same as the old nextpage.binding dict.
+
+     - in key event, process defined hotkeys
+   - create a default config file on add-on init.
+     if config file is found, do not overwrite it.
+   - add a label to show config file path.
+     add a button to copy config file path.
+   - add a button to reload config file.
+   - remove preferences based binding.
+   - allow temperately disable a keybinding.
+     add ListBox or similar widget to show currently active key bindings.
+      active key bindings   inactive key bindings
+                          >
+                          <
+      add key binding:
+      ... (same as below)
+      config file: [/home/sylecn/.config/nextpage.conf]
+      [save permanently] [copy config filename]
+
+     comment that line will disable the bind.
+** define the config file format
+   #+BEGIN_SRC emacs-lisp
+     ;; use emacs style key name.
+     ;;   C-a means Ctrl-a
+     ;;   M-a means Alt-a
+     ;;   C-M-a means Ctrl-Alt-a
+     ;; 
+     ;; to known a key or key sequence's name, start emacs and type C-h c, then
+     ;; type your key sequence.
+     (bind "b" 'history-back)
+     (bind "c" 'close-tab)
+     (bind "SPC" 'nextpage-maybe)
+     (bind "n" 'nextpage)
+     (bind "p" 'history-back)
+   #+END_SRC
+** define the preferences UI
+   two tabs
+   | basic | advanced |
+
+   basic tab
+   keybindings list:
+   active bindings                    |    inactive bindings
+   scroll down or next page: SPC      |    next page: 2
+   next page: n                       |    history back: 1
+   history back: p                    |
+
+   add key binding:
+   function: [       v]  key: [   ]
+
+   [add] [del]
+   function is a drop down select list.
+   key is a text input.
 * 2012-07-20 create a universal key binding add-on for firefox. :complicated:
   Why:
 

@@ -36,6 +36,11 @@ var nextpage = {
 	 */
 	this.strings = document.getElementById("nextpage-strings");
 
+	/**
+	 * read user's config file if there is one.
+	 */
+	// this.config.init();
+
 	// Note: if you edit keys in this object, also edit in this.status.
 	this.binding = {
 	    'SPC' : nextpage.commands.gotoNextPageMaybe,
@@ -560,6 +565,38 @@ var nextpage = {
 	return false;
     }
 };
+
+/**
+ * config file based functions
+ */
+nextpage.config = function () {
+    var functions = ["nextpage-maybe", "nextpage", "history-back",
+		     "close-tab", "undo-close-tab"];
+    var init = function () {
+	//requires firefox 3.6
+	Components.utils.import("resource://gre/modules/FileUtils.jsm");
+	Components.utils.import("resource://gre/modules/NetUtil.jsm");
+	var configFile = FileUtils.getFile("Home",
+					   [".config", "nextpage.lisp"]);
+	if (configFile.exists()) {
+	    NetUtil.asyncFetch(configFile, function(inputStream, status) {
+		if (!Components.isSuccessCode(status)) {
+		    // Handle error!
+		    return;
+		}
+
+		// The file data is contained within inputStream.
+		// You can read it into a string with
+		var data = NetUtil.readInputStreamToString(
+		    inputStream, inputStream.available());
+		nextpage.log("config file content: " + data);
+	    });
+	}
+    };
+    return {
+	init: init
+    };
+}();
 
 nextpage.debug = {
     // make sure debugging is turned off when release
