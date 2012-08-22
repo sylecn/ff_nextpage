@@ -31,23 +31,23 @@ var nextpage_config = function () {
 (bind "n" \'nextpage)\n\
 (bind "p" \'history-back)\n';
     /**
-     * map command used in config file to real function objects.
+     * returns true if given nextpage config command is valid.
      */
-    // implemented as a lazy variable that uses the singleton pattern.
-    var command_name_map = null;
-    var get_command_name_map = function () {
-	if (command_name_map === null) {
-	    command_name_map = {
-		"nextpage-maybe": nextpage.commands.gotoNextPageMaybe,
-		"nextpage": nextpage.commands.gotoNextPage,
-		// "close-tab": nextpage.commands.closeTab,
-		// "undo-close-tab": nextpage.commands.undoCloseTab,
-		"history-back": nextpage.commands.historyBack,
-		"close-tab": nextpage.commands.closeTab,
-		"nil": null
-	    };
-	};
-	return command_name_map;
+    // this is used for syntax checking.
+    var valid_commands = ["nextpage-maybe",
+			  "nextpage",
+			  "history-back",
+			  "close-tab",
+			  "nil"];
+    var is_valid_command = function (command) {
+	var result = false;
+	var i;
+	for (i = 0; i < valid_commands.length; ++i) {
+	    if (command === valid_commands[i]) {
+		return true;
+	    }
+	}
+	return false;
     };
 
     /**
@@ -57,68 +57,88 @@ var nextpage_config = function () {
      *
      * comments and empty lines are skipped.
      *
-     * @return [binding_obj, logs].
+     * @return [binding_obj, logs, noerror].
      * binding_obj contains key, command pairs.
      * logs is an array of warning and error messages.
+     * noerror indicate whether the parse has no errors. Note that usually
+     *         errors will just be discarded. you can still use result in
+     *         binding_obj.
      */
     var parse_config_file = function (str) {
+	var noerror = true;
 	var logs = [];
 	var line_index;
 	var log = function (msg) {
 	    logs.push('line ' + (line_index + 1) + ': ' + msg);
 	};
-	var bind_pattern = /\(bind\s+"(.*)"\s+'?([^']*)\)/;
+	var command_pattern = /^\(([a-zA-Z][-a-zA-Z0-9]*)\s+.*\)$/;
 
 	/**
 	 * parse binding in line, if failed, return false.
 	 * @returns [key, command] pair in an array.
 	 */
-	var get_key_binding_pair = function (line) {
-	    var mo = bind_pattern.exec(line);
-	    var key, command;
-	    if (mo) {
-		key = mo[1];
-		command = mo[2];
-		if (get_command_name_map().hasOwnProperty(command)) {
-		    return [key, command];
-		}
-		log('ignore bind ' + key + ' with unkown command ' + command);
-	    }
-	    return false;
-	};
 
 	var lines = str.split('\n');
 	var result = {};
-	var r;
-	var i;
+	var r, mo, i;
 	var line;
+	var command;		//stores first string in sexp list.
 	for (i = 0; i < lines.length; ++i) {
 	    line_index = i;
-	    line = lines[i];
-	    if (line.match(/^\s*;/)) {
+	    line = lines[i].trim();
+	    if (line === '' || line.match(/^\s*;/)) {
+		// ignore empty lines and comment lines
 		continue;
 	    }
-	    if (line.match(/(unbind-all)/)) {
+	    if ((mo = command_pattern.exec(line))) {
+		command = mo[1];
+	    } else {
+		log('Error: bad sexp: ' + line);
+		noerror = false;
+		continue;
+	    };
+
+	    switch (command) {
+	    case "unbind-all":
 		// clear built-in bindings
 		bindings = {};
 		// clear all bindings read thus far.
 		result = {};
-	    }
-	    r = get_key_binding_pair(line);
-	    if (r) {
-		if (result.hasOwnProperty(r[0])) {
-		    if (result[r[0]] !== r[1]) {
-			log('overwrite existing binding (' + r[0] +
-			    ', ' + result[r[0]] + ')');
-		    } else {
-			log('duplicate binding (' + r[0] +
-			    ', ' + result[r[0]] + ')');
+		break;
+	    case "bind":
+		r = function () {
+		    var bind_pattern = /\(bind\s+"(.*)"\s+'?([^'\s]*)\s*\)/;
+		    var mo = bind_pattern.exec(line);
+		    var key, command;
+
+		    key = mo[1];
+		    command = mo[2];
+		    if (key.indexOf(' ') !== -1) {
+			log('Warning: bind: key sequence is not supported: ' +
+			    key);
+		    };
+		    if (! is_valid_command(command)) {
+			log('Error: bind: invalid command: ' + command);
+			noerror = false;
 		    }
-		}
-		result[r[0]] = get_command_name_map()[r[1]];
-	    }
+		    if (result.hasOwnProperty(key)) {
+			if (result[key] !== command) {
+			    log('Warning: bind: overwrite existing binding (' +
+				key + ', ' + result[key] + ')');
+			} else {
+			    log('Warning: bind: duplicate binding (' +
+				key + ', ' + result[key] + ')');
+			}
+		    }
+		    result[key] = command;
+		}();
+		break;
+	    default:
+		log('Error: unknown command: ' + command);
+		noerror = false;
+	    };
 	}
-	return [result, logs];
+	return [result, logs, noerror];
     };
 
     /**
@@ -266,6 +286,7 @@ var nextpage_config = function () {
 	get_default_config: function () {
 	    return default_config;
 	},
-	config_file_exists: config_file_exists
+	config_file_exists: config_file_exists,
+	parse_config_file: parse_config_file
     };
 }();

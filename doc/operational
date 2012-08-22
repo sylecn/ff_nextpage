@@ -2,6 +2,10 @@ Date: 2012-07-20
 Time-stamp: <2012-08-22>
 
 * later								      :entry:
+** 2012-08-22 if user edit config file in external editor and there are errors,
+   how to alert user?
+
+   - well, for now, just let them check it in Preferences window.
 ** 2012-08-22 add lisp parser.
 *** support more commands and configurable vars.
     ignoreBindingAList
@@ -104,64 +108,3 @@ Time-stamp: <2012-08-22>
 *** update usage.html nextpage_show_preferences function. maybe.
     never show to preferences window to user.
 ** 
-** 2012-08-19 check config errors before saving to disk.
-   show errors to user.
-** 2012-07-31 support user binding config file
-   the config file could be a plain file or an encoded firefox preferences
-   entry. I prefers a persistent text file as config file. But I know some
-   windows users would rather not.
-
-   - DONE how to get user's home dir?
-     see https://developer-new.mozilla.org/en-US/docs/Code_snippets/File_I_O
-     use built-in FileUtils js module.
-   - DONE how to read the file. use NetUtil module.
-   - DONE how to parse the file
-     parse line by line, use regexp to do toy parsing.
-   - DONE provide a button to reload config file.
-     which means current config should be flushed and updated.
-
-*** 2012-08-02 design the thing (continued)
-    - create a default config file on add-on init.
-      if config file is found, do not overwrite it.
-      To create the file, you need to create all parent dirs.
-
-    - DONE add a label to show config file path.
-      DONE add a button to copy config file path.
-
-    - DONE add a button to reload config file.
-    - DONE allow temperately disable a keybinding.
-      by adding a text widget. (serves as a simple text editor)
-      save button and reload button.
-
-*** define the config file format
-    #+BEGIN_SRC emacs-lisp
-      ;; use emacs style key name.
-      ;;   C-a means Ctrl-a
-      ;;   M-a means Alt-a
-      ;;   C-M-a means Ctrl-Alt-a
-      ;; 
-      ;; to known a key or key sequence's name, start emacs and type C-h c, then
-      ;; type your key sequence.
-      (bind "b" 'history-back)
-      (bind "c" 'close-tab)
-      (bind "SPC" 'nextpage-maybe)
-      (bind "n" 'nextpage)
-      (bind "p" 'history-back)
-    #+END_SRC
-
-*** define the preferences UI
-    config file: [/home/sylecn/.config/nextpage.conf] [copy]
-    [a big text area here]
-    [save & load] [reload only]
-
-    when user press save & load, check the config in text area widget for
-    errors. if it is good, tell user "looks good.", save it to disk, tell
-    overlay to reload it. if there are some warnings, tell user, for example,
-        "line 6: overwrite earlier binding (key, foobar)."
-    still save and reload.
-    if there are errors, tell user and do not save and reload.
-
-    example error message:
-        line X: unknown command: foo
-	line Y: bind: invalid key: foo.
-	line Y: bind: invalid command: foobar.

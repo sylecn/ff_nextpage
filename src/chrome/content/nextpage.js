@@ -148,10 +148,10 @@ var nextpage = {
 	if (nextpage.debug.debugKeyEvents()) {
 	    nextpage.log("keypressed: " + key);
 	}
-	if (! this.ignore(key) &&
-	    (command = nextpage_config.get_bindings()[key])) {
-	    command();
-	}
+	if (! this.ignore(key)) {
+	    command = nextpage_config.get_bindings()[key];
+	    nextpage.commands.runUserCommand(command);
+	};
     },
 
     /**
@@ -695,6 +695,23 @@ nextpage.commands = {
      */
     undoCloseTab: function () {
 	// not implemented yet.
+    },
+    /**
+     * run user command
+     */
+    runUserCommand: function (command) {
+	switch (command) {
+	case "nextpage-maybe": return this.gotoNextPageMaybe();
+	case "nextpage": return this.gotoNextPage();
+	case "history-back": return this.historyBack();
+	case "close-tab": return this.closeTab();
+	case "nil": break;	//do nothing.
+	default:
+	    if (nextpage.debug.debugging()) {
+		nextpage.log('will not run unknown command: ' + command);
+	    };
+	    break;
+	};
     }
 };
 

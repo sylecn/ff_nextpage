@@ -24,17 +24,9 @@ var nextpage_pref = function () {
     var config_file_path = nextpage_config.get_config_file_path();
 
     /**
-     * function run when prefwindow load.
-     * this just fill up the text fields.
+     * update user config textbox to match user config file on disk.
      */
-    var init = function () {
-	document.getElementById("nextpage-config-file-path")
-	    .value = config_file_path;
-
-	document.getElementById("nextpage-default-config")
-	    .value = nextpage_config.get_default_config();
-
-	// update textbox with file content.
+    var update_user_config_textbox = function () {
 	if (! nextpage_config.config_file_exists()) {
 	    log_area.set('No user config file was found, type in the box above and hit "Save & Reload" button to create one.');
 	    log_area.log('Click Help button below to learn about config file.');
@@ -47,6 +39,20 @@ var nextpage_pref = function () {
 		log_area.set("Error: read config file has failed.");
 	    });
 	}
+    };
+
+    /**
+     * function run when prefwindow load.
+     * this just fill up the text fields.
+     */
+    var init = function () {
+	document.getElementById("nextpage-config-file-path")
+	    .value = config_file_path;
+
+	document.getElementById("nextpage-default-config")
+	    .value = nextpage_config.get_default_config();
+
+	update_user_config_textbox();
     };
 
     /**
@@ -79,13 +85,18 @@ var nextpage_pref = function () {
     };
 
     /**
-     * on reload button click
+     * ask nextpage overlay to reload user config file.
+     * @param revert_file optional. if true, also update the user config
+     *        textbox. default value is true.
      */
-    var reload = function () {
+    var reload = function (revert_file) {
 	// send notification to overlay
 	Components.classes["@mozilla.org/observer-service;1"]
             .getService(Components.interfaces.nsIObserverService)
             .notifyObservers(null, "nextpage-reload-config", "");
+	if ((typeof(revert_file) === "undefined") || revert_file) {
+	    update_user_config_textbox();
+	};
     };
 
     /**
@@ -93,12 +104,22 @@ var nextpage_pref = function () {
      * it active in current session.
      */
     var save_and_reload = function () {
-	save(function () {
-	    log_area.set("config file saved.");
-	    reload();
-	}, function () {
-	    log_area.set('Error: save failed, config not reloaded.');
-	});
+	log_area.clear();
+	var new_config_string = config_textbox.value;
+	var r = nextpage_config.parse_config_file(new_config_string);
+	if (r[2]) {
+	    // log_area.log("No syntax errors.");
+	    save(function () {
+		log_area.log("config file saved.");
+		reload(false);
+	    }, function () {
+		log_area.log('Error: save failed, config not reloaded.');
+	    });
+	} else {
+	    log_area.log('There are errors when parsing the new config, \
+file not saved.');
+	    log_area.log(r[1].join("\n"));
+	};
     };
 
     /**

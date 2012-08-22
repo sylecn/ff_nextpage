@@ -23,7 +23,7 @@ everything can be edit directly in about:config.
 		oncommand="nextpage_pref.copy_config_file_path()"/>
       </hbox>
       <label control="nextpage-default-config"
-	     value="Default Config:"/>
+	     value="Built-in Config:"/>
       <textbox id="nextpage-default-config" cols="80" rows="4" multiline="true"
 	       readonly="true" value=""/>
       <label control="nextpage-user-config"
@@ -38,7 +38,7 @@ everything can be edit directly in about:config.
 		oncommand="nextpage_pref.save_and_reload()"/>
 	<button label="Reload Only"
 		accesskey="R"
-		oncommand="nextpage_pref.reload()"/>
+		oncommand="nextpage_pref.reload(true)"/>
 	<button label="Help"
 		accesskey="H"
 		oncommand="nextpage_pref.help()"/>

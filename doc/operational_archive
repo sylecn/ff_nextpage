@@ -258,16 +258,139 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
 	}
     };
   #+END_SRC
+* DONE 2012-08-19 check config errors before saving to disk.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 19:42
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  show errors to user.
 
+** DONE need to change GUI logic
+   press save&load will first do a trail load, show warnings and errors to
+   user. if there is no error, use it as new config, otherwise, still use old
+   config. (i.e. do not send the notification)
 
+   - API change: parse_config_file now return a third argument: success?
+     - check all calls to parse_config_file. update if necessary.
+** DONE bugfix: allow empty lines
+** DONE parsing is full of headache without good planning.
+   syntax check should be different from semantics.
+   the real function call should be lazy. lazy. and lazy.
+   they should never be called when checking syntax.
 
+   move the function that
+       map command used in config file to real function objects.
+   to nextpage.js
+   remove command_name_map, get_command_name_map()
 
+   use nextpage.commands.runUserCommand in nextpage.js.
+* DONE 2012-07-31 support user binding config file
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 19:54
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  the config file could be a plain file or an encoded firefox preferences
+  entry. I prefers a persistent text file as config file. But I know some
+  windows users would rather not.
 
+  - DONE how to get user's home dir?
+    see https://developer-new.mozilla.org/en-US/docs/Code_snippets/File_I_O
+    use built-in FileUtils js module.
+  - DONE how to read the file. use NetUtil module.
+  - DONE how to parse the file
+    parse line by line, use regexp to do toy parsing.
+  - DONE provide a button to reload config file.
+    which means current config should be flushed and updated.
 
+** DONE 2012-08-02 design the thing (continued)
+   - WONTFIX create a default config file on add-on init.
+     if config file is found, do not overwrite it.
+     To create the file, you need to create all parent dirs.
 
+     - I used the two config design. one built-in, one user config.
+       see that entry for more info.
 
+       There is no need to create a default config file because of the
+       built-in config. User can create a user config file with one click.
 
+   - DONE add a label to show config file path.
+     DONE add a button to copy config file path.
 
+   - DONE add a button to reload config file.
+   - DONE allow temperately disable a keybinding.
+     by adding a text widget. (serves as a simple text editor)
+     save button and reload button.
+
+** DONE define the config file format
+   #+BEGIN_SRC emacs-lisp
+     ;; use emacs style key name.
+     ;;   C-a means Ctrl-a
+     ;;   M-a means Alt-a
+     ;;   C-M-a means Ctrl-Alt-a
+     ;; 
+     ;; to known a key or key sequence's name, start emacs and type C-h c, then
+     ;; type your key sequence.
+     (bind "b" 'history-back)
+     (bind "c" 'close-tab)
+     (bind "SPC" 'nextpage-maybe)
+     (bind "n" 'nextpage)
+     (bind "p" 'history-back)
+   #+END_SRC
+
+** DONE define the preferences UI
+   config file: [/home/sylecn/.config/nextpage.conf] [copy]
+   [a big text area here]
+   [save & load] [reload only]
+
+   when user press save & load, check the config in text area widget for
+   errors. if it is good, tell user "looks good.", save it to disk, tell
+   overlay to reload it. if there are some warnings, tell user, for example,
+       "line 6: overwrite earlier binding (key, foobar)."
+   still save and reload.
+   if there are errors, tell user and do not save and reload.
+
+   example error message:
+       line X: unknown command: foo
+       line Y: bind: invalid key: foo.
+       line Y: bind: invalid command: foobar.
+* DONE 2012-08-22 bug: (bind "b" 'history-back  ) is not accepted.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 20:30
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  fixed. but this also show that a sexp parser will be very helpful. regexp
+  parsing requires more care to be taken to get it right.
+* DONE 2012-08-22 add syntax checking rule for the keyname.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 20:33
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  do not allow space in keyname.
+* DONE 2012-08-22 update config_textbox if user click "Reload only" button.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 21:19
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
 
 
 
