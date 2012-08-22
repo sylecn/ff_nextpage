@@ -150,7 +150,9 @@ var nextpage = {
 	}
 	if (! this.ignore(key)) {
 	    command = nextpage_config.get_bindings()[key];
-	    nextpage.commands.runUserCommand(command);
+	    if (typeof(command) !== "undefined") {
+		nextpage.commands.runUserCommand(command);
+	    };
 	};
     },
 
@@ -683,19 +685,25 @@ nextpage.commands = {
 	return false;
     },
 
-    /**
-     * close current tab
-     */
+    // (close-tab)
     closeTab: function () {
 	gBrowser.removeCurrentTab();
     },
 
-    /**
-     * undo close tab
-     */
+    // (undo-close-tab)
     undoCloseTab: function () {
 	// not implemented yet.
     },
+
+    // (enable-debug)
+    enableDebug : function () {
+	// enable the most useful debug variables here
+	nextpage.debug._debugging = true;
+	nextpage.debug._debugSpecialCase = true;
+	nextpage.debug._debugGotoNextPage = true;
+	nextpage.debug._debugConfigFile = true;
+    },
+
     /**
      * run user command
      */

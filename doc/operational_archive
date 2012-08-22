@@ -391,6 +391,59 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
   :ARCHIVE_TODO: DONE
   :ARCHIVE_ITAGS: entry
   :END:
+* DONE 2012-08-22 error message on startup.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 22:41
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  fixed. it's in old debug code:
+  config.js:257:init_bindings()
+  using old nextpage.config instead of new nextpage_config.
+
+  object.keys() requires firefox 4.0. do not use it.
+  only use it if it is available.
+* DONE 2012-08-22 config file: allow enable debug on the fly.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 22:41
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  (enable-debug)
+
+  ;;(setq debug t)
+
+  This will call nextpage.commands.enableDebug(), which will set some of the
+  debug variables to true.
+
+  nextpage.debug._debugging = true;
+  nextpage.debug._debugSpecialCase = true;
+  nextpage.debug._debugGotoNextPage = true;
+  nextpage.debug._debugConfigFile = true;
+
+** it's not easy.
+   enable-debug need to run in the overlay thread.
+   the interpreter should be moved there.
+   the parser did not know what is debug and how to enable it.
+
+   all things should be moved to nextpage.js, the config.js should only do
+   syntax check.
+
+   - generating bindings objected. including clear via the unbind-all
+     command.
+   - enable-debug
+
+   used a quick hack in config.js
+       var in_overlay = typeof(nextpage) !== "undefined";
+   then use if (in_overlay).
+
+
 
 
 

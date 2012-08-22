@@ -2,6 +2,13 @@ Date: 2012-07-20
 Time-stamp: <2012-08-22>
 
 * later								      :entry:
+** 2012-08-22 separate syntax check and interpreter. maybe.
+   all things should be moved to nextpage.js, the config.js should only do
+   syntax check.
+
+   - generating bindings objected. including clear via the unbind-all
+     command.
+   - enable-debug
 ** 2012-08-22 if user edit config file in external editor and there are errors,
    how to alert user?
 
@@ -108,3 +115,5 @@ Time-stamp: <2012-08-22>
 *** update usage.html nextpage_show_preferences function. maybe.
     never show to preferences window to user.
 ** 
+** 2012-08-22 clear old translation strings.
+   "bind n/p" etc.

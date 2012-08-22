@@ -71,17 +71,14 @@ var nextpage_config = function () {
 	var log = function (msg) {
 	    logs.push('line ' + (line_index + 1) + ': ' + msg);
 	};
-	var command_pattern = /^\(([a-zA-Z][-a-zA-Z0-9]*)\s+.*\)$/;
 
-	/**
-	 * parse binding in line, if failed, return false.
-	 * @returns [key, command] pair in an array.
-	 */
+	var in_overlay = typeof(nextpage) !== "undefined";
 
 	var lines = str.split('\n');
 	var result = {};
 	var r, mo, i;
 	var line;
+	var command_pattern = /^\(([a-zA-Z][-a-zA-Z0-9]*)(\s+.*)?\)$/;
 	var command;		//stores first string in sexp list.
 	for (i = 0; i < lines.length; ++i) {
 	    line_index = i;
@@ -99,6 +96,11 @@ var nextpage_config = function () {
 	    };
 
 	    switch (command) {
+	    case "enable-debug":
+		if (in_overlay) {
+		    nextpage.commands.enableDebug();
+		};
+		break;
 	    case "unbind-all":
 		// clear built-in bindings
 		bindings = {};
@@ -251,8 +253,10 @@ var nextpage_config = function () {
 	    update_obj(bindings, r[0]);
 	    if (nextpage.debug.debugConfigFile()) {
 		nextpage.log("user config file loaded.");
-		nextpage.log('keys binded: ' + JSON.stringify(
-		    Object.keys(nextpage.config.bindings))); //requires ff4
+		if (Object.keys) {
+		    nextpage.log('keys binded: ' + JSON.stringify(
+			Object.keys(bindings))); //requires firefox 4.
+		};
 		if (r[1].length) {
 		    nextpage.log('Errors when parsing user config file:');
 		    // TODO should show it to user more obviously, could use
