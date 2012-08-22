@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>nextpage add-on help</title>
+    <style type="text/css">
+      dl {margin-left: 20px;}
+      table {margin-left: 50px; width: 500px; border: 1px solid black; border-collapse: collapse;}
+      th, td {border: 1px solid black;}
+      pre {margin-left: 20px;}
+      dt {margin-top: 10px;}
+
+      #key-table {width: 300px;}
+      #key-table td {text-align: center;}
+      .keyname {font-family: monospace; font-size:1.3em;}
+      .command-name {font-family: monospace; font-size:1.3em;}
+    </style>
+  </head>
+
+  <body>
+    <h1>Nextpage Add-on Help</h1>
+    <h3>Overview</h3>
+    <p>in v1.3.6 nextpage added a config file that allow users to bind keys to command as they wish. This document describe how it is implemented and how to use it.</p>
+    <p>You may open <a target="_blank" href="#" onclick="return nextpage_show_preferences();">Preferences window</a> now to see how the config file looks like.</p>
+    <p>In nextpage, there are two config files. The built-in config defines default bindings and it is always active. It is shipped with each version of nextpage and you can't edit it. The user config is a text file on your hard drive, which is empty by default. This file could be used to overwrite built-in config. You may remove or modify default bindings defined in built-in config or add new bindings. The user config file is stored in $HOME/.config/nextpage.lisp (see Preferences for sure).</p>
+
+    <h3>How to Write a Config File</h3>
+    <p>The config file is a text file. You may edit it in the nextpage Preferences window or in any text editor you like.</p>
+    <p>The config file has a lisp-like syntax. Lines started with ; are comments and they are ignored by the parser. Thus to temporarily disable a command, just comment it by adding ";;" at the beginning of that line.</p>
+    <p>For now each command must put in one line, because I haven't worked out an sexp parser yet.</p>
+    <p>Currently, all commands supported are:</p>
+    <dl>
+      <dt>(bind KEY-NAME COMMAND-NAME)</dt>
+      <dd>Bind a key to a command. The syntax used to define KEY-NAME is shown in next session.</dd>
+
+      <dt>(unbind-all)</dt>
+      <dd>Unbind all previously bindings, including built-in bindings.<br/>If you don't want to use any of the built-in key bindings, add this to the top of your config file.</dd>
+    </dl>
+
+    <h4>Built-in config file</h4>
+    <p>This serves an example of how to write a config file.</p>
+    <pre>(bind "SPC" 'nextpage-maybe)
+(bind "n" 'nextpage)
+(bind "p" 'history-back)
+</pre>
+    <p>Keys are wrapped with double quotes, command is prefixed with single quote. This just mimic emacs <code>(global-set-key (kbd "C-c U") 'rename-uniquely)</code> key-bindings.</p>
+    <p>Here are some optional key bindings that is provided in older versions of nextpage. You may add them in your user config file if you like.</p>
+    <pre>(bind "1" 'history-back)
+(bind "2" 'nextpage)
+(bind "M-p" 'history-back)
+(bind "M-n" 'nextpage)
+</pre>
+
+    <h4>Keys used in bind command</h4>
+    <p>A subset of Emacs key names are used in bind. Here is a quick ref:</p>
+    <table id="key-table">
+      <tr><th>Key Name</th><th>Meaning</th></tr>
+      <tr><td class="keyname">a</td><td>the key A</td></tr>
+      <tr><td class="keyname">C-a</td><td>Ctrl-a</td></tr>
+      <tr><td class="keyname">M-a</td><td>Alt-a</td></tr>
+      <tr><td class="keyname">C-M-a</td><td>a</td></tr>
+      <tr><td class="keyname">SPC</td><td>Space</td></tr>
+      <tr><td class="keyname">&lt;f11&gt;</td><td>F11</td></tr>
+      <tr><td class="keyname">&lt;left&gt;</td><td>Left Arrow</td></tr>
+    </table>
+    <p>Key names are case sensitive. Key names are typed with double quotes in bind command. e.g. "M-n".</p>
+    <p>If you have emacs installed, to known a key's key name (the string representation), start emacs and type C-h c, then type your key. The key name will be shown in minibuffer. Note that key sequence is not supported by nextpage. So you can't bind "C-x n" to nextpage command.</p>
+    <p>For more document, see emacs document <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keys.html#Keys">Keys</a>, <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Commands.html#Commands">Commands</a> and <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Key-Bindings.html#Key-Bindings">Key Bindings</a></p>
+
+    <h4>Commands Used in bind command</h4>
+    <p>Available commands:</p>
+    <table>
+      <tr><th>Command</th><th>Meaning</th></tr>
+      <tr><td class="command-name">nextpage-maybe</td><td>scroll up / next page</td></tr>
+      <tr><td class="command-name">nextpage</td><td>next page</tr>
+      <tr><td class="command-name">history-back</td><td>go back one page in history</tr>
+      <tr><td class="command-name">close-tab</td><td>close current tab</tr>
+      <tr><td class="command-name">nil</td><td>do nothing. (no-op)</tr>
+    </table>
+
+    <script type="text/javascript">
+      var nextpage_show_preferences = function () {
+          window.open("chrome://nextpage/content/preferences.xul",
+                      "nextpage Preferences", "chrome");
+          return false;
+      }
+    </script>
+  </body>
+
+</html>

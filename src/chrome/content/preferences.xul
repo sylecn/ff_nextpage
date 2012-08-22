@@ -11,54 +11,48 @@ everything can be edit directly in about:config.
 <prefwindow
     id="nextpage-preferences"
     title="nextpage Preferences"
+    onload="nextpage_pref.init()"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
-  <prefpane id="nextpage-prefpane" label="&nextpage.prefpane.label;">
-    <preferences>
-      <preference id="extensions.nextpage.use-1-2"
-		  name="extensions.nextpage.use-1-2"
-		  type="bool" />
-      <preference id="extensions.nextpage.use-space"
-		  name="extensions.nextpage.use-space"
-		  type="bool"/>
-      <preference id="extensions.nextpage.use-n-p"
-		  name="extensions.nextpage.use-n-p"
-		  type="bool" />
-      <preference id="extensions.nextpage.use-alt-p"
-		  name="extensions.nextpage.use-alt-p"
-		  type="bool" />
-      <preference id="extensions.nextpage.use-alt-n"
-		  name="extensions.nextpage.use-alt-n"
-		  type="bool" />
-    </preferences>
-
-    <groupbox>
-      <caption label="keybindings"/>
-      <checkbox preference="extensions.nextpage.use-space"
-		label="&nextpage.prefpane.use-space;"
-		checked="true" />
-      <checkbox preference="extensions.nextpage.use-n-p"
-		label="&nextpage.prefpane.use-n-p;"
-		checked="true" />
-      <checkbox preference="extensions.nextpage.use-1-2"
-		label="&nextpage.prefpane.use-1-2;"
-		checked="false" />
-      <checkbox preference="extensions.nextpage.use-alt-p"
-		label="&nextpage.prefpane.use-alt-p;"
-		checked="false" />
-      <checkbox preference="extensions.nextpage.use-alt-n"
-		label="&nextpage.prefpane.use-alt-n;"
-		checked="false" />
-    </groupbox>
-
-    <groupbox>
-      <caption label="links"/>
-      <label class="text-link"
-	     href="http://code.google.com/p/ff-nextpage/issues/list"
-	     value="Report bugs"/>
-    </groupbox>
-
+  <prefpane id="nextpage-editor" label="Configs" flex="1" style="overflow:auto">
+    <vbox flex="1" style="overflow:auto">
+      <hbox>
+	<label control="nextpage-config-file-path" value="Config File: "/>
+	<textbox id="nextpage-config-file-path" readonly="true"
+		 size="55" value=""/>
+	<button label="Copy File Name" accesskey="C"
+		oncommand="nextpage_pref.copy_config_file_path()"/>
+      </hbox>
+      <label control="nextpage-default-config"
+	     value="Default Config:"/>
+      <textbox id="nextpage-default-config" cols="80" rows="4" multiline="true"
+	       readonly="true" value=""/>
+      <label control="nextpage-user-config"
+	     value="User Config:"/>
+      <textbox id="nextpage-user-config" cols="80" rows="13" multiline="true"
+	       value=""/>
+      <textbox id="nextpage-log-area" cols="80" rows="3" multiline="true"
+	       readonly="true" value=""/>
+      <hbox>
+	<button label="Save &amp; Reload"
+		accesskey="S"
+		oncommand="nextpage_pref.save_and_reload()"/>
+	<button label="Reload Only"
+		accesskey="R"
+		oncommand="nextpage_pref.reload()"/>
+	<button label="Help"
+		accesskey="H"
+		oncommand="nextpage_pref.help()"/>
+      </hbox>
+      <separator class="thin"/>
+      <hbox>
+	<label value="If you found a problem and would like to get it fixed, please"/>
+	<label class="text-link"
+	       href="http://code.google.com/p/ff-nextpage/issues/list"
+	       value="Report a bug"/>
+      </hbox>
+    </vbox>
   </prefpane>
-
-  <script src="config.js"/>
+  <script type="application/javascript" src="chrome://browser/content/utilityOverlay.js"></script>
+  <script type="application/javascript" src="config.js"/>
+  <script type="application/javascript" src="preferences.js"/>
 </prefwindow>

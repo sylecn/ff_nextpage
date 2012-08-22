@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PROFILE="$HOME/.mozilla/firefox/sa1uwb8v.dev"
+PROFILE="$(echo $HOME/.mozilla/firefox/*.dev)"
 FILE="$PROFILE/extensions/nextpage@yuanle.song"
 
 if [ ! -d "$PROFILE" ]; then

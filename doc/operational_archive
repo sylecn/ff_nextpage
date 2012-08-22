@@ -42,6 +42,204 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
 
     nextpage.binding  this.binding    replaced by nextpage.config.getBindings()
     nextpage.status removed.
+* DONE 2012-08-19 pref window: when screen resolution is too small, the bottom
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-19 Sun 00:22
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: later
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  buttons may not be visible.
+  after adding <vbox flex="1" style="overflow:auto">, scroll bar still not
+  shown when there is not enough space to show all widgets.
+
+  also add flex="1" style="overflow:auto" to prefpane, now it works.
+
+* DONE 2012-08-18 pref window: config file textbox is not long enough to
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-19 Sun 00:26
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: later
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  show the path.
+
+  set the size attribute
+* DONE 2012-08-18 implement save&reload, reload-only.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-19 Sun 00:26
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  - DONE save file to disk.
+    config.js write_config_file
+
+* DONE Now, how to send notifications from one window to another.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-19 Sun 00:27
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current/2012-07-31 support user binding config file/2012-08-02 when implementing the preferences window.
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  My message: nextpage-reload-config
+  https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIObserver?redirectlocale=en-US&redirectslug=nsIObserver
+
+  nsIObserver
+  The nsIObserver interface is a generic notification callback interface that is typically used in conjunction with nsIObserverService.
+
+  nsIObserverService
+  The nsIObserverService interface provides methods to add, remove, notify, and enumerate observers of various notifications. 
+
+  - how to test this API.
+    in overlay, register a callback for the message.
+    in preferences, send a message.
+    in overlay's callback, log message to console.
+
+    tested. It works.
+
+* DONE 2012-08-02 when implementing the preferences window.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-19 Sun 00:28
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current/2012-07-31 support user binding config file
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  I can't call functions defined in overlay.xul 's script.
+  Then how can I share js code between the two?
+
+  - 2012-08-03 Here is one way to do it:
+    both overlay and preference window use config.js to do config file
+    related actions.
+
+    if user click reload or save, it verifies there are no errors.
+    then send a NOTIFICATION to overlay.
+    overlay then reload the config from disk.
+    Everything is stored in disk. There is no "for this session" concept.
+* DONE 2012-08-22 support close-tab command.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 15:04
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+* DONE 2012-08-22 add (unbind-all) command support in user config file.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 15:17
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  for user that do not want default bindings, they can add this at top of
+  their config file and define bindings themselves.
+* DONE 2012-08-22 update preferences window after the default config string is
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 16:33
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  introduced.
+
+  - DONE add an offline help system if possible.
+    can I show a html page in a browser tab.
+    - add html file in add-on package.
+      html file created: ../src/chrome/content/usage.html
+    - add help button in preferences window.
+    - create tab with chrome:// style URL.
+      include chrome://browser/content/utilityOverlay.js
+      openUILinkIn(url, "tab");
+  - DONE show default config on top half.
+  - DONE show message in log_area if there is no default user config.
+    only create the file if the user click "Save" button.
+
+    No user config file was found, type in blank box and hit "Save & Reload"
+    button to create one.
+** DONE how to show a html page in preferences window?
+   include chrome://browser/content/utilityOverlay.js
+   then call:
+   openUILinkIn(url, "tab");
+* DONE 2012-08-19 use one built-in config file and one user config file.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 16:34
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  was: create a default config file on startup.
+
+  when the two config file idea is implemented, there is no need to create a
+  default config file on user's disk. The default config can be shown to the
+  user, but it need not be in user's config file.
+
+  in other words, the default user config file will be an empty file. There
+  is no need to create it, unless the user want to customize.
+** DONE steps
+   - DONE add default config string
+   - DONE use that as default config
+     in init_bindings().
+     parse_config_file should first parse default config string, then user's
+     config file.
+
+     DONE how to update an object like in python.
+     dict.update(anotherDict)
+
+     a = {a:1}
+     b = {b:2, a:3}
+   - WONT two parsing mode. first is clear and parse. second is append parse.
+     this is unnecessary. parse_config_file is written in functional style.
+   - DONE test that bind something to nil works.
+     - DONE check for nil in nextpage's dispatch function.  command is put in
+       an if, I put null value in the binding's command slot. so it will not
+       execute the null command.
+** DONE 2012-08-19 use two config file.
+   one internal config file, one user config file.
+
+   The internal config file need not to be a real file, it could be a fixed
+   string in config.js, but the logic still holds.
+
+   Things defined in user config file will just overwrite internal config
+   file. So that if I add additional bindings or functions in the future,
+   user can keep their config file and still use default enabled new
+   features.
+
+   For current case, things in internal config file could be:
+   (bind "SPC" 'nextpage-maybe)
+   (bind "n" 'nextpage)
+   (bind "p" 'history-back)
+
+   one example of user config file:
+   (bind "SPC" nil)
+   (bind "c" 'close-tab)
+
+   I like this idea.
+
+
+
+
+
+
+
+
+
 
 
 

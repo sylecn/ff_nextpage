@@ -1,0 +1,12 @@
+Date: 2012-08-22
+Time-stamp: <2012-08-22>
+
+* 2012-08-22 to add a new command to nextpage
+** add parser support in config.js
+   - add item parser in parse_config_file()
+   - add command map in get_command_name_map() if the command also run at
+     runtime.
+** add command implementation in nextpage.js
+   nextpage.commands = 
+** update document in usage.html
+   "Available commands:"

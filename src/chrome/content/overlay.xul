@@ -7,7 +7,8 @@
     <stringbundle id="nextpage-strings" src="chrome://nextpage/locale/nextpage.properties"/>
   </stringbundleset>
 
-  <script src="nextpage.js" />
+  <script type="application/javascript" src="config.js"/>
+  <script type="application/javascript" src="nextpage.js"/>
 
   <menupopup id="menu_viewPopup">
     <menuitem id="nextpage-nextpage"

@@ -33,7 +33,7 @@ var nextpage = {
 	/**
 	 * read user's config file if there is one.
 	 */
-	this.config.init();
+	nextpage_config.init_bindings();
 
 	/**
 	 * Some websites use the same hotkeys as nextpage. To prevent nextpage
@@ -148,7 +148,8 @@ var nextpage = {
 	if (nextpage.debug.debugKeyEvents()) {
 	    nextpage.log("keypressed: " + key);
 	}
-	if (! this.ignore(key) && (command = this.config.bindings[key])) {
+	if (! this.ignore(key) &&
+	    (command = nextpage_config.get_bindings()[key])) {
 	    command();
 	}
     },
@@ -680,138 +681,22 @@ nextpage.commands = {
 	    return nextpage.commands.gotoNextPage();
 	}
 	return false;
+    },
+
+    /**
+     * close current tab
+     */
+    closeTab: function () {
+	gBrowser.removeCurrentTab();
+    },
+
+    /**
+     * undo close tab
+     */
+    undoCloseTab: function () {
+	// not implemented yet.
     }
 };
-
-/**
- * config file based functions.
- * global bindings are stored in nextpage.config.bindings object.
- */
-nextpage.config = function () {
-    /**
-     * map command used in config file to real function objects.
-     */
-    var command_name_map = {
-	"nextpage-maybe": nextpage.commands.gotoNextPageMaybe,
-	"nextpage": nextpage.commands.gotoNextPage,
-	// "close-tab": nextpage.commands.closeTab,
-	// "undo-close-tab": nextpage.commands.undoCloseTab,
-	"history-back": nextpage.commands.historyBack
-    };
-
-    /**
-     * parse nextpage config file. currently only bind is supported.
-     * using dumb regexp to do parsing. sexp read style parsing not supported.
-     * one bind per line.
-     *
-     * comments and empty lines are skipped.
-     */
-    var parse_config_file = function (str) {
-	var logs = [];
-	var line_index;
-	var log = function (msg) {
-	    logs.push('line ' + (line_index + 1) + ': ' + msg);
-	};
-	var bind_pattern = /\(bind\s+"(.*)"\s+'(.*)\)/;
-
-	/**
-	 * parse binding in line, if failed, return false.
-	 * @returns [key, command] pair in an array.
-	 */
-	var get_key_binding_pair = function (line) {
-	    var mo = bind_pattern.exec(line);
-	    var key, command;
-	    if (mo) {
-		key = mo[1];
-		command = mo[2];
-		if (command_name_map.hasOwnProperty(command)) {
-		    return [key, command];
-		}
-		log('ignore bind ' + key + ' with unkown command ' + command);
-	    }
-	    return false;
-	};
-
-	var lines = str.split('\n');
-	var result = {};
-	var r;
-	var i;
-	var line;
-	for (i = 0; i < lines.length; ++i) {
-	    line_index = i;
-	    line = lines[i];
-	    if (line.match(/^\s*;/)) {
-		continue;
-	    }
-	    r = get_key_binding_pair(line);
-	    if (r) {
-		if (result.hasOwnProperty(r[0])) {
-		    if (result[r[0]] !== r[1]) {
-			log('overwrite existing binding (' + r[0] +
-			    ', ' + result[r[0]] + ')');
-		    } else {
-			log('duplicate binding (' + r[0] +
-			    ', ' + result[r[0]] + ')');
-		    }
-		}
-		result[r[0]] = command_name_map[r[1]];
-	    }
-	}
-	return [result, logs];
-    };
-
-    var init = function () {
-	// This must be set for nextpage keypress function to work. It will be
-	// replaced by config from user's config files or nextpage's default.
-	nextpage.config.bindings = {};
-
-	//requires firefox 3.6
-	Components.utils.import("resource://gre/modules/FileUtils.jsm");
-	Components.utils.import("resource://gre/modules/NetUtil.jsm");
-	var configFile = FileUtils.getFile(
-	    "Home", [".config", "nextpage.lisp"]);
-	if (configFile.exists()) {
-	    NetUtil.asyncFetch(configFile, function(inputStream, status) {
-		if (!Components.isSuccessCode(status)) {
-		    // Handle error!
-		    return;
-		}
-
-		// The file data is contained within inputStream.
-		// You can read it into a string with
-		var data = NetUtil.readInputStreamToString(
-		    inputStream, inputStream.available());
-		// nextpage.log("config file content: " + data);
-		var r = parse_config_file(data);
-		nextpage.config.bindings = r[0];
-		if (nextpage.debug.debugConfigFile()) {
-		    nextpage.log("config file loaded.");
-		    nextpage.log('keys binded: ' + JSON.stringify(
-			Object.keys(nextpage.config.bindings))); //requires ff4
-		    if (r[1]) {
-			// TODO should show it to user more obviously, could use
-			// non blocking pop up.
-			nextpage.log(r[1].join("\n"));
-		    }
-		}
-	    });
-	} else {
-	    if (nextpage.debug.debugConfigFile()) {
-		nextpage.log("config file not found.");
-		// TODO create a default config file or build a default
-		// binding in memory.
-		nextpage.config.bindings = {
-		    "SPC": nextpage.commands.gotoNextPageMaybe,
-		    "n": nextpage.commands.gotoNextPage,
-		    "p": nextpage.commands.historyBack
-		};
-	    }
-	}
-    };
-    return {
-	init: init
-    };
-}();
 
 nextpage.utils = {
     /**
@@ -933,9 +818,28 @@ nextpage.utils = {
     }
 };
 
+// watch for notifications sent from preferences window.
+nextpage.watcher = {
+    observe: function (aSbuject, aTopic, aData) {
+	nextpage_config.init_bindings();
+    }
+};
+
 window.addEventListener("load", function (e) {
     // main()
     nextpage.init();
+
+    // watch config change event.
+    var observerService = Components.classes["@mozilla.org/observer-service;1"]
+            .getService(Components.interfaces.nsIObserverService);
+    observerService.addObserver(nextpage.watcher,
+				"nextpage-reload-config", false);
+}, false);
+
+window.addEventListener("unload", function (e) {
+    var observerService = Components.classes["@mozilla.org/observer-service;1"]
+            .getService(Components.interfaces.nsIObserverService);
+    observerService.removeObserver(nextpage.watcher, "nextpage-reload-config");
 }, false);
 
 window.addEventListener('keypress', function (e) {
