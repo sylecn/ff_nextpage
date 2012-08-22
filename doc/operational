@@ -104,8 +104,6 @@ Time-stamp: <2012-08-22>
 *** update usage.html nextpage_show_preferences function. maybe.
     never show to preferences window to user.
 ** 
-** 2012-08-22 if ~/.config does not exists. Do I need to call
-   config.create_config_file before calling config.write_config_file?
 ** 2012-08-19 check config errors before saving to disk.
    show errors to user.
 ** 2012-07-31 support user binding config file

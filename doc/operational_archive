@@ -231,6 +231,34 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
    (bind "c" 'close-tab)
 
    I like this idea.
+* DONE 2012-08-22 if ~/.config does not exists. Do I need to call
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-22 Wed 16:58
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  config.create_config_file before calling config.write_config_file?
+
+  No. I tested it, and found that all parent dirs will be created
+  automatically. I haven't see any formal document for this, but I guess the
+  FileUtils API will not change.
+
+  This is not used, so removed.
+  #+BEGIN_SRC js2
+    /**
+     * create config file. all parent dirs will be created.
+     */
+    var create_config_file = function () {
+	init_config_file();
+	if (! config_file.exists()) {
+	    config_file.create(0, 0644); //0 for NORMAL_FILE_TYPE
+	}
+    };
+  #+END_SRC
+
 
 
 

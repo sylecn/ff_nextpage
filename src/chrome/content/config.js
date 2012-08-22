@@ -142,16 +142,6 @@ var nextpage_config = function () {
     };
 
     /**
-     * create config file. all parent dirs will be created.
-     */
-    var create_config_file = function () {
-	init_config_file();
-	if (! config_file.exists()) {
-	    config_file.create(0, 0644); //0 for NORMAL_FILE_TYPE
-	}
-    };
-
-    /**
      * Read config file and call succ or fail callback function.
      *
      * @param succ the succ callback, called with the read string.
