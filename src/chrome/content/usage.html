@@ -21,21 +21,21 @@
   <body>
     <h1>Nextpage Add-on Help</h1>
     <h3>Overview</h3>
-    <p>in v1.3.6 nextpage added a config file that allow users to bind keys to command as they wish. This document describe how it is implemented and how to use it.</p>
+    <p>In nextpage v1.3.6, a config file was added to allow users to bind keys to command as they wish. This document describes how it is implemented and how to use it.</p>
     <p>You may open <a target="_blank" href="#" onclick="return nextpage_show_preferences();">Preferences window</a> now to see how the config file looks like.</p>
     <p>In nextpage, there are two config files. The built-in config defines default bindings and it is always active. It is shipped with each version of nextpage and you can't edit it. The user config is a text file on your hard drive, which is empty by default. This file could be used to overwrite built-in config. You may remove or modify default bindings defined in built-in config or add new bindings. The user config file is stored in $HOME/.config/nextpage.lisp (see Preferences for sure).</p>
 
-    <h3>How to Write a Config File</h3>
-    <p>The config file is a text file. You may edit it in the nextpage Preferences window or in any text editor you like.</p>
+    <h3>About the Config File</h3>
+    <p>The config file is a text file. You may edit it in the nextpage Preferences window or in any text editor you like. If you edit it in Preferences window, click "Save & Reload" to make it persistent and active. If you edit it in external editor, save the file there, then click "Reload Only" to make the new config active.</p>
     <p>The config file has a lisp-like syntax. Lines started with ; are comments and they are ignored by the parser. Thus to temporarily disable a command, just comment it by adding ";;" at the beginning of that line.</p>
-    <p>For now each command must put in one line, because I haven't worked out an sexp parser yet.</p>
-    <p>Currently, all commands supported are:</p>
+    <p>Each command must be put in a separate line, because I haven't implemented an sexp parser yet.</p>
+    <h4>Supported Commands</h4>
     <dl>
       <dt>(bind KEY-NAME COMMAND-NAME)</dt>
       <dd>Bind a key to a command. The syntax used to define KEY-NAME is shown in later section.</dd>
 
       <dt>(unbind-all)</dt>
-      <dd>Unbind all previously bindings, including built-in bindings.<br/>If you don't want to use any of the built-in key bindings, add this to the top of your config file.</dd>
+      <dd>Remove all previous bindings before this command, including built-in bindings.<br/>If you don't want to use any of the built-in key bindings, add this to the top of your user config file.</dd>
     </dl>
 
     <h4>Built-in config file</h4>
@@ -52,8 +52,8 @@
 (bind "M-n" 'nextpage)
 </pre>
 
-    <h4>Keys used in bind command</h4>
-    <p>A subset of Emacs key names are used in bind. Here is a quick ref:</p>
+    <h4>Bind Command: Keys</h4>
+    <p>A subset of Emacs key names are used in bind. Here is a table to get you started.</p>
     <table id="key-table">
       <tr><th>Key Name</th><th>Meaning</th></tr>
       <tr><td class="keyname">a</td><td>key A</td></tr>
@@ -62,13 +62,15 @@
       <tr><td class="keyname">C-M-a</td><td>Ctrl-Alt-A</td></tr>
       <tr><td class="keyname">SPC</td><td>Space</td></tr>
       <tr><td class="keyname">&lt;f11&gt;</td><td>F11</td></tr>
+      <tr><td class="keyname">&lt;C-S-f11&gt;</td><td>Ctrl-Shift-F11</td></tr>
       <tr><td class="keyname">&lt;left&gt;</td><td>Left Arrow</td></tr>
     </table>
+    <p>Check the source code of this add-on to know exactly which keys are supported. <a href="http://code.google.com/p/ff-nextpage/issues/list">Report a bug</a> if the key you want to use is not supported by nextpage.</p>
     <p>Key names are case sensitive. Key names are typed with double quotes in bind command. e.g. "M-n".</p>
     <p>If you have emacs installed, to known a key's key name (the string representation), start emacs and type C-h c, then type your key. The key name will be shown in minibuffer. Note that key sequence is not supported by nextpage. So you can't bind "C-x n" to nextpage command.</p>
     <p>For more document, see emacs document <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keys.html#Keys">Keys</a>, <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Commands.html#Commands">Commands</a> and <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Key-Bindings.html#Key-Bindings">Key Bindings</a></p>
 
-    <h4>Commands Used in bind command</h4>
+    <h4>Bind Command: Commands</h4>
     <p>Available commands:</p>
     <table>
       <tr><th>Command</th><th>Meaning</th></tr>
