@@ -85,9 +85,6 @@ Time-stamp: <2012-08-22>
       Linux and Mac, those three can be made into profile. User can get
       universal key bindings if they wish.
 
-** 2012-08-19 make nextpage a restart-less add-on.
-   It should be easy given that my program is quite organized, overlay on GUI
-   is quit minimum.
 ** 2012-08-22 add unbind command.				      :maybe:
    which works just like bind something to nil.
    a pair of key nil will be added in the bindings obj. semantics are the same
@@ -103,7 +100,12 @@ Time-stamp: <2012-08-22>
    so I can bind C-c ! h etc. this is for future use beyond nextpage.
 
 * current							      :entry:
+** 2012-08-22 when user upgrade to 1.3.6, read old preferences based config :rc:
+   and create a default user config file is they are not using default
+   settings in 1.3.4.
 ** 2012-08-19 grep for TODOs and 'log(' before commit
+** 2012-08-22 clear old translation strings.
+   "bind n/p" etc.
 ** 2012-08-22 if preferences window is already open, just switch to it.
    do not start a new preferences window.
 
@@ -115,5 +117,6 @@ Time-stamp: <2012-08-22>
 *** update usage.html nextpage_show_preferences function. maybe.
     never show to preferences window to user.
 ** 
-** 2012-08-22 clear old translation strings.
-   "bind n/p" etc.
+** 2012-08-19 make nextpage a restart-less add-on.
+   It should be easy given that my program is quite organized, overlay on GUI
+   is quite minimum.
