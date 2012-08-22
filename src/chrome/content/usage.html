@@ -32,7 +32,7 @@
     <p>Currently, all commands supported are:</p>
     <dl>
       <dt>(bind KEY-NAME COMMAND-NAME)</dt>
-      <dd>Bind a key to a command. The syntax used to define KEY-NAME is shown in next session.</dd>
+      <dd>Bind a key to a command. The syntax used to define KEY-NAME is shown in later section.</dd>
 
       <dt>(unbind-all)</dt>
       <dd>Unbind all previously bindings, including built-in bindings.<br/>If you don't want to use any of the built-in key bindings, add this to the top of your config file.</dd>
@@ -56,10 +56,10 @@
     <p>A subset of Emacs key names are used in bind. Here is a quick ref:</p>
     <table id="key-table">
       <tr><th>Key Name</th><th>Meaning</th></tr>
-      <tr><td class="keyname">a</td><td>the key A</td></tr>
-      <tr><td class="keyname">C-a</td><td>Ctrl-a</td></tr>
-      <tr><td class="keyname">M-a</td><td>Alt-a</td></tr>
-      <tr><td class="keyname">C-M-a</td><td>a</td></tr>
+      <tr><td class="keyname">a</td><td>key A</td></tr>
+      <tr><td class="keyname">C-a</td><td>Ctrl-A</td></tr>
+      <tr><td class="keyname">M-a</td><td>Alt-A</td></tr>
+      <tr><td class="keyname">C-M-a</td><td>Ctrl-Alt-A</td></tr>
       <tr><td class="keyname">SPC</td><td>Space</td></tr>
       <tr><td class="keyname">&lt;f11&gt;</td><td>F11</td></tr>
       <tr><td class="keyname">&lt;left&gt;</td><td>Left Arrow</td></tr>
@@ -76,8 +76,10 @@
       <tr><td class="command-name">nextpage</td><td>next page</tr>
       <tr><td class="command-name">history-back</td><td>go back one page in history</tr>
       <tr><td class="command-name">close-tab</td><td>close current tab</tr>
-      <tr><td class="command-name">nil</td><td>do nothing. (no-op)</tr>
+      <tr><td class="command-name">nil</td><td>do nothing.</tr>
     </table>
+    <p>Commands should be quoted in bind command. For command foo, use single quote form 'foo. Currently omitting the quote also works, but this may change if I choose to introduce a full lisp parser in the future.</p>
+    <p>About the nil command: You can disable a key-binding by binding the same key to nil. For example, <code>(bind "SPC" 'nil)</code> will disable the built-in Space binding.</p>
 
     <script type="text/javascript">
       var nextpage_show_preferences = function () {
