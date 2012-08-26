@@ -1,4 +1,4 @@
-resource nextpage modules/
+# resource nextpage modules/
 content	nextpage chrome/content/
 locale	nextpage en-US chrome/locale/en-US/
 locale	nextpage zh-CN chrome/locale/zh-CN/
