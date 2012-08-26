@@ -1,7 +1,15 @@
 Date: 2012-07-20
-Time-stamp: <2012-08-23>
+Time-stamp: <2012-08-26>
 
 * later								      :entry:
+** 2012-08-23 read more about namespace problem.
+   - Is it only a problem in browser.xul and its overlays?
+   - Can I call another add-on's javascript code in my add-on?
+     Can I include an exported js module?
+     Could js module run in browser.xul context (overlay)?
+
+   - read:
+     https://developer.mozilla.org/en-US/docs/XUL_School/JavaScript_Object_Management
 ** 2012-08-22 separate syntax check and interpreter. maybe.
    all things should be moved to nextpage.js, the config.js should only do
    syntax check.
@@ -112,6 +120,9 @@ Time-stamp: <2012-08-23>
 ** 2012-08-19 grep for TODOs and 'log(' before commit
 ** 2012-08-22 clear old translation strings.
    "bind n/p" etc.
+** 2012-08-26 translate the usage.html to Chinese
+   en_US/usage.html
+   zh_CN/usage.html
 ** 2012-08-22 if preferences window is already open, just switch to it.
    do not start a new preferences window.
 
@@ -123,11 +134,10 @@ Time-stamp: <2012-08-23>
 *** update usage.html nextpage_show_preferences function. maybe.
     never show to preferences window to user.
 ** 
-** 2012-08-23 read more about namespace problem.
-   - Is it only a problem in browser.xul and its overlays?
-   - Can I call another add-on's javascript code in my add-on?
-     Can I include an exported js module?
-     Could js module run in browser.xul context (overlay)?
 ** 2012-08-19 make nextpage a restart-less add-on.
    It should be easy given that my program is quite organized, overlay on GUI
    is quite minimum.
+
+   Bootstrapped extensions | Mozilla Developer Network
+   https://developer.mozilla.org/en-US/docs/Extensions/Bootstrapped_extensions
+   requires firefox 4.
