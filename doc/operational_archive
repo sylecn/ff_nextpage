@@ -582,6 +582,18 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
    
    - refactoring: extract send_reload_notification(), remove parameter of
      reload().
+* DONE 2012-08-19 grep for TODOs and 'log(' before commit
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 19:33
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  - DONE TODOs
+  - DONE 'log('
+
 
 
 

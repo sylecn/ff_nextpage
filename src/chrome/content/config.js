@@ -114,7 +114,7 @@ var nextpage_config = function () {
 		    var key, command;
 
 		    if (! mo) {
-			log('Error: bind: not well formed.');
+			log('Error: bind: not well formed: ' + line);
 			noerror = false;
 			return;
 		    };
@@ -354,22 +354,24 @@ var nextpage_config = function () {
 	// parse the default config string
 	r = parse_config_file(default_config);
 	bindings = r[0];
+	if (! r[2]) {
+	    if (nextpage.debug.debugConfigFile()) {
+		nextpage.log('Errors when parsing default config string:');
+		nextpage.log(r[1].join("\n"));
+	    }
+	}
 	if (! config_file_exists()) {
 	    if (nextpage.debug.debugConfigFile()) {
-		if (r[1].length) {
-		    nextpage.log('Errors when parsing default config string:');
-		    nextpage.log(r[1].join("\n"));
-		};
 		nextpage.log("info: user config file not found.");
-	    };
+	    }
 	    return;
-	};
+	}
 	// parse user config
 	r = read_config_file(function (data) {
 	    // nextpage.log("config file content: " + data);
 	    var r = parse_config_file(data);
 	    update_obj(bindings, r[0]);
-	    if (!r[2]) {
+	    if (! r[2]) {
 		send_notification('Errors when parsing user config file:',
 				  r[1].join("\n"));
 	    };
@@ -380,7 +382,7 @@ var nextpage_config = function () {
 		    nextpage.log('keys binded: ' + JSON.stringify(
 			Object.keys(bindings))); //requires firefox 4.
 		};
-		if (r[1].length) {
+		if (! r[2]) {
 		    nextpage.log('Errors when parsing user config file:');
 		    nextpage.log(r[1].join("\n"));
 		}
