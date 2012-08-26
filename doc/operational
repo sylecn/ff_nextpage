@@ -1,5 +1,5 @@
 Date: 2012-07-20
-Time-stamp: <2012-08-26>
+Time-stamp: <2012-08-27>
 
 * later								      :entry:
 ** 2012-08-26 use a error image in appendNotification()
@@ -129,4 +129,18 @@ Time-stamp: <2012-08-26>
    Bootstrapped extensions | Mozilla Developer Network
    https://developer.mozilla.org/en-US/docs/Extensions/Bootstrapped_extensions
    requires firefox 4.
-** 
+** 2012-08-27 before releasing v1.3.6 to mozilla
+   - update add-on description at mozilla
+   - create a screenshot and add it to add-on gallery.
+   - update project home page.
+     move old document to a wiki page.
+     v1.3.5_help
+
+     create new document and also use it in project description.
+     v1.3.6_help
+** 2012-08-27 make it easier to open preferences window.
+   - create menu item in Tools menu.
+   - create a command that user can bind to open preferences window.
+     nextpage-open-preferences
+   - create a command that user can bind to reload nextpage config.
+     nextpage-reload-config

@@ -611,6 +611,24 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
      installing this add-on. (only tested in dev profile.)
    - add Chinese usage.html page.
      Will leave it later.
+* DONE 2012-08-27 when user upgrade from v1.3.5 to v1.3.6, and there is a
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-27 Mon 02:25
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END: 
+  user config file on disk.
+  on preferences window init, should show:
+  'For help on writing configs, click Help button.'
+
+** DONE wait. when there is no user config file. where is the message that I 
+   show to the user?
+   ok. It's in update_user_config_textbox().
+   _('tell_user_about_config_file_help')
+
 
 
 

@@ -56,6 +56,7 @@ var nextpage_pref = function () {
 		    succ.apply(null, []);
 		} else {
 		    log_area.set(_('user_config_file_loaded'));
+		    log_area.log(_('tell_user_about_config_file_help'));
 		    config_textbox.focus();
 		}
 	    }, function () {
