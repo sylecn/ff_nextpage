@@ -53,6 +53,9 @@ everything can be edit directly in about:config.
       </hbox>
     </vbox>
   </prefpane>
+  <stringbundleset>
+    <stringbundle id="preferences-strings" src="chrome://nextpage/locale/preferences.properties"/>
+  </stringbundleset>
   <script type="application/javascript" src="chrome://browser/content/utilityOverlay.js"></script>
   <script type="application/javascript" src="config.js"/>
   <script type="application/javascript" src="preferences.js"/>

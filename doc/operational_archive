@@ -442,6 +442,23 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
    used a quick hack in config.js
        var in_overlay = typeof(nextpage) !== "undefined";
    then use if (in_overlay).
+* DONE 2012-08-22 update translation files
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 14:24
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  clear old translation strings.
+  "bind n/p" etc.
+
+  - DONE remove old translation strings. added translation strings for
+    preferences.xul GUI widgets.
+
+  - DONE in preferences.xul, some message printed also requires translation.
+
 
 
 

@@ -3,6 +3,22 @@ var nextpage_pref = function () {
     var app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
     var log = app.console.log;
 
+    // L10N strings defined in preferences.properties
+    var strings = document.getElementById("preferences-strings");
+    /**
+     * a I18N text wrapper function. text wrapped with this function will have
+     * translations in the above mentioned properties file.
+     */
+    /*
+     * Note that:
+     *     var _ = strings.getString
+     * will not work. It creates a js error and _ does not get binded. this
+     * function has to be defined more lazily as below.
+     */
+    var _ = function (str) {
+	return strings.getString(str);
+    };
+
     // some GUI helper
     var log_area = function () {
 	var node = document.getElementById("nextpage-log-area");
@@ -28,15 +44,15 @@ var nextpage_pref = function () {
      */
     var update_user_config_textbox = function () {
 	if (! nextpage_config.config_file_exists()) {
-	    log_area.set('No user config file was found, type in the box above and hit "Save & Reload" button to create one.');
-	    log_area.log('Click Help button below to learn about config file.');
+	    log_area.set(_('no_user_config_file_found'));
+	    log_area.log(_('tell_user_about_config_file_help'));
 	} else {
 	    nextpage_config.read_config_file(function (data) {
 		config_textbox.value = data;
-		log_area.set('user config file loaded.');
+		log_area.set(_('user_config_file_loaded'));
 		config_textbox.focus();
 	    }, function (){
-		log_area.set("Error: read config file has failed.");
+		log_area.set(_('read_config_file_failed'));
 	    });
 	}
     };
@@ -73,13 +89,13 @@ var nextpage_pref = function () {
 	    if (succ) {
 		succ.apply(null, []);
 	    } else {
-		log_area.set("config file saved.");
+		log_area.set(_('user_config_file_saved'));
 	    };
 	}, function () {
 	    if (fail) {
 		fail.apply(null, []);
 	    } else {
-		log_area.set("Error: save config file failed.");
+		log_area.set(_('save_user_config_file_failed'));
 	    };
 	});
     };
@@ -110,14 +126,13 @@ var nextpage_pref = function () {
 	if (r[2]) {
 	    // log_area.log("No syntax errors.");
 	    save(function () {
-		log_area.log("config file saved.");
+		log_area.log(_('user_config_file_saved'));
 		reload(false);
 	    }, function () {
-		log_area.log('Error: save failed, config not reloaded.');
+		log_area.log(_('error_save_failed_config_not_reloaded'));
 	    });
 	} else {
-	    log_area.log('There are errors when parsing the new config, \
-file not saved.');
+	    log_area.log(_('has_parsing_errors_file_not_saved'));
 	    log_area.log(r[1].join("\n"));
 	};
     };
@@ -127,7 +142,7 @@ file not saved.');
      */
     var help = function () {
 	// show this URL in a new tab:
-	var url = "chrome://nextpage/content/usage.html";
+	var url = _('usage_html_url');
 	openUILinkIn(url, "tab");
     };
 

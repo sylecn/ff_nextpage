@@ -3,7 +3,7 @@
 <!DOCTYPE overlay SYSTEM "chrome://nextpage/locale/overlay.dtd">
 <overlay id="nextpage-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <stringbundleset id="stringbundleset">
+  <stringbundleset>
     <stringbundle id="nextpage-strings" src="chrome://nextpage/locale/nextpage.properties"/>
   </stringbundleset>
 
