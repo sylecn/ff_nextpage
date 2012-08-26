@@ -48,6 +48,7 @@ var nextpage_pref = function () {
 	if (! nextpage_config.config_file_exists()) {
 	    log_area.set(_('no_user_config_file_found'));
 	    log_area.log(_('tell_user_about_config_file_help'));
+	    config_textbox.focus();
 	} else {
 	    nextpage_config.read_config_file(function (data) {
 		config_textbox.value = data;
