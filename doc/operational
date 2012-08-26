@@ -2,6 +2,9 @@ Date: 2012-07-20
 Time-stamp: <2012-08-26>
 
 * later								      :entry:
+** 2012-08-26 translate the usage.html to Chinese
+   en_US/usage.html
+   zh_CN/usage.html
 ** 2012-08-23 read more about namespace problem.
    - Is it only a problem in browser.xul and its overlays?
    - Can I call another add-on's javascript code in my add-on?
@@ -126,23 +129,13 @@ Time-stamp: <2012-08-26>
    https://developer.mozilla.org/en-US/docs/Extensions/Bootstrapped_extensions
    requires firefox 4.
 ** 
-** 2012-08-22 when user upgrade to 1.3.6, read old preferences based config :rc:
-   and create a default user config file is they are not using default
-   settings in 1.3.4.
-
-   - here is how it works:
-     when nextpage read user config file, if it does not exist, and it found
-     old preferences. create a user config file from old preferences.
-     do not delete old preferences in case user wish to go back.
 ** 2012-08-19 grep for TODOs and 'log(' before commit
-** 2012-08-26 translate the usage.html to Chinese
-   en_US/usage.html
-   zh_CN/usage.html
-
 ** 2012-08-26 clear up and release 1.3.6 which will be the last version that
    runs on [3.6, 4). after that I will make this add-on restart-less.
 
 *** clear up
-    - remove unused translations.
-    - remove default preferences.
+    - DONE remove unused translations.
+    - WONT remove default preferences.
+      old preferences are required to stay. otherwise they got wiped when
+      installing this add-on. (only tested in dev profile.)
     - add Chinese usage.html page.

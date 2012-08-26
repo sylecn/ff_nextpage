@@ -205,9 +205,15 @@ var nextpage_config = function () {
 	var istream = converter.convertToInputStream(content);
 	NetUtil.asyncCopy(istream, ostream, function(status) {
 	    if (! Components.isSuccessCode(status)) {
-		return fail.apply(null, []);
+		if (fail) {
+		    return fail.apply(null, []);
+		}
+		return false;
 	    }
-	    return succ.apply(null, []);
+	    if (succ) {
+		return succ.apply(null, []);
+	    }
+	    return true;
 	});
     };
 
@@ -228,11 +234,96 @@ var nextpage_config = function () {
     };
 
     /**
+     * This is to provide smooth upgrade from old versions.
+     *
+     * If user has enabled/disabled some bindings from preferences, create a
+     * user config file to match those settings.
+     *
+     * This conversion is only done once when you install nextpage.
+     */
+    var create_config_file_from_preferences_maybe = function () {
+	var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                .getService(Components.interfaces.nsIPrefService)
+		.getBranch("extensions.nextpage.");
+	/**
+	 * like getBoolPref, but return null if key is not in pref branch.
+	 * do not throw exception.
+	 */
+	var getBoolPrefSafe = function (key) {
+	    var r;
+	    try {
+		r = prefs.getBoolPref(key);
+	    } catch (NS_ERROR_UNEXPECTED) {
+		r = null;
+	    };
+	    return r;
+	};
+	/**
+	 * convert preferences to user config file.
+	 */
+	var do_conversion = function () {
+	    var use_12 = getBoolPrefSafe("use-1-2");
+	    var use_space = getBoolPrefSafe("use-space");
+	    var use_np = getBoolPrefSafe("use-n-p");
+	    var use_alt_p = getBoolPrefSafe("use-alt-p");
+	    var use_alt_n = getBoolPrefSafe("use-alt-n");
+
+	    var using_default_config = (
+		use_space && use_np &&
+		    (! use_12) && (! use_alt_p) && (! use_alt_n));
+
+	    var result_config = [];
+	    if (! using_default_config) {
+		result_config.push(';; config converted from preferences in old version');
+		if (! use_space) {
+		    result_config.push('(bind "SPC" \'nil)');
+		};
+		if (! use_np) {
+		    result_config.push('(bind "n" \'nil)');
+		    result_config.push('(bind "p" \'nil)');
+		};
+		if (use_12) {
+		    result_config.push('(bind "1" \'history-back)');
+		    result_config.push('(bind "2" \'nextpage)');
+		};
+		if (use_alt_p) {
+		    result_config.push('(bind "M-p" \'history-back)');
+		};
+		if (use_alt_n) {
+		    result_config.push('(bind "M-n" \'nextpage)');
+		};
+		result_config.push('\n');
+		result_config = result_config.join('\n');
+
+		write_config_file(result_config, function () {
+		}, function () {
+		    // alert user the conversion has failed.
+		    if (nextpage.debug.debugConfigFile()) {
+			nextpage.log('Error: write config file has failed.');
+		    };
+		});
+	    };
+	};
+
+	// main()
+	var convert_done = getBoolPrefSafe('convert_done');
+	if (! convert_done) {
+	    do_conversion();
+	    prefs.setBoolPref('convert_done', true);
+	};
+    };
+
+    /**
      * init this.bindings
      */
     var init_bindings = function () {
 	var r;
 	init_config_file();
+
+	if (! config_file_exists()) {
+	    create_config_file_from_preferences_maybe();
+	}
+
 	// parse the default config string
 	r = parse_config_file(default_config);
 	bindings = r[0];

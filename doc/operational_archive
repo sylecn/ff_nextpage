@@ -458,6 +458,70 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
     preferences.xul GUI widgets.
 
   - DONE in preferences.xul, some message printed also requires translation.
+* DONE 2012-08-26 testing the preferences -> config file conversion.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 16:24
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+** 2012-08-26 error at startup, appear twice.
+  Timestamp: 08/26/2012 03:54:15 PM
+  Error: TypeError: this.ignoreBindingAList is undefined
+  Source File: chrome://nextpage/content/nextpage.js
+  Line: 79
+** 2012-08-26 do not remove pref definitions at 
+   defaults/preferences/nextpage.js
+
+   firefox clears old config if it is no longer in that file.
+
+** DONE 2012-08-26 getBoolPref raise exception if key does not exist.
+
+* DONE 2012-08-22 when user upgrade to 1.3.6, read old preferences based config :rc:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 16:24
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  and create a default user config file if they are not using default
+  settings in 1.3.4.
+
+  - Here is how it works:
+    when nextpage read user config file, if it does not exist, and it found
+    old preferences. create a user config file from old preferences.
+    do not delete old preferences in case user wish to go back.
+
+  - this will require check all nextpage preferences every time if user has
+    not change default preferences, which is not good.
+    How about add a flag in preferences?
+
+    only convert on first run.
+
+    extensions.nextpage.convert_done (default is false)
+
+    the whole logic is:
+    - if user config file does not exist
+      - if convert_done is false,
+	- check and do conversion.
+	- set this to true.
+      - if convert_done is true, do not check.
+
+** DONE need to run it in overlay.xul init. use functions defined in config.js.
+   nextpage_config.init_bindings();
+   only do this when running in browser window.
+
+   - it doesn't matter, the preferences XPCOM interface works in both env.
+     I just added code in nextpage_config.init_bindings();
+** DONE how to check a preferences in js?
+   use XPCOM
+   nsIPrefService
+
+
 
 
 
