@@ -41,18 +41,28 @@ var nextpage_pref = function () {
 
     /**
      * update user config textbox to match user config file on disk.
+     * @param succ optional, callback to run when read and update is successful.
+     * @param fail optional, callback to run when read has failed.
      */
-    var update_user_config_textbox = function () {
+    var update_user_config_textbox = function (succ, fail) {
 	if (! nextpage_config.config_file_exists()) {
 	    log_area.set(_('no_user_config_file_found'));
 	    log_area.log(_('tell_user_about_config_file_help'));
 	} else {
 	    nextpage_config.read_config_file(function (data) {
 		config_textbox.value = data;
-		log_area.set(_('user_config_file_loaded'));
-		config_textbox.focus();
-	    }, function (){
-		log_area.set(_('read_config_file_failed'));
+		if (succ) {
+		    succ.apply(null, []);
+		} else {
+		    log_area.set(_('user_config_file_loaded'));
+		    config_textbox.focus();
+		}
+	    }, function () {
+		if (fail) {
+		    fail.apply(null, []);
+		} else {
+		    log_area.set(_('read_config_file_failed'));
+		}
 	    });
 	}
     };
@@ -101,18 +111,42 @@ var nextpage_pref = function () {
     };
 
     /**
-     * ask nextpage overlay to reload user config file.
-     * @param revert_file optional. if true, also update the user config
-     *        textbox. default value is true.
+     * check the user config in config_textbox. report any errors in log_area.
+     * @returns true if there is no error, false otherwise.
      */
-    var reload = function (revert_file) {
-	// send notification to overlay
-	Components.classes["@mozilla.org/observer-service;1"]
-            .getService(Components.interfaces.nsIObserverService)
-            .notifyObservers(null, "nextpage-reload-config", "");
-	if ((typeof(revert_file) === "undefined") || revert_file) {
-	    update_user_config_textbox();
+    var check_syntax_and_report = function (leading_error_msg) {
+	log_area.clear();
+	var config_string = config_textbox.value;
+	var r = nextpage_config.parse_config_file(config_string);
+	if (! r[2]) {
+	    log_area.log(leading_error_msg);
+	    log_area.log(r[1].join("\n"));
 	};
+	return r[2];
+    };
+
+    /**
+     * ask nextpage overlay to reload user config file.
+     */
+    var send_reload_notification = function () {
+	Components.classes["@mozilla.org/observer-service;1"]
+	    .getService(Components.interfaces.nsIObserverService)
+	    .notifyObservers(null, "nextpage-reload-config", "");
+	log_area.log(_('config_reloaded'));
+    };
+
+    /**
+     * reload button click callback.
+     */
+    var reload = function () {
+	update_user_config_textbox(function () {
+	    // check for errors
+	    var noerror = check_syntax_and_report(
+		_('has_parsing_errors_config_not_reloaded'));
+	    if (noerror) {
+		send_reload_notification();
+	    };
+	});
     };
 
     /**
@@ -120,21 +154,16 @@ var nextpage_pref = function () {
      * it active in current session.
      */
     var save_and_reload = function () {
-	log_area.clear();
-	var new_config_string = config_textbox.value;
-	var r = nextpage_config.parse_config_file(new_config_string);
-	if (r[2]) {
-	    // log_area.log("No syntax errors.");
+	var noerror = check_syntax_and_report(
+	    _('has_parsing_errors_file_not_saved'));
+	if (noerror) {
 	    save(function () {
 		log_area.log(_('user_config_file_saved'));
-		reload(false);
+		send_reload_notification();
 	    }, function () {
 		log_area.log(_('error_save_failed_config_not_reloaded'));
 	    });
-	} else {
-	    log_area.log(_('has_parsing_errors_file_not_saved'));
-	    log_area.log(r[1].join("\n"));
-	};
+	}
     };
 
     /**

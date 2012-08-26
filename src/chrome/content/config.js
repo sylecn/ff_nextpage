@@ -113,6 +113,11 @@ var nextpage_config = function () {
 		    var mo = bind_pattern.exec(line);
 		    var key, command;
 
+		    if (! mo) {
+			log('Error: bind: not well formed.');
+			noerror = false;
+			return;
+		    };
 		    key = mo[1];
 		    command = mo[2];
 		    if (key.indexOf(' ') !== -1) {
@@ -179,8 +184,16 @@ var nextpage_config = function () {
 		if (!Components.isSuccessCode(status)) {
 		    return fail.apply(null, []);
 		}
-		var data = NetUtil.readInputStreamToString(
-		    inputStream, inputStream.available());
+		var len = 0;
+		var data = '';
+		try {
+		    len = inputStream.available();
+		} catch (NS_BASE_STREAM_CLOSED) {
+		    // pass
+		}
+		if (len > 0) {
+		    data = NetUtil.readInputStreamToString(inputStream, len);
+		}
 		return succ.apply(null, [data]);
 	    });
 	} else {
@@ -317,6 +330,20 @@ var nextpage_config = function () {
      * init this.bindings
      */
     var init_bindings = function () {
+	/**
+	 * send notification to user explicitly.
+	 * @title title of the message
+	 * @body content of the message
+	 */
+	var send_notification = function (title, body) {
+	    if (! gBrowser) {
+		return;
+	    };
+	    // running in browser overlay
+	    // TODO can't find a good way to report error to user.
+	    // do nothing for now.
+	};
+
 	var r;
 	init_config_file();
 
@@ -342,6 +369,11 @@ var nextpage_config = function () {
 	    // nextpage.log("config file content: " + data);
 	    var r = parse_config_file(data);
 	    update_obj(bindings, r[0]);
+	    if (!r[2]) {
+		send_notification('Errors when parsing user config file:',
+				  r[1].join("\n"));
+	    };
+
 	    if (nextpage.debug.debugConfigFile()) {
 		nextpage.log("user config file loaded.");
 		if (Object.keys) {
@@ -350,11 +382,6 @@ var nextpage_config = function () {
 		};
 		if (r[1].length) {
 		    nextpage.log('Errors when parsing user config file:');
-		    // TODO should show it to user more obviously, could use
-		    // non blocking pop up.
-		    // could use preferences to store ""last error".
-		    // then show it in preferences window or create a html
-		    // page to show it if it is easy to do so.
 		    nextpage.log(r[1].join("\n"));
 		}
 	    }

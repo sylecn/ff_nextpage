@@ -39,7 +39,7 @@ everything can be edit directly in about:config.
 		oncommand="nextpage_pref.save_and_reload()"/>
 	<button label="&nextpage.prefpane.reload-only;"
 		accesskey="R"
-		oncommand="nextpage_pref.reload(true)"/>
+		oncommand="nextpage_pref.reload()"/>
 	<button label="&nextpage.prefpane.help;"
 		accesskey="H"
 		oncommand="nextpage_pref.help()"/>

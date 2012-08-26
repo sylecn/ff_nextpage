@@ -520,6 +520,72 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
 ** DONE how to check a preferences in js?
    use XPCOM
    nsIPrefService
+* DONE 2012-08-26 BUGFIX forget to check whether mo is null when doing bind command.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 19:01
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  fixed.
+
+* DONE BUG when click "reload only" button. save/reload is run twice.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 19:16
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current/2012-08-26 BUGFIX bug exception when saving an empty user config file.
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  not a bug. can't reproduce.
+* DONE 2012-08-26 BUGFIX bug exception when saving an empty user config file.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 19:18
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  config.js:188
+** DONE when user config is empty. this error will occur.
+   when reading an empty user config file, there will be error when calling
+   inputStream.available().
+
+   - catch exception there.
+
+* DONE config.js:353 tell user about parsing error.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2012-08-26 Sun 19:19
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current/2012-08-19 grep for TODOs and 'log(' before commit
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+  https://developer.mozilla.org/en-US/docs/Code_snippets/Alerts_and_Notifications
+  using notification box result only flush the message, then it got closed
+  before user could see it.
+
+  well, just let user decide what is wrong.
+  when they edit it in browser, the save&reload button will check errors.
+  when they edit in external editor, the reload button should check and
+  report errors.
+
+  If there are errors, do not send reload NOTIFICATION.
+
+** DONE 2012-08-26 bugfix update_user_config_textbox is lazy, should use callbacks
+   all the way down in reload(true).
+   
+   - refactoring: extract send_reload_notification(), remove parameter of
+     reload().
+
+
+
+
 
 
 
