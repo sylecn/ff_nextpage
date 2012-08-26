@@ -16,39 +16,40 @@ everything can be edit directly in about:config.
   <prefpane id="nextpage-editor" label="Configs" flex="1" style="overflow:auto">
     <vbox flex="1" style="overflow:auto">
       <hbox>
-	<label control="nextpage-config-file-path" value="Config File: "/>
+	<label control="nextpage-config-file-path"
+	       value="&nextpage.prefpane.config-file;"/>
 	<textbox id="nextpage-config-file-path" readonly="true"
 		 size="55" value=""/>
-	<button label="Copy File Name" accesskey="C"
+	<button label="&nextpage.prefpane.copy-file-name;" accesskey="C"
 		oncommand="nextpage_pref.copy_config_file_path()"/>
       </hbox>
       <label control="nextpage-default-config"
-	     value="Built-in Config:"/>
+	     value="&nextpage.prefpane.built-in-config;"/>
       <textbox id="nextpage-default-config" cols="80" rows="4" multiline="true"
 	       readonly="true" value=""/>
       <label control="nextpage-user-config"
-	     value="User Config:"/>
+	     value="&nextpage.prefpane.user-config;"/>
       <textbox id="nextpage-user-config" cols="80" rows="13" multiline="true"
 	       value=""/>
       <textbox id="nextpage-log-area" cols="80" rows="3" multiline="true"
 	       readonly="true" value=""/>
       <hbox>
-	<button label="Save &amp; Reload"
+	<button label="&nextpage.prefpane.save-and-reload;"
 		accesskey="S"
 		oncommand="nextpage_pref.save_and_reload()"/>
-	<button label="Reload Only"
+	<button label="&nextpage.prefpane.reload-only;"
 		accesskey="R"
 		oncommand="nextpage_pref.reload(true)"/>
-	<button label="Help"
+	<button label="&nextpage.prefpane.help;"
 		accesskey="H"
 		oncommand="nextpage_pref.help()"/>
       </hbox>
       <separator class="thin"/>
       <hbox>
-	<label value="If you found a problem and would like to get it fixed, please"/>
+	<label value="&nextpage.prefpane.report-a-bug-intro;"/>
 	<label class="text-link"
 	       href="http://code.google.com/p/ff-nextpage/issues/list"
-	       value="Report a bug"/>
+	       value="&nextpage.prefpane.report-a-bug;"/>
       </hbox>
     </vbox>
   </prefpane>

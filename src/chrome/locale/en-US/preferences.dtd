@@ -1,6 +1,9 @@
-<!ENTITY nextpage.prefpane.label "Enable or Disable key bindings">
-<!ENTITY nextpage.prefpane.use-space "bind SPC">
-<!ENTITY nextpage.prefpane.use-n-p "bind n/p">
-<!ENTITY nextpage.prefpane.use-1-2 "bind 1/2">
-<!ENTITY nextpage.prefpane.use-alt-p "bind Alt-p">
-<!ENTITY nextpage.prefpane.use-alt-n "bind Alt-n">
+<!ENTITY nextpage.prefpane.config-file "Config File: ">
+<!ENTITY nextpage.prefpane.copy-file-name "Copy File Name">
+<!ENTITY nextpage.prefpane.built-in-config "Built-in Config:">
+<!ENTITY nextpage.prefpane.user-config "User Config:">
+<!ENTITY nextpage.prefpane.save-and-reload "Save &amp; Reload">
+<!ENTITY nextpage.prefpane.reload-only "Reload Only">
+<!ENTITY nextpage.prefpane.help "Help">
+<!ENTITY nextpage.prefpane.report-a-bug-intro "If you found a problem and would like to get it fixed, please">
+<!ENTITY nextpage.prefpane.report-a-bug "Report a bug">

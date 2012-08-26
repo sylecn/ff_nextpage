@@ -1,6 +1,10 @@
-<!ENTITY nextpage.prefpane.label "开启／关闭热键">
-<!ENTITY nextpage.prefpane.use-space "绑定 空格">
-<!ENTITY nextpage.prefpane.use-n-p "绑定 n/p">
-<!ENTITY nextpage.prefpane.use-1-2 "绑定 1/2">
-<!ENTITY nextpage.prefpane.use-alt-p "绑定 Alt-p">
-<!ENTITY nextpage.prefpane.use-alt-n "绑定 Alt-n">
+<!ENTITY nextpage.prefpane.config-file "配置文件：">
+<!ENTITY nextpage.prefpane.copy-file-name "复制文件名">
+<!ENTITY nextpage.prefpane.built-in-config "内置配置：">
+<!ENTITY nextpage.prefpane.user-config "用户配置：">
+<!ENTITY nextpage.prefpane.save-and-reload "保存并加载">
+<!ENTITY nextpage.prefpane.reload-only "只加载">
+<!ENTITY nextpage.prefpane.help "帮助">
+<!ENTITY nextpage.prefpane.report-a-bug-intro
+	 "如果您发现软件错误并希望该错误被修复, 请">
+<!ENTITY nextpage.prefpane.report-a-bug "提交错误报告">
