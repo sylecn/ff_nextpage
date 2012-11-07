@@ -1,7 +1,11 @@
 #summary v1.3.6 user document
 
 = Help =
-When reading online documents or novels, I usually use SPC to scroll page. But SPC doesn't go to next page automatically. This addon rebinds SPC key so that it scroll page when there is more on the page, it go to next page when at the bottom of a page. You can also use n key anytime directly to go to next page.
+When reading online documents or novels, I usually use SPC to scroll page. But SPC doesn't go to next page automatically. This add-on rebinds SPC key so that it scrolls page when there is more on the page, it goes to next page when you are at the bottom of a page. You can also press n key anytime to go to next page directly.
+
+nextpage is [http://www.gnu.org/philosophy/free-sw.html free software] released under GPLv3. The source code is hosted at [http://github.com/sylecn/ff_nextpage/ github].
+
+nextpage tries hard to not get in your way. If you find nextpage breaks your blog admin panel, some online registration form, or any kind of cool web application, please report a bug.
 
 Currently English, Chinese and German web pages are supported.
 
