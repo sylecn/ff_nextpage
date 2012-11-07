@@ -289,7 +289,8 @@ var nextpage = {
 	imgMaybe = l.getElementsByTagName("img");
 	if (imgMaybe.length !== 0) {
 	    if (nextpage.matchesNext(imgMaybe[0].alt) ||
-		nextpage.matchesNext(imgMaybe[0].name)) {
+		nextpage.matchesNext(imgMaybe[0].name) ||
+		nextpage.matchesNext(imgMaybe[0].src)) {
 		return true;
 	    }
 	}
