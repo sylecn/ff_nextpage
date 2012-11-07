@@ -26,7 +26,8 @@
     <p>In nextpage, there are two config files. The built-in config defines default bindings and it is always active. It is shipped with each version of nextpage and you can't edit it. The user config is a text file on your hard drive, which is empty by default. This file could be used to overwrite built-in config. You may remove or modify default bindings defined in built-in config or add new bindings. The user config file is stored in $HOME/.config/nextpage.lisp (see Preferences for sure).</p>
 
     <h3>About the Config File</h3>
-    <p>The config file is a text file. You may edit it in the nextpage Preferences window or in any text editor you like. If you edit it in Preferences window, click "Save & Reload" to make it persistent and active. If you edit it in external editor, save the file there, then click "Reload Only" to make the new config active.</p>
+    <p>The config file is a text file. You may edit it in the nextpage Preferences window or in any text editor you like. You can get the config file path in Preferences window. If you edit it in Preferences window, click "Save & Reload" to make it persistent and active. If you edit it in external editor, save the file there, then click "Reload Only" to make the new config active.</p>
+    <p>By default, a built-in config is used. nextpage does not create a user config file. This works for users that do not want to config this add-on at all. The user config file will be created when you click "Save & Reload" in Preferences window. You may also use your text editor to create it manually, then click "Reload Only" to load the config file immediately.</p>
     <p>The config file has a lisp-like syntax. Lines started with ; are comments and they are ignored by the parser. Thus to temporarily disable a command, just comment it by adding ";;" at the beginning of that line.</p>
     <p>Each command must be put in a separate line, because I haven't implemented an sexp parser yet.</p>
     <h4>Supported Commands</h4>
@@ -68,7 +69,7 @@
     <p>Check the source code of this add-on to know exactly which keys are supported. <a href="http://code.google.com/p/ff-nextpage/issues/list">Report a bug</a> if the key you want to use is not supported by nextpage.</p>
     <p>Key names are case sensitive. Key names are typed with double quotes in bind command. e.g. "M-n".</p>
     <p>If you have emacs installed, to known a key's key name (the string representation), start emacs and type C-h c, then type your key. The key name will be shown in minibuffer. Note that key sequence is not supported by nextpage. So you can't bind "C-x n" to nextpage command.</p>
-    <p>For more document, see emacs document <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keys.html#Keys">Keys</a>, <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Commands.html#Commands">Commands</a> and <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Key-Bindings.html#Key-Bindings">Key Bindings</a></p>
+    <p>For more document, see emacs document <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keys.html#Keys">Keys</a>, <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Commands.html#Commands">Commands</a> and <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Key-Bindings.html#Key-Bindings">Key Bindings</a>.</p>
 
     <h4>Bind Command: Commands</h4>
     <p>Available commands:</p>
@@ -78,7 +79,7 @@
       <tr><td class="command-name">nextpage</td><td>next page</tr>
       <tr><td class="command-name">history-back</td><td>go back one page in history</tr>
       <tr><td class="command-name">close-tab</td><td>close current tab</tr>
-      <tr><td class="command-name">nil</td><td>do nothing.</tr>
+      <tr><td class="command-name">nil</td><td>do nothing</tr>
     </table>
     <p>Commands should be quoted in bind command. For command foo, use single quote form 'foo. Currently omitting the quote also works, but this may change if I choose to introduce a full lisp parser in the future.</p>
     <p>About the nil command: You can disable a key-binding by binding the same key to nil. For example, <code>(bind "SPC" 'nil)</code> will disable the built-in Space binding.</p>

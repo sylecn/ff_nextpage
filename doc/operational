@@ -1,5 +1,5 @@
 Date: 2012-07-20
-Time-stamp: <2012-08-27>
+Time-stamp: <2012-11-07>
 
 * later								      :entry:
 ** 2012-08-26 use a error image in appendNotification()
@@ -121,7 +121,7 @@ Time-stamp: <2012-08-27>
    I guess could do this in init function.
 
 *** update usage.html nextpage_show_preferences function. maybe.
-    never show to preferences window to user.
+    never show two preferences window to user.
 ** 2012-08-19 make nextpage a restart-less add-on.
    It should be easy given that my program is quite organized, overlay on GUI
    is quite minimum.
@@ -131,13 +131,15 @@ Time-stamp: <2012-08-27>
    requires firefox 4.
 ** 2012-08-27 before releasing v1.3.6 to mozilla
    - update add-on description at mozilla
-   - create a screenshot and add it to add-on gallery.
-   - update project home page.
+     will do it when v1.3.6 has passed review.
+   - DONE create a screenshot and add it to add-on gallery.
+   - DONE update project home page.
      move old document to a wiki page.
-     v1.3.5_help
+     Help135
 
      create new document and also use it in project description.
-     v1.3.6_help
+     Help136
+
 ** 2012-08-27 make it easier to open preferences window.
    - create menu item in Tools menu.
    - create a command that user can bind to open preferences window.
