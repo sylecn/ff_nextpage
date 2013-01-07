@@ -292,9 +292,9 @@ var nextpage = {
 	// check inner <img> tag
 	imgMaybe = l.getElementsByTagName("img");
 	if (imgMaybe.length !== 0) {
-	    if (nextpage.matchesNext(imgMaybe[0].alt) ||
-		nextpage.matchesNext(imgMaybe[0].name) ||
-		nextpage.matchesNext(imgMaybe[0].src)) {
+	    if (nextpage.matchesNext(imgMaybe[0].getAttribute('alt')) ||
+		nextpage.matchesNext(imgMaybe[0].getAttribute('name')) ||
+		nextpage.matchesNext(imgMaybe[0].getAttribute('src'))) {
 		return true;
 	    }
 	}
