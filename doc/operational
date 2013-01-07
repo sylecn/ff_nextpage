@@ -1,5 +1,5 @@
 Date: 2012-07-20
-Time-stamp: <2012-11-07>
+Time-stamp: <2012-12-07>
 
 * later								      :entry:
 ** 2012-08-26 use a error image in appendNotification()
@@ -26,6 +26,11 @@ Time-stamp: <2012-11-07>
 
    - well, for now, just let them check it in Preferences window.
 ** 2012-08-22 add lisp parser.
+   - Note taken on [2012-12-07 Fri 17:07] \\
+     If I am to add a mini lisp, check the lisp kernel that Shen is based on. It is
+     called KI.
+     
+     see http://www.shenlanguage.org/Documentation/shendoc.htm
 *** support more commands and configurable vars.
     ignoreBindingAList
     nextPattern
