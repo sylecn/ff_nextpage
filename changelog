@@ -1,9 +1,10 @@
 -*- mode: org -*-
 Changelog file for user
 * 
-* v1.3.7dev
+* v1.3.7
 - bugfix
   - detect activeElement in framed pages.
+  - should use img.getAttribute('src') instead of img.src
 * v1.3.6
 - feature
   - works for some more mailing list archives
