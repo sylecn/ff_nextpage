@@ -1,4 +1,4 @@
-// Copyright (C) 2009, 2010, 2011, 2012  Yuanle Song <sylecn@gmail.com>
+// Copyright (C) 2009, 2010, 2011, 2012, 2013  Yuanle Song <sylecn@gmail.com>
 //
 // The JavaScript code in this page is free software: you can
 // redistribute it and/or modify it under the terms of the GNU
@@ -108,6 +108,10 @@ var nextpage = {
 	}
 	// ignore keyevents in HTML input controls.
 	var focusElement = content.document.activeElement;
+	// walk down the frames to get the bottom level activeElement
+	while (focusElement.tagName.match(/^FRAME$/i)) {
+	    focusElement = focusElement.contentDocument.activeElement;
+	}
 	if (focusElement.tagName.match(/^(INPUT|TEXTAREA|SELECT)$/i)) {
 	    return;
 	}
