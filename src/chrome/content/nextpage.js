@@ -407,14 +407,22 @@ var nextpage = {
 	return false;
     },
     getLinkForDiscuz: function (url, doc) {
-	var generator = nextpage.utils.getMeta("generator");
+	var generator;
 	var className;
-	if (generator.match(/^Discuz! X/)) {
+	if (content.discuzVersion == "X2") {
 	    className = "nxt";
-	} else if (generator.match(/^Discuz! /)) {
-	    className = "next";
 	} else {
-	    return false;
+	    generator = nextpage.utils.getMeta("generator");
+	    if (! generator) {
+		return false;
+	    };
+	    if (generator.match(/^Discuz! X/)) {
+		className = "nxt";
+	    } else if (generator.match(/^Discuz! /)) {
+		className = "next";
+	    } else {
+		return false;
+	    }
 	}
 	var nodes = doc.getElementsByClassName(className);
 	if (nodes.length < 1) {
