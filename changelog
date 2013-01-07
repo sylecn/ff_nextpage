@@ -1,6 +1,9 @@
 -*- mode: org -*-
 Changelog file for user
 * 
+* v1.3.7dev
+- bugfix
+  - detect activeElement in framed pages.
 * v1.3.6
 - feature
   - works for some more mailing list archives
