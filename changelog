@@ -1,6 +1,10 @@
 -*- mode: org -*-
 Changelog file for user
 * 
+* 2013-11-13 v1.3.8
+- bugfix
+  - [issue 16] allow next link label to contain ▸
+  - [issue 16] allow class="next" style a link or button
 * v1.3.7
 - bugfix
   - detect activeElement in framed pages.

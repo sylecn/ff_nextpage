@@ -643,3 +643,25 @@ Archived entries from file /home/sylecn/projects/firefox/nextpage/doc/operationa
 
 
 
+
+* DONE 2013-11-13 fix Issue 16 - ff-nextpage - doesn't work on any webpage - nextpage addon for firefox, use SPC key to goto next page when at the bottom of a page - Google Project Hosting
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2013-11-13 Wed 22:31
+  :ARCHIVE_FILE: ~/projects/firefox/nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+http://code.google.com/p/ff-nextpage/issues/detail?id=16
+
+<a href="/en-US/firefox/extensions/tabs/?sort=users&amp;page=2" class="button next">
+        Next ▸</a>
+
+This next page link is not found by nextpage.
+- add ▸ in nextPattern.
+- check for class "next" when no next page link cound be found using previous
+  methods.
+
+  getNextPageLink
+  post-generic

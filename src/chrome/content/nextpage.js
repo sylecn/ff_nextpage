@@ -236,7 +236,7 @@ var nextpage = {
 	// M-x insert-nextpage-regexp
 
 	// TODO make this regexp configurable
-	var nextPattern = /(?:(^|>)(next page|Nächste Seite|la page suivante|следующей страницы)(<|$)|(^|>\s*)(next|nächste|Suivant|Следующая)(\s*<|$| ?(?:»|›|&gt;)|1?\.(?:gif|jpg|png))|^(››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁)|^(Next Chapter|Thread Next|Go to next page))/i;
+	var nextPattern = /(?:(^|>)(next page|Nächste Seite|la page suivante|следующей страницы)(<|$)|(^|>\s*)(next|nächste|Suivant|Следующая)(\s*<|$| ?(?:▸|»|›|&gt;)|1?\.(?:gif|jpg|png))|^(››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁)|^(Next Chapter|Thread Next|Go to next page))/i;
 	return nextPattern.test(str);
     },
 
@@ -440,6 +440,7 @@ var nextpage = {
 	var links;
 	var nodes;
 	var i, j;
+	var tagName;
 	// var re;
 
 	/*
@@ -491,7 +492,8 @@ var nextpage = {
 	}
 
 	// check <a> links
-	var tagNameToCheck = ["a"];
+	// var tagNameToCheck = ["a"];
+	var tagNameToCheck = [];
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (j = 0; j < links.length; j++) {
@@ -514,6 +516,23 @@ var nextpage = {
 	nodes = content.document.getElementsByTagName('input');
 	for (j = 0; j < nodes.length; j++) {
 	    if (nextpage.isNextPageButton(nodes[j])) {
+		return nodes[j];
+	    }
+	}
+
+	// check for <a class="foo next"> <button class="foo next">
+	// <input type="button" class="foo next">
+	nodes = content.document.getElementsByClassName('next');
+
+	for (j = 0; j < nodes.length; j++) {
+	    tagName = nodes[j].tagName.toUpperCase();
+	    if (tagName === "A" ||
+		tagName === "BUTTON" ||
+		(tagName === "INPUT" &&
+		 nodes[j].getAttribute("type") === "button")) {
+		if (this.debug.debugging()) {
+		    this.log("found <" + tagName + " class=\"foo next\">");
+		}
 		return nodes[j];
 	    }
 	}
