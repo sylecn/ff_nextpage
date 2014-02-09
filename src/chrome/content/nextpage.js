@@ -1,4 +1,4 @@
-// Copyright (C) 2009, 2010, 2011, 2012, 2013  Yuanle Song <sylecn@gmail.com>
+// Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014  Yuanle Song <sylecn@gmail.com>
 //
 // The JavaScript code in this page is free software: you can
 // redistribute it and/or modify it under the terms of the GNU
@@ -492,8 +492,7 @@ var nextpage = {
 	}
 
 	// check <a> links
-	// var tagNameToCheck = ["a"];
-	var tagNameToCheck = [];
+	var tagNameToCheck = ["a"];
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (j = 0; j < links.length; j++) {
