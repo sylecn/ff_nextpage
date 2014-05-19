@@ -1,6 +1,11 @@
 -*- mode: org -*-
 Changelog file for user
 * 
+* 2014-05-19 v1.3.12
+- bugfix
+  - [issue 21] better support for page=N urls
+  - [issue 22] add support for nextControl css class
+  - [issue 23] add support for MagicPoint generated html pages and similar pages.
 * 2013-11-13 v1.3.8
 - bugfix
   - [issue 16] allow next link label to contain ▸
