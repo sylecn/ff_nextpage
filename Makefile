@@ -14,6 +14,9 @@ ls:
 v:
 	@echo -n "version: "
 	@cat $(SRC)/install.rdf | sed -n "s;.*<em:version>\(.*\)</em:version>;\1;p"
+h1:
+	cp "$(XPI_FILE)" /media/share/
+	@echo "/data/vbox/share/nextpage-$(VERSION).xpi" | xsel -b
 xpi: xpi4 ls
 xpi4: clean-xpi4
 	mkdir -p $(BUILD)

@@ -491,8 +491,34 @@ var nextpage = {
 	    }
 	}
 
+	/**
+	 * given a page url, return page number as a number if it is
+	 * found. return null if page can't be found in given URL or its value
+	 * is not a number.
+	 *
+	 * supported URL format:
+	 *     ?page=N (query string)
+	 */
+	var parsePageFromURL = function (pageURL) {
+	    var pagePattern = /[?&]page=([^&]+)/;
+	    var mo = pagePattern.exec(pageURL);
+	    var result;
+	    if (mo) {
+		result = parseInt(mo[1]);
+		if (isNaN(result)) {
+		    return null;
+		} else {
+		    return result;
+		}
+	    } else {
+		return null;
+	    }
+	};
+
 	// check <a> links
 	var tagNameToCheck = ["a"];
+	var pageURL = content.document.location.href;
+	var currentPage = parsePageFromURL(pageURL);
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (j = 0; j < links.length; j++) {
@@ -503,6 +529,11 @@ var nextpage = {
 			nextpage.debug._debugATag = false;
 			// can enable other debug options here.
 			nextpage.debug._debugDomainCheck = true;
+		    }
+		}
+		if (currentPage) {
+		    if (parsePageFromURL(links[j].href) === currentPage + 1) {
+			return links[j];
 		    }
 		}
 		if (nextpage.isNextPageLink(links[j])) {

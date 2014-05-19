@@ -665,3 +665,27 @@ This next page link is not found by nextpage.
 
   getNextPageLink
   post-generic
+
+* DONE 2014-05-19 nextpage issue 21
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2014-05-19 Mon 21:12
+  :ARCHIVE_FILE: ~/projects/ff_nextpage/doc/operational
+  :ARCHIVE_OLPATH: current
+  :ARCHIVE_CATEGORY: operational
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: entry
+  :END:
+the page has a <a> link with &gt;&gt;, so I used that.
+
+but the page does not have a <a> with &gt;
+
+- So the design of that page is just wrong.
+  how to work around it?
+
+  1. use a preGeneric handler. easy, but not very elegant.
+
+  2. try to have better support for ?page=N
+     when a <a> with page=N+1 is found, should use it.
+
+     And this should happen before the common "next" scan.
+     Could re-use the a nodes though.
