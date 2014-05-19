@@ -439,7 +439,7 @@ var nextpage = {
     getNextPageLink: function () {
 	var links;
 	var nodes;
-	var i, j;
+	var i, j, e;
 	var tagName;
 	// var re;
 
@@ -519,21 +519,44 @@ var nextpage = {
 	    }
 	}
 
+	/**
+	 * return elements matching given class names.
+	 */
+	var elementsMatchingClasses = function (doc, classNames) {
+	    return classNames.map(function (className, _) {
+		return doc.getElementsByClassName(className);
+	    }).reduce(function (lhs, rhs) {
+		return lhs.concat(rhs);
+	    });
+	};
+
 	// check for <a class="foo next"> <button class="foo next">
 	// <input type="button" class="foo next">
-	nodes = content.document.getElementsByClassName('next');
-
-	for (j = 0; j < nodes.length; j++) {
-	    tagName = nodes[j].tagName.toUpperCase();
-	    if (tagName === "A" ||
-		tagName === "BUTTON" ||
-		(tagName === "INPUT" &&
-		 nodes[j].getAttribute("type") === "button")) {
-		if (this.debug.debugging()) {
-		    this.log("found <" + tagName + " class=\"foo next\">");
+	// accepts both next and nextControl class.
+	var getNextElementByClassName = function (className) {
+	    nodes = content.document.getElementsByClassName(className);
+	    for (j = 0; j < nodes.length; j++) {
+		tagName = nodes[j].tagName.toUpperCase();
+		if (tagName === "A" ||
+		    tagName === "BUTTON" ||
+		    (tagName === "INPUT" &&
+		     nodes[j].getAttribute("type") === "button")) {
+		    if (nextpage.debug.debugging()) {
+			nextpage.log("found <" + tagName + " class=\"foo " +
+				     className + "\">");
+		    }
+		    return nodes[j];
 		}
-		return nodes[j];
 	    }
+	    return null;
+	};
+	e = getNextElementByClassName('next');
+	if (e) {
+	    return e;
+	}
+	e = getNextElementByClassName('nextControl');
+	if (e) {
+	    return e;
 	}
 
 	/*
