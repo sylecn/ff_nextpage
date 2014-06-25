@@ -236,7 +236,7 @@ var nextpage = {
 	// M-x insert-nextpage-regexp
 
 	// TODO make this regexp configurable
-	var nextPattern = /(?:(^|>)(next page|Nächste Seite|la page suivante|следующей страницы)(<|$)|(^|>\s*)(next|nächste|Suivant|Следующая)(\s*<|$| ?(?:▸|»|›|&gt;)|1?\.(?:gif|jpg|png))|^(››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁)|^(Next Chapter|Thread Next|Go to next page))/i;
+	var nextPattern = /(?:(^|>)(next page|Nächste Seite|la page suivante|следующей страницы)(<|$)|(^|>\s*)(next|nächste|Suivant|Следующая)(\s*<|$| ?(?:▸|»|›|&gt;)|1?\.(?:gif|jpg|png))|^(››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁|张)|^(Next Chapter|Thread Next|Go to next page))/i;
 	return nextPattern.test(str) || nextPattern.test(str.slice(1, -1));
     },
 
