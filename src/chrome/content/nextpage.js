@@ -731,20 +731,11 @@ nextpage.commands = {
 		if (nextpage.debug.debugGotoNextPage()) {
 		    nextpage.log("will follow link.href if it's good");
 		}
-		// don't follow javascript:void(0);
-		// instead simulate a click event.
-		if (nextpageLink.href.match(/void/i)) {
-		    nextpageLink.click();
-		}
 		// FIX Issue 4: don't follow a link to index.html
 		if (nextpageLink.href.match(/index\....l?$/i)) {
 		    return false;
 		}
-		// don't follow a link to current page
-		if (nextpageLink.href === nextpage.utils.getURL()) {
-		    return false;
-		}
-		content.location = nextpageLink.href;
+		nextpageLink.click();
 	    }
 	    // if there is a chance to return anything.
 	    return true;
