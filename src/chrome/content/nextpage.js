@@ -431,6 +431,13 @@ var nextpage = {
 	}
 	return nodes[0];
     },
+    getLinkForOpenstackDoc: function (url, doc) {
+	var inode = doc.getElementsByClassName("fa-angle-double-right");
+	if (inode.length < 1) {
+	    return false;
+	}
+	return inode[0].parentElement;
+    },
 
     /**
      * parse next page links in current document
@@ -452,6 +459,7 @@ var nextpage = {
 	    [/^http:\/\/osdir\.com\/ml\//i, this.getLinkForOsdirML],
 	    [/^http:\/\/coding\.derkeiler\.com\/Archive\//i, this.getLinkForDerkeilerML],
 	    [/\.wikisource\.org\//i, this.getLinkForWikiSource],
+	    [/^https?:\/\/docs\.openstack\.org\//i, this.getLinkForOpenstackDoc],
 	    [/^http:\/\/www\.baidu\.com\/s\?wd=/i, this.getLinkForBaiduSearch]
 	];
 	var url = this.utils.getURL();
