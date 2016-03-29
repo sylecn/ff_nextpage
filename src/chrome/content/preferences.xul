@@ -48,7 +48,7 @@ everything can be edit directly in about:config.
       <hbox>
 	<label value="&nextpage.prefpane.report-a-bug-intro;"/>
 	<label class="text-link"
-	       href="http://code.google.com/p/ff-nextpage/issues/list"
+	       href="https://github.com/sylecn/ff-nextpage/issues"
 	       value="&nextpage.prefpane.report-a-bug;"/>
       </hbox>
     </vbox>
