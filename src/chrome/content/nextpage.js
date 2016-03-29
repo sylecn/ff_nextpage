@@ -1,4 +1,4 @@
-// Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014, 2015 Yuanle Song
+// Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 Yuanle Song
 // <sylecn@gmail.com>
 //
 // The JavaScript code in this page is free software: you can
@@ -440,7 +440,7 @@ var nextpage = {
     getNextPageLink: function () {
 	var links;
 	var nodes;
-	var i, j, e;
+	var i, j, k, e;
 	var tagName;
 	// var re;
 
@@ -586,13 +586,12 @@ var nextpage = {
 	    }
 	    return null;
 	};
-	e = getNextElementByClassName('next');
-	if (e) {
-	    return e;
-	}
-	e = getNextElementByClassName('nextControl');
-	if (e) {
-	    return e;
+	var nextClasses = ['next', 'nextControl', 'pageNext'];
+	for (k = 0; k < nextClasses.length; k++) {
+	    e = getNextElementByClassName(nextClasses[k]);
+	    if (e) {
+		return e;
+	    }
 	}
 
 	/*
