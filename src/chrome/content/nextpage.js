@@ -21,6 +21,7 @@
 // TODO search for debugging code, with mark: /**/
 
 (function(){
+var i, j;
 
 // import nextpage_config to current namespace.
 Components.utils.import("chrome://nextpage/content/config.jsm");
@@ -83,6 +84,7 @@ var nextpage = {
     ignore: function (key) {
 	var url = this.utils.getURL();
 	var it = Iterator(this.ignoreBindingAList);
+	var v;
 	for (var pair in it) {
 	    // ignore the index, get the value in pair.
 	    v = pair[1];
@@ -579,6 +581,8 @@ var nextpage = {
 	// <input type="button" class="foo next">
 	// accepts both next and nextControl class.
 	var getNextElementByClassName = function (className) {
+	    var tagName;
+	    var nodes;
 	    nodes = content.document.getElementsByClassName(className);
 	    for (j = 0; j < nodes.length; j++) {
 		tagName = nodes[j].tagName.toUpperCase();
@@ -738,7 +742,8 @@ nextpage.utils = {
      * @return false otherwise.
      */
     inArray: function (element, array) {
-	for (var i = 0; i < array.length; i++) {
+	var i;
+	for (i = 0; i < array.length; i++) {
     	    if (element === array[i]) {
     		return true;
     	    }
@@ -838,11 +843,12 @@ nextpage.utils = {
      * @return false if the name is not found.
      */
     getMeta: function (name, doc) {
+	var i;
 	if (! doc) {
 	    doc = content.document;
 	}
 	var metas = doc.getElementsByTagName("meta");
-	for (var i = 0; i < metas.length; ++i) {
+	for (i = 0; i < metas.length; ++i) {
 	    if (metas[i].getAttribute("name") === name) {
 		return metas[i].getAttribute("content");
 	    }
