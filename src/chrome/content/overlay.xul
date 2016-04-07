@@ -7,18 +7,15 @@
     <stringbundle id="nextpage-strings" src="chrome://nextpage/locale/nextpage.properties"/>
   </stringbundleset>
 
-  <script type="application/javascript" src="config.js"/>
-  <script type="application/javascript" src="nextpage.js"/>
-
   <menupopup id="menu_viewPopup">
     <menuitem id="nextpage-nextpage"
 	      label="&nextpage.label;"
 	      accesskey="&nextpage.accesskey;"
-	      acceltext="n"
-              oncommand="nextpage.commands.gotoNextPage();"/>
+	      acceltext="n" />
     <!-- description is shown in the menuitem for windows version, I don't
          like it. -->
     <!-- description="&nextpage.description;" -->
   </menupopup>
 
+  <script type="application/javascript" src="nextpage.js"/>
 </overlay>

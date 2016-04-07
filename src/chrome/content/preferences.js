@@ -1,4 +1,7 @@
-var nextpage_pref = function () {
+(function() {
+    // import nextpage_config to current namespace.
+    Components.utils.import("chrome://nextpage/content/config.jsm");
+
     // firefox utils
     var app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
     var log = app.console.log;
@@ -177,11 +180,22 @@ var nextpage_pref = function () {
 	openUILinkIn(url, "tab");
     };
 
-    return {
-	init: init,
-	copy_config_file_path: copy_config_file_path,
-	reload: reload,
-	save_and_reload: save_and_reload,
-	help: help
-    };
-}();
+    // preferences.xul init
+    window.addEventListener("load", function (e) {
+	init();
+
+	document.getElementById(
+	    "nextpage-copy-file-path").addEventListener(
+		"command", copy_config_file_path, false);
+	document.getElementById(
+	    "nextpage-save-and-reload").addEventListener(
+		"command", save_and_reload, false);
+	document.getElementById(
+	    "nextpage-reload").addEventListener(
+		"command", reload, false);
+	document.getElementById(
+	    "nextpage-help").addEventListener(
+		"command", help, false);
+    }, false);
+
+})();

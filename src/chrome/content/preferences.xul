@@ -11,7 +11,6 @@ everything can be edit directly in about:config.
 <prefwindow
     id="nextpage-preferences"
     title="nextpage Preferences"
-    onload="nextpage_pref.init()"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <prefpane id="nextpage-editor" label="Configs" flex="1" style="overflow:auto">
     <vbox flex="1" style="overflow:auto">
@@ -20,8 +19,7 @@ everything can be edit directly in about:config.
 	       value="&nextpage.prefpane.config-file;"/>
 	<textbox id="nextpage-config-file-path" readonly="true"
 		 size="55" value=""/>
-	<button label="&nextpage.prefpane.copy-file-name;" accesskey="C"
-		oncommand="nextpage_pref.copy_config_file_path()"/>
+	<button id="nextpage-copy-file-path" label="&nextpage.prefpane.copy-file-name;" accesskey="C" />
       </hbox>
       <label control="nextpage-default-config"
 	     value="&nextpage.prefpane.built-in-config;"/>
@@ -34,15 +32,15 @@ everything can be edit directly in about:config.
       <textbox id="nextpage-log-area" cols="80" rows="3" multiline="true"
 	       readonly="true" value=""/>
       <hbox>
-	<button label="&nextpage.prefpane.save-and-reload;"
-		accesskey="S"
-		oncommand="nextpage_pref.save_and_reload()"/>
-	<button label="&nextpage.prefpane.reload-only;"
-		accesskey="R"
-		oncommand="nextpage_pref.reload()"/>
-	<button label="&nextpage.prefpane.help;"
-		accesskey="H"
-		oncommand="nextpage_pref.help()"/>
+	<button id="nextpage-save-and-reload"
+		label="&nextpage.prefpane.save-and-reload;"
+		accesskey="S"/>
+	<button id="nextpage-reload"
+		label="&nextpage.prefpane.reload-only;"
+		accesskey="R"/>
+	<button id="nextpage-help"
+		label="&nextpage.prefpane.help;"
+		accesskey="H"/>
       </hbox>
       <separator class="thin"/>
       <hbox>
@@ -57,6 +55,5 @@ everything can be edit directly in about:config.
     <stringbundle id="preferences-strings" src="chrome://nextpage/locale/preferences.properties"/>
   </stringbundleset>
   <script type="application/javascript" src="chrome://browser/content/utilityOverlay.js"></script>
-  <script type="application/javascript" src="config.js"/>
   <script type="application/javascript" src="preferences.js"/>
 </prefwindow>

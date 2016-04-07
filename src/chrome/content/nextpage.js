@@ -20,6 +20,11 @@
 
 // TODO search for debugging code, with mark: /**/
 
+(function(){
+
+// import nextpage_config to current namespace.
+Components.utils.import("chrome://nextpage/content/config.jsm");
+
 var nextpage = {
     init: function () {
 	// the FUEL Application
@@ -624,84 +629,8 @@ var nextpage = {
     }
 };
 
-nextpage.debug = {
-    // make sure debugging is turned off when release
-    _debugging			: false,
-    _debugSpecialCase		: !false,
-    _debugGotoNextPage		: !false,
-    _debugDomainCheck		: false,
-    _debugATag			: false,
-    _debugIFrame			: false,
-    _debugContentEditable	: false,
-    _debugKeyEvents		: false,
-    _debugConfigFile             : !false,
-
-    debugging: function () {
-	return this._debugging;
-    },
-    debugSpecialCase: function () {
-	return this._debugging && this._debugSpecialCase;
-    },
-    debugGotoNextPage: function () {
-	return this._debugging && this._debugGotoNextPage;
-    },
-    debugDomainCheck: function () {
-	return this._debugging && this._debugDomainCheck;
-    },
-    debugATag: function () {
-	return this._debugging && this._debugATag;
-    },
-    debugIFrame: function () {
-	return this._debugging && this._debugIFrame;
-    },
-    debugContentEditable: function () {
-	return this._debugging && this._debugContentEditable;
-    },
-    debugKeyEvents: function () {
-	return this._debugging && this._debugKeyEvents;
-    },
-    debugConfigFile: function () {
-	return this._debugging && this._debugConfigFile;
-    },
-
-    // convert anchor (link) object to string
-    linkToString: function (l) {
-	var re, prop;
-	re = "link = {\n";
-	prop = ["rel", "accessKey", "title", "href", "onclick",
-		"innerHTML", "id", "name"];
-	for (var i = 0; i < prop.length; i++) {
-	    if (l.hasAttribute(prop[i])) {
-		re += prop[i] + ": " + l.getAttribute(prop[i]) + ",\n";
-	    }
-	}
-	return re + "}";
-    },
-
-    dirStrict: function (obj) {
-	var dirResult = [];
-	for (prop in obj) if (obj.hasOwnProperty(prop)) {
-	    dirResult.push([prop, typeof obj[prop]].join(': '));
-	}
-	return dirResult.join('\n');
-    },
-
-    dir: function (obj) {
-	var dirResult = [];
-	for (prop in obj) {
-	    dirResult.push([prop, typeof obj[prop]].join(': '));
-	}
-	return dirResult.join('\n');
-    },
-
-    show: function (obj, listOfProp) {
-	var dirResult = [];
-	for (prop in (listOfProp || obj)) {
-	    dirResult.push([prop, obj[prop]].join(': '));
-	}
-	return dirResult.join('\n');
-    }
-};
+// nextpage.debug is moved to config.jsm for code sharing.
+nextpage.debug = nextpage_debug;
 
 nextpage.commands = {
     historyBack: function () {
@@ -781,15 +710,6 @@ nextpage.commands = {
     // (undo-close-tab)
     undoCloseTab: function () {
 	// not implemented yet.
-    },
-
-    // (enable-debug)
-    enableDebug : function () {
-	// enable the most useful debug variables here
-	nextpage.debug._debugging = true;
-	nextpage.debug._debugSpecialCase = true;
-	nextpage.debug._debugGotoNextPage = true;
-	nextpage.debug._debugConfigFile = true;
     },
 
     /**
@@ -942,6 +862,10 @@ window.addEventListener("load", function (e) {
     // main()
     nextpage.init();
 
+    // add action on menu item.
+    var menuItem = document.getElementById("nextpage-nextpage");
+    menuItem.addEventListener("command", nextpage.commands.gotoNextPage, false);
+
     // watch config change event.
     var observerService = Components.classes["@mozilla.org/observer-service;1"]
             .getService(Components.interfaces.nsIObserverService);
@@ -958,3 +882,5 @@ window.addEventListener("unload", function (e) {
 window.addEventListener('keypress', function (e) {
     nextpage.keypress(e);
 }, false);
+
+})();

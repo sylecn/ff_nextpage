@@ -1,3 +1,97 @@
+var EXPORTED_SYMBOLS = ["nextpage_config", "nextpage_debug"];
+
+nextpage_debug = {
+    // make sure debugging is turned off when release
+    _debugging			: false,
+    _debugSpecialCase		: !false,
+    _debugGotoNextPage		: !false,
+    _debugDomainCheck		: false,
+    _debugATag			: false,
+    _debugIFrame			: false,
+    _debugContentEditable	: false,
+    _debugKeyEvents		: false,
+    _debugConfigFile             : !false,
+
+    /**
+     * public interface to enable debug.
+     *
+     * (enable-debug)
+     */
+    enableDebug : function () {
+	// enable the most useful debug variables here
+	this._debugging = true;
+	this._debugSpecialCase = true;
+	this._debugGotoNextPage = true;
+	this._debugConfigFile = true;
+    },
+
+    debugging: function () {
+	return this._debugging;
+    },
+    debugSpecialCase: function () {
+	return this._debugging && this._debugSpecialCase;
+    },
+    debugGotoNextPage: function () {
+	return this._debugging && this._debugGotoNextPage;
+    },
+    debugDomainCheck: function () {
+	return this._debugging && this._debugDomainCheck;
+    },
+    debugATag: function () {
+	return this._debugging && this._debugATag;
+    },
+    debugIFrame: function () {
+	return this._debugging && this._debugIFrame;
+    },
+    debugContentEditable: function () {
+	return this._debugging && this._debugContentEditable;
+    },
+    debugKeyEvents: function () {
+	return this._debugging && this._debugKeyEvents;
+    },
+    debugConfigFile: function () {
+	return this._debugging && this._debugConfigFile;
+    },
+
+    // convert anchor (link) object to string
+    linkToString: function (l) {
+	var re, prop;
+	re = "link = {\n";
+	prop = ["rel", "accessKey", "title", "href", "onclick",
+		"innerHTML", "id", "name"];
+	for (var i = 0; i < prop.length; i++) {
+	    if (l.hasAttribute(prop[i])) {
+		re += prop[i] + ": " + l.getAttribute(prop[i]) + ",\n";
+	    }
+	}
+	return re + "}";
+    },
+
+    dirStrict: function (obj) {
+	var dirResult = [];
+	for (prop in obj) if (obj.hasOwnProperty(prop)) {
+	    dirResult.push([prop, typeof obj[prop]].join(': '));
+	}
+	return dirResult.join('\n');
+    },
+
+    dir: function (obj) {
+	var dirResult = [];
+	for (prop in obj) {
+	    dirResult.push([prop, typeof obj[prop]].join(': '));
+	}
+	return dirResult.join('\n');
+    },
+
+    show: function (obj, listOfProp) {
+	var dirResult = [];
+	for (prop in (listOfProp || obj)) {
+	    dirResult.push([prop, obj[prop]].join(': '));
+	}
+	return dirResult.join('\n');
+    }
+};
+
 /**
  * config file based functions.
  * global bindings are stored in this.bindings object.
@@ -6,6 +100,12 @@ var nextpage_config = function () {
     // requires firefox 3.6
     Components.utils.import("resource://gre/modules/FileUtils.jsm");
     Components.utils.import("resource://gre/modules/NetUtil.jsm");
+
+    var app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
+    var nextpage = {
+    	debug: nextpage_debug,
+	log: app.console.log
+    };
 
     /**
      * bindings to use in nextpage overlay.
@@ -98,7 +198,7 @@ var nextpage_config = function () {
 	    switch (command) {
 	    case "enable-debug":
 		if (in_overlay) {
-		    nextpage.commands.enableDebug();
+		    nextpage_debug.enableDebug();
 		};
 		break;
 	    case "unbind-all":
