@@ -100,11 +100,11 @@ var nextpage_config = function () {
     // requires firefox 3.6
     Components.utils.import("resource://gre/modules/FileUtils.jsm");
     Components.utils.import("resource://gre/modules/NetUtil.jsm");
+    Components.utils.import("resource://gre/modules/Console.jsm");
 
-    var app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
     var nextpage = {
     	debug: nextpage_debug,
-	log: app.console.log
+	log: console.log
     };
 
     /**

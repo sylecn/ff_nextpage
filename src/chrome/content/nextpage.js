@@ -25,12 +25,11 @@ var i, j;
 
 // import nextpage_config to current namespace.
 Components.utils.import("chrome://nextpage/content/config.jsm");
+Components.utils.import("resource://gre/modules/Console.jsm");
 
 var nextpage = {
     init: function () {
-	// the FUEL Application
-	this.app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
-	this.log = this.app.console.log;
+	this.log = console.log;
 
 	/**
 	 * l10n strings defined in locale/en-US/nextpage.properties

@@ -2,10 +2,6 @@
     // import nextpage_config to current namespace.
     Components.utils.import("chrome://nextpage/content/config.jsm");
 
-    // firefox utils
-    var app = Components.classes["@mozilla.org/fuel/application;1"].getService(Components.interfaces.fuelIApplication);
-    var log = app.console.log;
-
     // L10N strings defined in preferences.properties
     var strings = document.getElementById("preferences-strings");
     /**
