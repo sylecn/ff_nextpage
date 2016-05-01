@@ -243,7 +243,7 @@ var nextpage = {
 	// M-x insert-nextpage-regexp
 
 	// TODO make this regexp configurable
-	var nextPattern = /(?:(^|>)(next page|Nächste Seite|la page suivante|следующей страницы)(<|$)|(^|>\s*)(next|nächste|Suivant|Следующая)(\s*<|$| ?(?:▸|»|›|&gt;)|1?\.(?:gif|jpg|png))|^(››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁|张)|^(Next Chapter|Thread Next|Go to next page))/i;
+	var nextPattern = /(?:(^|>)(next page|Nächste Seite|la page suivante|следующей страницы)(<|$)|(^|>\s*)(next|nächste|Suivant|Следующая)(\s*<|$| ?(?:▸|»|›|&gt;)|1?\.(?:gif|jpg|png))|^(›|»|››| ?(&gt;)+ ?)$|(下|后)一?(?:页|糗事|章|回|頁|张)|^(Next Chapter|Thread Next|Go to next page))/i;
 	return nextPattern.test(str) || nextPattern.test(str.slice(1, -1));
     },
 
@@ -255,6 +255,15 @@ var nextpage = {
     isNextPageLink: function (l) {
 	var imgMaybe;
 	var spanMaybe;
+
+	/**
+	 * if debugATag is enabled, log message; otherwise, do nothing.
+	 */
+	var debugLog = function (msg) {
+	    if (nextpage.debug.debugATag()) {
+		nextpage.log(msg);
+	    }
+	};
 
 	// check rel
 	if (l.hasAttribute("rel")) {
@@ -273,6 +282,12 @@ var nextpage = {
 	    return true;
 	}
 
+	// invisible <a> tag is usually not the right link to nextpage.
+	if (! nextpage.isVisible(l)) {
+	    debugLog("link ignored because it's invisible: " + l.outerHTML);
+	    return false;
+	}
+
 	if (l.hasAttribute("title")) {
 	    if (nextpage.matchesNext(l.getAttribute("title"))) {
 		return true;
@@ -287,6 +302,7 @@ var nextpage = {
 	    // this version will expand l.href to full URL. if it's a relative URL.
 	    // if (! nextpage.checkDomain(l.href)) {
 	    if (! nextpage.checkDomain(l.getAttribute("href"))) {
+		debugLog("link ignored because domain check failed: " + l.outerHTML)
     		return false;
 	    }
 	}
@@ -312,7 +328,17 @@ var nextpage = {
 		return true;
 	}
 
+	debugLog("link ignored because no signs of nextpage found: " + l.outerHTML)
 	return false;
+    },
+
+    /**
+     * @param l an anchor object
+     * @return true if this element is visible
+     * @return false otherwise
+     */
+    isVisible: function (l) {
+	return l.offsetParent !== null;
     },
 
     /**
@@ -537,15 +563,6 @@ var nextpage = {
 	for (i = 0; i < tagNameToCheck.length; i++) {
 	    links = content.document.getElementsByTagName(tagNameToCheck[i]);
 	    for (j = 0; j < links.length; j++) {
-		if (nextpage.debug.debugATag()) {
-		    // define your filter condition here:
-		    if (false) {
-			nextpage.log("A-tag innerHTML:" + links[j].innerHTML);
-			nextpage.debug._debugATag = false;
-			// can enable other debug options here.
-			nextpage.debug._debugDomainCheck = true;
-		    }
-		}
 		if (currentPage) {
 		    if (parsePageFromURL(links[j].href) === currentPage + 1) {
 			return links[j];
@@ -553,6 +570,9 @@ var nextpage = {
 		}
 		if (nextpage.isNextPageLink(links[j])) {
 		    return links[j];
+		}
+		if (nextpage.debug.debugATag()) {
+		    nextpage.log("not nextpage link: " + links[j].outerHTML);
 		}
 	    }
 	}

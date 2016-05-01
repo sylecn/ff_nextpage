@@ -17,12 +17,32 @@ nextpage_debug = {
      *
      * (enable-debug)
      */
-    enableDebug : function () {
+    enableDebug: function () {
 	// enable the most useful debug variables here
 	this._debugging = true;
 	this._debugSpecialCase = true;
 	this._debugGotoNextPage = true;
 	this._debugConfigFile = true;
+    },
+    /**
+     * (enable-debug-for-a-tag), that is for <a> tag, not for a tag.
+     */
+    enableDebugATag: function () {
+	this._debugging = true;
+	this._debugATag = true;
+    },
+    /**
+     * (enable-debug-for-domain-check)
+     */
+    enableDebugDomainCheck: function () {
+	this._debugging = true;
+	this._debugDomainCheck = true;
+    },
+    /**
+     * (disable-debug)
+     */
+    disableDebug: function () {
+	this._debugging = false;
     },
 
     debugging: function () {
@@ -199,6 +219,21 @@ var nextpage_config = function () {
 	    case "enable-debug":
 		if (in_overlay) {
 		    nextpage_debug.enableDebug();
+		};
+		break;
+	    case "enable-debug-for-a-tag":
+		if (in_overlay) {
+		    nextpage_debug.enableDebugATag();
+		};
+		break;
+	    case "enable-debug-for-domain-check":
+		if (in_overlay) {
+		    nextpage_debug.enableDebugDomainCheck();
+		};
+		break;
+	    case "disable-debug":
+		if (in_overlay) {
+		    nextpage_debug.disableDebug();
 		};
 		break;
 	    case "unbind-all":
