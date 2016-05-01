@@ -105,8 +105,13 @@ nextpage_debug = {
 
     show: function (obj, listOfProp) {
 	var dirResult = [];
-	for (prop in (listOfProp || obj)) {
-	    dirResult.push([prop, obj[prop]].join(': '));
+	var value;
+	if (typeof(obj) !== "object") {
+	    return JSON.stringify(obj);
+	}
+	for (var prop in (listOfProp || obj)) {
+	    value = JSON.stringify(obj[prop]);
+	    dirResult.push([prop, value].join(': '));
 	}
 	return dirResult.join('\n');
     }
