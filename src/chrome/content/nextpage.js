@@ -104,6 +104,30 @@ var nextpage = {
 	return false;
     },
 
+    /**
+     * event handler for click.
+     *
+     * It's mainly designed to support dedicated mouse-4 and mouse-5
+     * buttons. Can also be used to bind Ctrl-mouse button if you want.
+     * Binding mouse-1/2 is strongly not recommended since user expect them to
+     * work like normal mouse clicks.
+     */
+    mouseclick: function (e) {
+	var key = this.utils.describeMouseEventInEmacsNotation(e);
+	if (nextpage.debug.debugKeyEvents()) {
+	    nextpage.log("mouseclick: " + key);
+	}
+	if (! this.ignore(key)) {
+	    command = nextpage_config.get_bindings()[key];
+	    if (typeof(command) !== "undefined") {
+		nextpage.commands.runUserCommand(command);
+	    };
+	};
+    },
+
+    /**
+     * event handler for keypress.
+     */
     keypress: function (e) {
 	var command;
 	// /**/this.log(this.debug.show(e.target));
@@ -785,6 +809,19 @@ nextpage.utils = {
     },
 
     /**
+     * describe mouse click in emacs notation. return a string.
+     * examples: <mouse-1>, <mouse-5>, <C-mouse-1>, <M-mouse2>
+     */
+    describeMouseEventInEmacsNotation: function (e) {
+	var button = "mouse-" + (e.button + 1);
+	var ctrl = e.ctrlKey ? "C-": "";
+	var meta = (e.altKey || e.metaKey) ? "M-": "";
+	var shift = e.shiftKey ? "S-": "";
+	var re = '<' + ctrl + meta + shift + button + '>';
+	return re;
+    },
+
+    /**
      * describe key pressed in emacs notation. return a string.
      * examples: n, N, C-a, M-n, SPC, DEL, <f2>, <insert>, C-M-n
      * <C-backspace>, <C-S-f7>, C-M-*, M-S-RET, <backspace>, <C-M-S-return>
@@ -906,6 +943,10 @@ window.addEventListener("unload", function (e) {
 
 window.addEventListener('keypress', function (e) {
     nextpage.keypress(e);
+}, false);
+
+window.addEventListener('click', function (e) {
+    nextpage.mouseclick(e);
 }, false);
 
 })();

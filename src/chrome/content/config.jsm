@@ -39,6 +39,12 @@ nextpage_debug = {
 	this._debugDomainCheck = true;
     },
     /**
+     * (enable-debug-for-key-events)
+     */
+    enableDebugKeyEvents: function () {
+	this._debugKeyEvents = true;
+    },
+    /**
      * (disable-debug)
      */
     disableDebug: function () {
@@ -234,6 +240,11 @@ var nextpage_config = function () {
 	    case "enable-debug-for-domain-check":
 		if (in_overlay) {
 		    nextpage_debug.enableDebugDomainCheck();
+		};
+		break;
+	    case "enable-debug-for-key-events":
+		if (in_overlay) {
+		    nextpage_debug.enableDebugKeyEvents();
 		};
 		break;
 	    case "disable-debug":
