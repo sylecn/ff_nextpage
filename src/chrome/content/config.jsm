@@ -131,7 +131,11 @@ var nextpage_config = function () {
     // requires firefox 3.6
     Components.utils.import("resource://gre/modules/FileUtils.jsm");
     Components.utils.import("resource://gre/modules/NetUtil.jsm");
-    Components.utils.import("resource://gre/modules/Console.jsm");
+    try {
+    	Components.utils.import("resource://gre/modules/Console.jsm");
+    } catch (NS_ERROR_FILE_NOT_FOUND) {
+	Components.utils.import("resource://gre/modules/devtools/Console.jsm");
+    }
 
     var nextpage = {
     	debug: nextpage_debug,

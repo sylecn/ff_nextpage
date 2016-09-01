@@ -25,7 +25,11 @@ var i, j;
 
 // import nextpage_config to current namespace.
 Components.utils.import("chrome://nextpage/content/config.jsm");
-Components.utils.import("resource://gre/modules/Console.jsm");
+try {
+    Components.utils.import("resource://gre/modules/Console.jsm");
+} catch (NS_ERROR_FILE_NOT_FOUND) {
+    Components.utils.import("resource://gre/modules/devtools/Console.jsm");
+}
 
 var nextpage = {
     init: function () {
