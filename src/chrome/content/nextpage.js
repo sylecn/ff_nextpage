@@ -63,6 +63,7 @@ var nextpage = {
 	this.ignoreBindingAList = [
 	    [/https?:\/\/www\.google\.com\/reader\/view/i, ['SPC', '1', '2']],
 	    [/https?:\/\/www\.google\.com\/transliterate/i, "*"],
+	    [/http:\/\/typing.sjz.io\//i, "*"],
 	    // exception rule, pipermail mailing list is not webmail.
 	    [/mail\..*\/pipermail/i, ""],
 	    // ignore common webmail hosts, nextpage bindings can do little on
